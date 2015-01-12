@@ -16,7 +16,11 @@ var UserSchema = new Schema({
   provider: String,
   salt: String,
   google: {},
-  github: {}
+  github: {},
+  cart: Array,
+  reviews: Array,
+  orders: Array,
+  address: {}
 });
 
 /**
