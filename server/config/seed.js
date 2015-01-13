@@ -5,30 +5,196 @@
 
 'use strict';
 
-var Thing = require('../api/thing/thing.model');
+var Product = require('../api/product/product.model');
 var User = require('../api/user/user.model');
+var Category = require('../api/category/category.model');
+var Review = require('../api/review/review.model')
 
-Thing.find({}).remove(function() {
-  Thing.create({
-    name : 'Development Tools',
-    info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
+Product.find({}).remove(function() {
+  Product.create({
+    name: "Free Time",
+    price: 100.00,
+    description: {blurb: "Dis be a blurb", full: "For when you're out of the real stuff"},
+    categories: ["54b54dbd356afaad0411ed12", "54b54dbd356afaad0411ed14"],
+    images: [], 
+    reviews: [],
+    quantity: 10000
   }, {
-    name : 'Server and Client integration',
-    info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
+    name: "Borrowed Time",
+    price: 250.00,
+    description: {blurb: "Dis be a blurb", full: "Not always recommended"},
+    categories: ["54b54dbd356afaad0411ed12", "54b54dbd356afaad0411ed14"],
+    images: [], 
+    reviews: [],
+    quantity: 4000
   }, {
-    name : 'Smart Build System',
-    info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
-  },  {
-    name : 'Modular Structure',
-    info : 'Best practice client and server structures allow for more code reusability and maximum scalability'
-  },  {
-    name : 'Optimized Build',
-    info : 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.'
-  },{
-    name : 'Deployment Ready',
-    info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
-  });
+    name: "Work Time",
+    price: 800.00,
+    description: {blurb: "Dis be a blurb", full: "Recommended for workaholics"},
+    categories: ["54b54dbd356afaad0411ed12", "54b54dbd356afaad0411ed15"],
+    images: [], 
+    reviews: [],
+    quantity: 100000
+  }, {
+    name: "Hammer Time",
+    price: 10000.00,
+    description: {blurb: "Dis be a blurb", full: "Very rare. For more information, visit youtube"},
+    categories: ["54b54dbd356afaad0411ed12"],
+    images: [], 
+    reviews: [],
+    quantity: 1
+  }, {
+    name: "Adventure Time",
+    price: 50.00,
+    description: {blurb: "Dis be a blurb", full: "Like the show, but better"},
+    categories: ["54b54dbd356afaad0411ed12"],
+    images: [], 
+    reviews: [],
+    quantity: 3000
+  }, {
+    name: "Leisure Time",
+    price: 725.00,
+    description: {blurb: "Dis be a blurb", full: "Great for people who need a break"},
+    categories: ["54b54dbd356afaad0411ed12", "54b54dbd356afaad0411ed14"],
+    images: [], 
+    reviews: [],
+    quantity: 7000
+  }, {
+    name: "Lunch Time",
+    price: 30.00,
+    description: {blurb: "Dis be a blurb", full: "For those who hunger"},
+    categories: ["54b54dbd356afaad0411ed12"],
+    images: [], 
+    reviews: [],
+    quantity: 100000
+  }, {
+    name: "Nap Time",
+    price: 125.00,
+    description: {blurb: "Dis be a blurb", full: "Perfect for a hot summer day"},
+    categories: ["54b54dbd356afaad0411ed12"],
+    images: [], 
+    reviews: [],
+    quantity: 80000
+  }, function() {
+      console.log('finished populating products');
+    }
+  );
 });
+
+Category.find({}).remove(function() {
+  Category.create({
+    name: "Popular",
+    products: []
+  }, {
+    name: "Rare",
+    products: []
+  }, {
+    name: "Multipurpose",
+    products: []
+  }, {
+    name: "Occupational",
+    products: []
+  }, function() {
+      console.log('finished populating categories');
+    }
+  );
+});
+
+
+Review.find({}).remove(function() {
+  Review.create({
+    userId: 1,
+    productId: 1,
+    stars: 5,
+    date: new Date(),
+    title: "Best decision ever",
+    body: "I cannot remember the last time I had such high quality adventure time. What a treat!"
+  }, {
+    userId: 1,
+    productId: 1,
+    stars: 5,
+    date: new Date(),
+    title: "Had the time of my life",
+    body: "I'm a strong supporter of this company. The BuyTime team is the best."
+  }, {
+    userId: 1,
+    productId: 1,
+    stars: 5,
+    date: new Date(),
+    title: "Best decision ever",
+    body: "I cannot remember the last time I had such high quality adventure time. What a treat!"
+  }, {
+    userId: 1,
+    productId: 1,
+    stars: 5,
+    date: new Date(),
+    title: "Had the time of my life",
+    body: "I'm a strong supporter of this company. The BuyTime team is the best."
+  },{
+    userId: 1,
+    productId: 1,
+    stars: 5,
+    date: new Date(),
+    title: "Best decision ever",
+    body: "I cannot remember the last time I had such high quality adventure time. What a treat!"
+  }, {
+    userId: 1,
+    productId: 1,
+    stars: 5,
+    date: new Date(),
+    title: "Had the time of my life",
+    body: "I'm a strong supporter of this company. The BuyTime team is the best."
+  },{
+    userId: 1,
+    productId: 1,
+    stars: 5,
+    date: new Date(),
+    title: "Best decision ever",
+    body: "I cannot remember the last time I had such high quality adventure time. What a treat!"
+  }, {
+    userId: 1,
+    productId: 1,
+    stars: 5,
+    date: new Date(),
+    title: "Had the time of my life",
+    body: "I'm a strong supporter of this company. The BuyTime team is the best."
+  },{
+    userId: 1,
+    productId: 1,
+    stars: 5,
+    date: new Date(),
+    title: "Best decision ever",
+    body: "I cannot remember the last time I had such high quality adventure time. What a treat!"
+  }, {
+    userId: 1,
+    productId: 1,
+    stars: 5,
+    date: new Date(),
+    title: "Had the time of my life",
+    body: "I'm a strong supporter of this company. The BuyTime team is the best."
+  },{
+    userId: 1,
+    productId: 1,
+    stars: 5,
+    date: new Date(),
+    title: "Best decision ever",
+    body: "I cannot remember the last time I had such high quality adventure time. What a treat!"
+  }, {
+    userId: 1,
+    productId: 1,
+    stars: 5,
+    date: new Date(),
+    title: "Had the time of my life",
+    body: "I'm a strong supporter of this company. The BuyTime team is the best."
+  }, function() {
+      console.log('finished populating categories');
+    }
+  );
+});
+
+
+
+
 
 User.find({}).remove(function() {
   User.create({
