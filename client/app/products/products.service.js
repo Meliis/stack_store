@@ -18,7 +18,7 @@ angular.module('stackStoreApp')
         var cleanedUpSearch = function(query) {
           var dirtySearch = query.split(" ");
           dirtySearch.forEach(function(term, i) {
-            if (term.length < 2 || term === "the" || term === "time") {
+            if (term.length <= 2 || term === "the" || term === "time") {
               dirtySearch.splice(i, 1);
             }
           });
@@ -59,4 +59,4 @@ angular.module('stackStoreApp')
         $http.delete('/api/products/'+id);
       }
     };
-  })
+  });
