@@ -1,7 +1,13 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('MainCtrl', function ($scope, $http) {
+  .controller('MainCtrl', function ($scope, $http, productFactory) {
+    $scope.products = productFactory.getAll();
+
+    $scope.search = function(query) {
+      console.log(productFactory.search(query));
+    }
+
     $scope.awesomeThings = [];
 
     $http.get('/api/things').success(function(awesomeThings) {

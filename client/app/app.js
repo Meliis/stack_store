@@ -52,4 +52,11 @@ angular.module('stackStoreApp', [
         }
       });
     });
+  })
+  
+  .run(function ($http, productFactory) {
+    $http.get('/api/products')
+        .then(function(result) {
+          productFactory.setInitial(result.data);
+        });
   });
