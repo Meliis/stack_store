@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-	Product = require('product'),
+	Product = require('../product/product.model'),
     Schema = mongoose.Schema;
 
 var CategorySchema = new Schema({
