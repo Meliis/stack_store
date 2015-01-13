@@ -1,28 +1,53 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div class="container">
+<h2> Cart </h2>
 	<div class="row"> 
+
 		<div class="col-lg-8">
-			<div class='row' ng-repeat='item in cartItem'>
-				<div class="col-lg-2">
+			<div class="row">
+
+				<div class="col-sm-2">
+					<h4> Image </h4>
+				</div>
+				<div class="col-sm-5">
+					<h4> Description </h4>
+				</div>
+				<div class="col-sm-3">
+					<h4> Price </h4>
+				</div>
+				<div class="col-sm-2">
+					<h4> Qty </h4>
+				</div>
+			</div>
+
+			<div class='row' ng-repeat='item in cart'>
+				<div class="col-sm-2">
 					<img class="img-responsive" src="http://lorempixel.com/500/500">
 				</div>
 				
-				<div class="col-lg-4">
+				<div class="col-sm-5">
 					<h4>{{item.name}}</h4>
 					<p>{{item.description.full}}</p>
 				</div>
 
-				<div class="col-lg-6">	
+				<div class="col-sm-3">	
 					<h3>{{item.price | currency}}</h3>
+				</div>
+
+				<div class="col-sm-2">	
+					<form>
+						<input type="number" class="form-control" ng-value='{{item.qty}}' min='0'> 
+					</form>
 				</div>
 
 			</div>
 
 		</div>
 
-		<div class="col-lg-4" style="padding-left: 0px;">
-			<h3>Checkout to Payment Details</h3>
+		<div class="col-lg-4">
+			<h3>Total: {{cartTotal | currency}}</h3> 
+			<h4>Checkout to Payment Details</h4>
 			<form>
 				<button class="btn btn-success">Checkout</button>
 			</form>
