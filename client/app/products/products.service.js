@@ -44,15 +44,19 @@ angular.module('stackStoreApp')
           return 0;
         });
 
-        return searchResults; // not sure if needs to be reversed or
+        return searchResults; 
       },
-      browseByCategory: function(category) {
-        // var results = [];
-        // http get category items by name (population happens on back end)
-        // results = those results
-        // return
+      viewProduct: function(id) {
+        $http.get('/api/products/'+id)
+          .then(function(product) {
+            return product;
+          });
+      },
+      editProduct: function(id, obj) {
+        $http.put('/api/products/'+id, obj);
+      },
+      deleteProduct: function(id) {
+        $http.delete('/api/products/'+id);
       }
-      // get single item
-      // add to cart
     };
   })
