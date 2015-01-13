@@ -1,0 +1,36 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+
+	<div class="row">
+		<div class="col-lg-6">
+			<img class="img-responsive" src="http://lorempixel.com/500/500">
+		</div>
+		<div class="col-lg-4">
+			<h2>{{product.name}}</h2>
+			<h3>{{product.price | currency}}</h3>
+			<p>{{product.description.full}}</p>
+		</div>
+		<div class="col-lg-2" style="padding-left: 0px;">
+			<h2>BUY YOUR TIME NOW!</h2>
+			<form>
+			qty: <input type="number" value="1" min='1' max="{{product.quantity}}"> 
+			<button class="btn btn-success">Add To Cart</button>
+		</form>
+		</div>	
+	</div>
+
+	<div class="row">
+		<div class="col-lg-6">
+			<h3>Reviews</h3>
+				<div ng-repeat="review in product.reviews">
+					<span ng-repeat='stars in maxStars | limitTo:review.stars' class="pull-right">
+						<span class="glyphicon glyphicon-star star-color"></span>
+					</span>
+					<h4>{{review.title}}</h4>
+					<p>{{review.body}}</p>
+				</div>
+		</div>
+	</div>
+
+</div>
