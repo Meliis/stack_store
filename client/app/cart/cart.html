@@ -1,0 +1,33 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+	<div class="row"> 
+		<div class="col-lg-8">
+			<div class='row' ng-repeat='item in cartItem'>
+				<div class="col-lg-2">
+					<img class="img-responsive" src="http://lorempixel.com/500/500">
+				</div>
+				
+				<div class="col-lg-4">
+					<h4>{{item.name}}</h4>
+					<p>{{item.description.full}}</p>
+				</div>
+
+				<div class="col-lg-6">	
+					<h3>{{item.price | currency}}</h3>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="col-lg-4" style="padding-left: 0px;">
+			<h3>Checkout to Payment Details</h3>
+			<form>
+				<button class="btn btn-success">Checkout</button>
+			</form>
+		</div>	
+
+	</div>
+
+</div>
