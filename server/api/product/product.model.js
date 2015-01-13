@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
 var ProductSchema = new Schema({
   name: String,
   price: Number,
-  description: String,
+  description: {blurb: String, full: String},
   categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
   images: [], 
   reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
