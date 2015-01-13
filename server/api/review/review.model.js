@@ -8,10 +8,10 @@ var mongoose = require('mongoose'),
 var ReviewSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: 'User' },
   productId: { type: Schema.Types.ObjectId, ref: 'Product' },
-  stars: Number,
+  stars: { type: Number, min: 1, max: 5 },
   date: Date,
-  title: String,
-  body: String
+  title: { type: String, required: true },
+  body: { type: String, required: true }
 });
 
 module.exports = mongoose.model('Review', ReviewSchema);
