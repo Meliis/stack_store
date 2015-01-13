@@ -6,5 +6,9 @@ angular.module('stackStoreApp')
       .when('/products', {
         templateUrl: 'app/products/products.html',
         controller: 'ProductsCtrl'
+      })
+      .when('/products/:id', {
+      	templateUrl: 'app/products/productView/productView.html',
+      	controller: 'ProductViewCtrl'
       });
   });
