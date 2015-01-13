@@ -5,9 +5,9 @@ var Category = require('./category.model');
 
 // Get list of categorys
 exports.index = function(req, res) {
-  Category.find(function (err, categorys) {
+  Category.find(function (err, categories) {
     if(err) { return handleError(res, err); }
-    return res.json(200, categorys);
+    return res.json(200, categories);
   });
 };
 
