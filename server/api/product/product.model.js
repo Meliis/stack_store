@@ -1,15 +1,17 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    Category = require('../category/category.model'),
+    Product = require('../review/review.model')
 
 var ProductSchema = new Schema({
   name: String,
   price: Number,
   description: String,
-  categories: [categorySchema],
+  categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
   images: [], 
-  reviews: [reviewSchema],
+  reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
   quantity: Number
 });
 
