@@ -12,7 +12,7 @@
 		<div class="col-lg-2" style="padding-left: 0px;">
 			<h2>BUY YOUR TIME NOW!</h2>
 			<form name="form">
-			qty: <input ng-init="quantity=1" ng-model="quantity" type="number" value="1" min='1' max="{{product.quantity}}">
+			qty: <input ng-model="quantity" type="number" min='1' max="{{product.quantity}}">
 			<button class="btn btn-success" ng-click="addToCart(quantity)">Add To Cart</button>
 		</form>
 		</div>	

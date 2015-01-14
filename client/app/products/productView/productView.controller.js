@@ -12,8 +12,6 @@ angular.module('stackStoreApp')
 
     $scope.maxStars = [1,2,3,4,5];
 
-    console.log($scope.user);
-
     $scope.addToCart = function(quantity) {
 
     	var productExists = false;
@@ -31,5 +29,7 @@ angular.module('stackStoreApp')
 
     	$scope.quantity = 1;
     };
+
+    //initiate temporary banner for the cart
 
   });
