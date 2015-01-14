@@ -47,9 +47,9 @@ angular.module('stackStoreApp')
         return searchResults; 
       },
       viewProduct: function(id) {
-        $http.get('/api/products/'+id)
+        return $http.get('/api/products/'+id)
           .then(function(product) {
-            return product;
+            return product.data;
           });
       },
       addProduct: function(obj) {
