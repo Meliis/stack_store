@@ -6,13 +6,35 @@
 		<div class="col-lg-6">
 			<h2>Your Account</h2>
 			<h3>Name: {{user.name}}</h3>
-			<h3>Email: {{user.email}}</h3>
+			<h3 style="display:inline-block; margin-right: 10px">Email: {{user.email}}</h3><span><button class="btn btn-default">Change email address</button></span>
+			<h3 style="display:inline-block; margin-right: 10px">Password: **********</h3><span><button class="btn btn-default"><a href="/settings">Change password</a></button></span>
 		</div>
+
 		<div class="col-lg-6">
 			<div class="btn-group">
-			<a class="btn btn-default" href="profile/reviews">View all your reviews</a>
-			<a class="btn btn-default" href="profile/orders">View your order history</a>
+			
 			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-6">
+			<h3>Your Most Recent Order</h3>
+			<div ng-repeat="products in user.orders[0].products">
+				{{product.image[0]}}
+				{{product.name}}
+				{{product.price}}
+			</div>
+			<a class="btn btn-default" href="profile/orders">View your complete order history</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-6">
+			<h3>Your Most Recent Review</h3>
+			{{user.reviews[0].title}}
+			{{user.reviews[0].body}}
+			<a class="btn btn-default" href="profile/reviews">View all your reviews</a>
 		</div>
 	</div>
 </div>
