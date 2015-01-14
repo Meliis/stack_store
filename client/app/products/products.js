@@ -14,5 +14,5 @@ angular.module('stackStoreApp')
       .when('/products/add', {
         templateUrl: 'app/products/productAdd/productAdd.html',
         controller: 'ProductAddCtrl'
-      });
+      })
   });
