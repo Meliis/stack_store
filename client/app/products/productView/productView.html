@@ -11,9 +11,9 @@
 		</div>
 		<div class="col-lg-2" style="padding-left: 0px;">
 			<h2>BUY YOUR TIME NOW!</h2>
-			<form>
-			qty: <input type="number" value="1" min='1' max="{{product.quantity}}"> 
-			<button class="btn btn-success">Add To Cart</button>
+			<form name="form">
+			qty: <input ng-init="quantity=1" ng-model="quantity" type="number" value="1" min='1' max="{{product.quantity}}">
+			<button class="btn btn-success" ng-click="addToCart(quantity)">Add To Cart</button>
 		</form>
 		</div>	
 	</div>
