@@ -1,28 +1,27 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
-
 <div class="container">
 
 	<div class="row col-lg-4">
 		<h2>Add Product</h2>
 
-		<form ng-submit="addProduct()">
+		<form name="addProductForm" ng-submit="addProduct()">
 			<div class="form-group">
 				<label>Name</label>
-				<input type="text" class="form-control" ng-model='newProduct.name'> 
+				<input type="text" class="form-control" ng-model='newProduct.name' ng-required="true"> 
 			</div>
 			<div class="form-group">
-				<label>Price</label> 
-				<input type="text" class="form-control" ng-model='newProduct.price'>
+				<label>Price</label>
+				<div></div>
+				<input type="number" name="price" class="form-control" ng-model='newProduct.price' ng-required="true">
 			</div>
 
 			<div class='form-group'>
 				<label>Short Description</label>
-				<textarea class="form-control" ng-model='newProduct.description.blurb'></textarea> 
+				<textarea class="form-control" ng-model='newProduct.description.blurb' ng-required="true"></textarea> 
 			</div>
 
 			<div class='form-group'>
 				<label>Full Description</label>
-				<textarea class="form-control" ng-model='newProduct.description.full'></textarea> 
+				<textarea class="form-control" ng-model='newProduct.description.full' ng-required="true"></textarea> 
 			</div>
 
 			<div class='form-group'>
@@ -33,8 +32,9 @@
 					</li>
 				</ul>
 			</div>
+			<input type="file" />
 			{{newProduct}}
-			<button type='submit' class='btn btn-primary'>Add Product</button>
+			<button type='submit' class='btn btn-primary' ng-disabled="addProductForm.$invalid">Add Product</button>
 		</form>
 
 

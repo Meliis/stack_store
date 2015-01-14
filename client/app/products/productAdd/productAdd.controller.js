@@ -5,12 +5,15 @@ angular.module('stackStoreApp')
     $scope.message = 'Hello';
 
     $scope.newProduct = {
-    	categories: []
+    	categories: [],
+        images: []
     }
 
     $scope.existingCat = ['Cat1', 'Cat2', 'Cat3'];
 
     $scope.addProduct = function(){
+        var num = $scope.newProduct.price
+        $scope.newProduct.price = Math.round(num * 100)/100
     	productFactory.addProduct($scope.newProduct);
     }
 
