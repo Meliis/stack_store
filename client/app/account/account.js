@@ -15,5 +15,10 @@ angular.module('stackStoreApp')
         templateUrl: 'app/account/settings/settings.html',
         controller: 'SettingsCtrl',
         authenticate: true
+      })
+      .when('/profile', {
+        templateUrl: 'app/account/profile/profile.html',
+        controller: 'ProfileCtrl',
+        authenticate: true
       });
   });
