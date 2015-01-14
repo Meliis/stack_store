@@ -2,9 +2,41 @@
 
 <div class="container">
 
-	<div class="row">
-		
-		
+	<div class="row col-lg-4">
+		<h2>Add Product</h2>
+
+		<form ng-submit="addProduct()">
+			<div class="form-group">
+				<label>Name</label>
+				<input type="text" class="form-control" ng-model='newProduct.name'> 
+			</div>
+			<div class="form-group">
+				<label>Price</label> 
+				<input type="text" class="form-control" ng-model='newProduct.price'>
+			</div>
+
+			<div class='form-group'>
+				<label>Short Description</label>
+				<textarea class="form-control" ng-model='newProduct.description.blurb'></textarea> 
+			</div>
+
+			<div class='form-group'>
+				<label>Full Description</label>
+				<textarea class="form-control" ng-model='newProduct.description.full'></textarea> 
+			</div>
+
+			<div class='form-group'>
+				<label>Categories</label>
+				<ul class="list-unstyled">
+					<li ng-repeat='cat in existingCat'>
+					<input type="checkbox" ng-click='toggleCat(cat)'> {{cat}}
+					</li>
+				</ul>
+			</div>
+			{{newProduct}}
+			<button type='submit' class='btn btn-primary'>Add Product</button>
+		</form>
+
 
 	</div>
 
