@@ -47,16 +47,13 @@ angular.module('stackStoreApp')
         return searchResults; 
       },
       viewProduct: function(id) {
-        $http.get('/api/products/'+id)
+        return $http.get('/api/products/'+id)
           .then(function(product) {
-            return product;
+            return product.data;
           });
       },
       addProduct: function(obj) {
         $http.post('/api/products', obj)
-          .then(function(product){
-            $location.path('/products/'+product.id)
-          })
       },
       editProduct: function(id, obj) {
         $http.put('/api/products/'+id, obj);
