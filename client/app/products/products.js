@@ -7,12 +7,12 @@ angular.module('stackStoreApp')
         templateUrl: 'app/products/products.html',
         controller: 'ProductsCtrl'
       })
-      .when('/products/:id', {
-      	templateUrl: 'app/products/productView/productView.html',
-      	controller: 'ProductViewCtrl'
-      })
       .when('/products/add', {
         templateUrl: 'app/products/productAdd/productAdd.html',
         controller: 'ProductAddCtrl'
+      })
+      .when('/products/:id', {
+        templateUrl: 'app/products/productView/productView.html',
+        controller: 'ProductViewCtrl'
       })
   });
