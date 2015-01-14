@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 var OrderSchema = new Schema({
   userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   products: Array,
-  status: String,
+  status: {type: String, default:'incomplete'},
   date: Date,
   shipping: Object,
   billing: Object,

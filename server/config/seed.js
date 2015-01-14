@@ -201,7 +201,11 @@ User.find({}).remove(function() {
     provider: 'local',
     name: 'Test User',
     email: 'test@test.com',
-    password: 'test'
+    password: 'test',
+    orders: [{
+      products: [],
+      status: 'incomplete'
+    }]
   }, {
     provider: 'local',
     role: 'admin',
