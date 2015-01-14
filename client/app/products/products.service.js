@@ -52,6 +52,9 @@ angular.module('stackStoreApp')
             return product;
           });
       },
+      addProduct: function(obj) {
+        $http.post('/api/products', obj);
+      }
       editProduct: function(id, obj) {
         $http.put('/api/products/'+id, obj);
       },
