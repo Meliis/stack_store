@@ -17,7 +17,6 @@ var UserSchema = new Schema({
   salt: String,
   google: {},
   github: {},
-  cart: Array,
   reviews: Array,
   orders: Array,
   address: {}
