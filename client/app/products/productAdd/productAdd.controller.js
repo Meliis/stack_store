@@ -9,12 +9,25 @@ angular.module('stackStoreApp')
         images: []
     }
 
+    $scope.addedSuccess = false;
+
     $scope.existingCat = ['Cat1', 'Cat2', 'Cat3'];
 
     $scope.addProduct = function(){
         var num = $scope.newProduct.price
         $scope.newProduct.price = Math.round(num * 100)/100
     	productFactory.addProduct($scope.newProduct);
+
+    	$scope.addedSuccess = true;
+
+    	$scope.addProductForm.$setPristine();
+    	$scope.newProduct = {
+    		name: "",
+    		categories: [],
+    		images: [],
+    		description: {},
+    		price: null
+    	}
     }
 
     $scope.toggleCat = function(cat) {

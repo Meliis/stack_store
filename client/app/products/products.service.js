@@ -54,9 +54,9 @@ angular.module('stackStoreApp')
       },
       addProduct: function(obj) {
         $http.post('/api/products', obj)
-          .then(function(product) {
-            $location.path('/products/'+product.data._id);
-          })
+          // .then(function(product) {
+          //   $location.path('/products/'+product.data._id);
+          // })
       },
       editProduct: function(id, obj) {
         $http.put('/api/products/'+id, obj);
