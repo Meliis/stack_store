@@ -6,12 +6,12 @@ var mongoose = require('mongoose'),
 
 var OrderSchema = new Schema({
   userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  tempId: String,
   lineItems: Array,
   status: String,
   date: Date,
   shipping: Object,
   billing: Object,
-  email: String,
   total: Number
 });
 
