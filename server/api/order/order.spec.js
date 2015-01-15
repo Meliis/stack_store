@@ -32,7 +32,6 @@ describe('Order Model', function() {
   beforeEach(function(done) {
     user = new User({provider: 'local', name:'Chuck', email:'chuckmpierce@gmail.com', password: 'password'});
     order = new Order({});
-    // console.log(user);
     done();
   });
 
@@ -50,12 +49,8 @@ describe('Order Model', function() {
 
   describe('when it gets a user', function() {
     it('should refer to a user in the database', function(done) {
-      // console.log(user);
-      // console.log(order);
       user.save(function() {
         User.find({}, function(err, user) {
-          // console.log(order);
-          // console.log()
           order.userId = user[0]._id;
           order.save(function(err, savedOrder, numModified) {
             Order.findOne({userId: user[0]._id}).populate('userId').exec(function(err, foundOrder) {    
@@ -67,4 +62,5 @@ describe('Order Model', function() {
       });
     });
   });
+
 });
