@@ -13,8 +13,12 @@ angular.module('stackStoreApp')
   				return order;
   			}
   		})
-  	}
-  	
+  	};
+
   	$scope.order = currentOrder();
+
+  	$scope.checkout = function() {
+  		console.log('clicked');
+  	};
 
   });

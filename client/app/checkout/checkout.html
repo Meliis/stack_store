@@ -16,29 +16,29 @@
 	<div class="row">
 		<div class="col-lg-6">
 			<h4>Billing Info</h4>
-			<form class="form-group" name="checkoutForm">
+			<form class="form-group" name="checkoutForm" ng-submit="checkout()">
 				<label>Email</label>
-				<input class="form-control" type="email" name="email">
+				<input class="form-control" type="email" ng-model="order.billing.email" name="email" ng-required="true">
 				<label>Credit Card Number</label>
-				<input class="form-control" type="text">
+				<input class="form-control" type="text" ng-required="true" required>
 				<label>CVC</label>
-				<input class="form-control" type="text">
+				<input class="form-control" type="text" ng-required="true" required>
 				<label>Expiration Date</label>
-				<input type="month">
+				<input type="month" required>
 
 			<div class="form-group">
 				<h4>Shipping Info</h4>
 				<label>Name</label>
-				<input type="text" class="form-control" name="name">
+				<input type="text" class="form-control" name="name" ng-model="order.shipping.name" ng-required="true">
 				<label>Address</label>
-				<input type="text" class="form-control" name="address">
+				<input type="text" class="form-control" name="address" ng-model="order.shipping.address" ng-required="true">
 				<div class="col-lg-3">
 					<label>City</label>
-					<input type="text" name="city" class="form-control">
+					<input type="text" name="city" class="form-control" ng-model="order.shipping.city" ng-required="true">
 					<label>State</label>
 					<states></states>
 					<label>Zip</label>
-					<input type="text" name="zipcode" class="form-control" maxlength="5">
+					<input type="text" name="zipcode" class="form-control" maxlength="5" ng-model="order.shipping.zip" ng-required="true">
 				</div>
 
 			</div>
