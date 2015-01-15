@@ -59,28 +59,69 @@ angular.module('stackStoreApp', [
         .then(function(result) {
           productFactory.setInitial(result.data);
         });
+  })
+
+  .run(function (User, orderFactory, Auth) {
+      function setCookie(cname, cvalue, exdays) {
+          var d = new Date();
+          d.setTime(d.getTime() + (exdays*24*60*60*1000));
+          var expires = "expires="+d.toUTCString();
+          document.cookie = cname + "=" + cvalue + "; " + expires;
+      };
+
+      function getCookie(cname) {
+          var name = cname + "=";
+          var ca = document.cookie.split(';');
+          for(var i=0; i<ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0)==' ') c = c.substring(1);
+              if (c.indexOf(name) == 0) {
+                console.log(c.substring(name.length,c.length));
+                return c.substring(name.length,c.length);
+              }
+          }
+          return "";
+      };
+
+    if (Auth.isLoggedIn()) {
+      // do some stuff
+    } else if (getCookie("currentCart")) {
+      var curCart = getCookie("currentCart");
+      console.log("our cart", curCart);
+    }
+
+    // else if (getCookie("currentUser")) {
+    //   var currentUser = getCookie("currentUser");
+    //   // orderFactory.findCart(currentUser);
+    //   var cart = orderFactory.get({tempId: currentUser});
+    //   console.log("this is the var cart:", cart.tempId);
+    //   orderFactory.findCart(cart);
+    //   // currentCart = cart;
+    // }
+    else {
+
+      var newCart = new orderFactory();
+      newCart.lineItems = [];
+
+      console.log("this is new cart", newCart);  
+
+      setCookie("currentCart", newCart, .0001);
+
+      // setCookie("currentUser", Math.random(), .0001);
+      // var user = getCookie("currentUser");
+
+      // var order = new orderFactory();
+      // console.log("this is the order:",order);
+      // order.tempId = user;
+      // order.$save();
+    }
   });
-
-  // .run(function (User, orderFactory, Auth) {
-  //   if (Auth.isLoggedIn()) {
-  //     // do some stuff
-  //   }
-  //   else {
-  //     // Look up session ID stuff for browser
-  //     var order = new orderFactory;
-  //     order.$save();
-  //   }
-  // });
-
-
 // Check if logged in
   // If logged in, display incomplete order in cart
 // If not logged in 
   // Create new user
   // Create new order, using userID
   // Add order to new user's 'orders'
-
-
 
 
 

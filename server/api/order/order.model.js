@@ -5,13 +5,14 @@ var mongoose = require('mongoose'),
     User = require('../user/user.model');
 
 var OrderSchema = new Schema({
-  userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-  products: Array,
-  status: {type: String, default:'incomplete'},
-  date: Date,
-  shipping: Object,
-  billing: Object,
-  total: Number
+	userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+	tempId: String,
+	lineItems: Array,
+	status: String,
+	date: Date,
+	shipping: Object,
+	billing: Object,
+	total: Number
 });
 
 
