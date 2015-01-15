@@ -20,7 +20,8 @@ var UserSchema = new Schema({
   github: {},
   reviews: Array,
   orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }],
-  address: {}
+  address: {},
+  stripeToken: String
 });
 
 /**
