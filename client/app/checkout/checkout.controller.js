@@ -15,10 +15,18 @@ angular.module('stackStoreApp')
   		})
   	};
 
-  	$scope.order = currentOrder();
+  	$scope.userOrder = currentOrder();
+  	$scope.order;
 
   	$scope.checkout = function() {
-  		console.log('clicked');
+  		if((/^\d{5}(?:[-\s]\d{4})?$/).test($scope.order.shipping.zip)) {
+  			console.log('working');
+  			return true;
+  		} else {
+  			return false;
+  		}
   	};
+
+  
 
   });
