@@ -22,6 +22,7 @@ exports.show = function(req, res) {
 
 // Creates a new product in the DB.
 exports.create = function(req, res) {
+  console.log(req.body);
   Product.create(req.body, function(err, product) {
     if(err) { return handleError(res, err); }
     return res.json(201, product);

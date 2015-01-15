@@ -8,7 +8,8 @@
 var Product = require('../api/product/product.model');
 var User = require('../api/user/user.model');
 var Category = require('../api/category/category.model');
-var Review = require('../api/review/review.model')
+var Review = require('../api/review/review.model');
+var Order = require('../api/order/order.model');
 
 Product.find({}).remove(function() {
   Product.create({
@@ -193,15 +194,13 @@ Review.find({}).remove(function() {
 });
 
 
-
-
-
 User.find({}).remove(function() {
   User.create({
     provider: 'local',
     name: 'Test User',
     email: 'test@test.com',
-    password: 'test'
+    password: 'test',
+    orders: ["54b6fa3b4b9437f70fa579b6"]
   }, {
     provider: 'local',
     role: 'admin',

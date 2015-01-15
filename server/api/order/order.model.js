@@ -8,7 +8,7 @@ var OrderSchema = new Schema({
   userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   tempId: String,
   lineItems: Array,
-  status: String,
+  status: {type: String, default:'incomplete'},
   date: Date,
   shipping: Object,
   billing: Object,
