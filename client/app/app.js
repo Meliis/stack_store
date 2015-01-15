@@ -59,4 +59,45 @@ angular.module('stackStoreApp', [
         .then(function(result) {
           productFactory.setInitial(result.data);
         });
+  })
+
+  .run(function (User, orderFactory, Auth) {
+    if (Auth.isLoggedIn()) {
+      // do some stuff
+    }
+    else {
+      // Look up session ID stuff for browser
+      var order = new orderFactory;
+      order.$save();
+    }
   });
+
+
+// Check if logged in
+  // If logged in, display incomplete order in cart
+// If not logged in 
+  // Create new user
+  // Create new order, using userID
+  // Add order to new user's 'orders'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ;
