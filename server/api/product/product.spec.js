@@ -3,6 +3,7 @@
 var should = require('should');
 var app = require('../../app');
 var request = require('supertest');
+var Product = require('./product.model');
 
 describe('GET /api/products', function() {
 
@@ -16,5 +17,89 @@ describe('GET /api/products', function() {
         res.body.should.be.instanceof(Array);
         done();
       });
+  });
+});
+
+describe('Product model', function() {
+  // before(function(done) {
+  //   Product.remove.exec().then(function(done){done();});
+  // });
+  afterEach(function(done) {
+    Product.remove().exec().then(function(){done();});
+  })
+  it('should require a title', function(done) {
+    var product = new Product({
+      price: 1,
+      description: {blurb: "a", full: "abc"}
+    });
+    product.save(function(err) {
+      should.exist(err);
+      done();
+    });
+  });
+  it('should require a price', function(done) {
+    var product = new Product({
+      name: "a",
+      description: {blurb: "a", full: "abc"}
+    });
+    product.save(function(err) {
+      should.exist(err);
+      done();
+    });
+  });
+  it('should require a blurb', function(done) {
+    var product = new Product({
+      name: "a",
+      price: 1,
+      description: {full: "abc"}
+    });
+    product.save(function(err) {
+      should.exist(err);
+      done();
+    });
+  });
+  it('should require a full description', function(done) {
+    var product = new Product({
+      name: "a",
+      price: 1,
+      description: {blurb: "a"}
+    });
+    product.save(function(err) {
+      should.exist(err);
+      done();
+    });
+  });
+  // it('should require at least one category', function() {
+  //   var product = new Product({
+  //     name: "Deal",
+  //     price: 1,
+  //     description: {blurb: "a", full: "abc"}
+  //   });
+  // })
+  it('should reject duplicate titles', function(done) {
+    var product = new Product({
+      name: "Deal",
+      price: 1,
+      description: {blurb: "a", full: "abc"}
+    });
+    product.save(function() {
+      var newProduct = new Product({
+        name: "Deal",
+        price: 9999,
+        description: {blurb: "ahhh", full: "abcdefghijklmnop"}
+      });
+      newProduct.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+  });
+  it('should have a placeholder photo if there is no photo', function() {
+    var product = new Product({
+      name: "a",
+      price: 1,
+      description: {blurb: "a", full: "abc"}
+    });
+    return product.images[0].should.be.instanceof(String);
   });
 });
