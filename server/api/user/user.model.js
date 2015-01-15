@@ -21,7 +21,7 @@ var UserSchema = new Schema({
   reviews: Array,
   orders: Array,
   address: {},
-  token: String
+  stripeToken: String
 });
 
 /**
