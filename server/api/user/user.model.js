@@ -20,7 +20,8 @@ var UserSchema = new Schema({
   cart: Array,
   reviews: Array,
   orders: Array,
-  address: {}
+  address: {},
+  token: String
 });
 
 /**

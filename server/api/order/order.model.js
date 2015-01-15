@@ -11,6 +11,7 @@ var OrderSchema = new Schema({
   date: Date,
   shipping: Object,
   billing: Object,
+  email: String,
   total: Number
 });
 
