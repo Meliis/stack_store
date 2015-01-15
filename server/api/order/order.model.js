@@ -12,7 +12,7 @@ var OrderSchema = new Schema({
   date: Date,
   shipping: Object,
   billing: Object,
-  total: Number
+  total: {type: Number, default: 0}
 });
 
 
