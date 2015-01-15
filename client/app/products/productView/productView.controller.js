@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductViewCtrl', function ($scope, productFactory, $routeParams, Auth) {
+  .controller('ProductViewCtrl', function ($scope, productFactory, $routeParams, Auth, orderFactory) {
 
   	$scope.user = Auth.getCurrentUser();
+
   	$scope.quantity = 1;
   	
     productFactory.viewProduct($routeParams.id).then(function(product) {
