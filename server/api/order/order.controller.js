@@ -24,7 +24,11 @@ exports.show = function(req, res) {
 exports.create = function(req, res) {
   Order.create(req.body, function(err, order) {
     if(err) { return handleError(res, err); }
-    return res.json(201, order);
+    order.closeOrder();
+    order.save(function(err) {
+      if (err) {return handleError(res, err); }
+      return res.json(201, order);
+    });
   });
 };
 

@@ -1,10 +1,13 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('CheckoutCtrl', function ($scope, Auth) {
+  .controller('CheckoutCtrl', function ($scope, Auth, $http) {
     
 
   	$scope.user = Auth.getCurrentUser();
+    $scope.user.$promise.then(function(user) {
+      $scope.order = {userId: user._id, lineItems: [{productName:"Time", productId: ''}]};
+    });
 
 
   	var currentOrder = function() {
@@ -16,11 +19,13 @@ angular.module('stackStoreApp')
   	};
 
   	$scope.userOrder = currentOrder();
-  	$scope.order;
 
   	$scope.checkout = function() {
   		if((/^\d{5}(?:[-\s]\d{4})?$/).test($scope.order.shipping.zip)) {
   			console.log('working');
+        $http.post('/api/orders', $scope.order).success(function(response) {
+          console.log(response);
+        });
   			return true;
   		} else {
   			return false;
