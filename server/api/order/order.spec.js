@@ -31,19 +31,31 @@ describe('Order Model', function() {
 
   beforeEach(function(done) {
     user = new User({provider: 'local', name:'Chuck', email:'chuckmpierce@gmail.com', password: 'password'});
-    order = new Order({});
+    order = new Order({userId: user._id, lineItems: [{product:'time',price:10000,quantity:2}] });
     done();
   });
 
   describe('at the start', function() {
-    it('should begin with a total of zero', function(done) {
-      order.total.should.eql(0);
+
+    it('should begin with a status of open', function(done) {
+      order.status.should.equal('open');
       done();
     });
 
-    it('should begin with a status of incomplete', function(done) {
-      order.status.should.equal('incomplete');
-      done();
+    it('should require a userId', function(done) {
+      var order2 = new Order({});
+      order2.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+
+    it('should require lineItems', function(done) {
+      var order2 = new Order({userId: user._id});
+      order2.save(function(err) {
+        should.exist(err);
+        done();
+      });
     });
   });
 
@@ -60,6 +72,31 @@ describe('Order Model', function() {
           });
         });
       });
+    });
+  });
+
+  describe('methods', function() {
+    it('should change the order to close status', function(done) {
+      order.closeOrder();
+      order.save(function(err, result) {
+        result.status.should.equal('closed');
+        done();
+      });
+    });
+    it('should change the order to closed_guest status', function(done) {
+      order.closeGuestOrder();
+      order.save(function(err, result) {
+        result.status.should.equal('closed_guest');
+        done();
+      });
+    });
+  });
+
+  describe('virtuals', function() {
+    it('should calculate total from prices in line items', function(done) {
+      var order2 = new Order({lineItems: [{product:'time',price:10000,quantity:2},{product:'more time',price:5000,quantity:5}]});
+      order2.total.total.should.equal(45000);
+      done();
     });
   });
 
