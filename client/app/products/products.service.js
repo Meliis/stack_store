@@ -1,18 +1,10 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .factory('productFactory', function ($http, $location) {
-    var products = [];
+  .factory('Product', function ($http, $location, $resource) {
+    var Product = $resource('/api/products/:id', { id: '@_id'});
 
-    // Public API here
-    return {
-      setInitial: function (data) {
-        products = data;
-      },
-      getAll: function() {
-        return products;
-      },
-      search: function(str) {
+    Product.search = function(str) {
         var searchResults = [];
         // overlook articles
         var cleanedUpSearch = function(query) {
@@ -45,24 +37,8 @@ angular.module('stackStoreApp')
         });
 
         return searchResults; 
-      },
-      viewProduct: function(id) {
-        return $http.get('/api/products/'+id)
-          .then(function(product) {
-            return product.data;
-          });
-      },
-      addProduct: function(obj) {
-        $http.post('/api/products', obj)
-          // .then(function(product) {
-          //   $location.path('/products/'+product.data._id);
-          // })
-      },
-      editProduct: function(id, obj) {
-        $http.put('/api/products/'+id, obj);
-      },
-      deleteProduct: function(id) {
-        $http.delete('/api/products/'+id);
       }
-    };
+    
+    return Product;
+
   });
