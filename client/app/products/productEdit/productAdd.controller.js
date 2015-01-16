@@ -1,16 +1,10 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductAddCtrl', function ($scope, productFactory, Category) {
-    $scope.newProduct = {
-    	categories: [],
-        images: []
-    }
+  .controller('ProductEditCtrl', function ($scope, productFactory, Category) {
     $scope.newCat = {
         name: ""
     }
-
-    $scope.addedSuccess = false;
 
     $scope.categories = Category.query();
 
@@ -21,14 +15,12 @@ angular.module('stackStoreApp')
         $scope.newCat.name = "";
     }
     
-    $scope.addProduct = function(){
+    $scope.editProduct = function(){
         var num = $scope.newProduct.price
         $scope.newProduct.price = Math.round(num * 100)/100
-    	productFactory.addProduct($scope.newProduct);
+    	productFactory.editProduct($scope.newProduct);
 
-    	$scope.addedSuccess = true;
-
-    	$scope.addProductForm.$setPristine();
+    	$scope.editProductForm.$setPristine();
     	$scope.newProduct = {
     		name: "",
     		categories: [],
