@@ -1,6 +1,10 @@
 <div class="container">
 <h2> Cart </h2>
-	<div class="row"> 
+	<div ng-hide="cart.length">
+		<h4 class="pull-left">Your cart is empty! Fill 'er up... &nbsp; &nbsp;</h4>
+		<a href="./products"><button class="btn btn-primary btn-lg">View Products</button></a>
+	</div>
+	<div ng-show="cart.length" class="row"> 
 
 		<div class="col-lg-8">
 			<div class="row">

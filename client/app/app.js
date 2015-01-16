@@ -53,24 +53,27 @@ angular.module('stackStoreApp', [
       });
     });
   })
-  
-  .run(function ($http, productFactory) {
-    $http.get('/api/products')
-        .then(function(result) {
-          productFactory.setInitial(result.data);
-        });
-  });
 
-  // .run(function (User, orderFactory, Auth) {
-  //   if (Auth.isLoggedIn()) {
-  //     // do some stuff
-  //   }
-  //   else {
-  //     // Look up session ID stuff for browser
-  //     var order = new orderFactory;
-  //     order.$save();
-  //   }
-  // });
+  .run(function (User, CartFactory, Auth) {
+
+    if (Auth.isLoggedIn()) {
+      // do some stuff
+    } else if (localStorage.cartId){
+      // CartFactory.get({id: localStorage.cartId}, function(cart) {
+      //   currentCart = cart;
+      // });
+      // do some stuff
+    } else {
+      var newCart = new CartFactory ({date: new Date()});
+      newCart.$save(function() {
+        localStorage.cartId = newCart._id;
+        setTimeout(function() {
+          localStorage.removeItem('cartId');
+        }, 10000);
+      });
+    }
+      
+  });
 
 
 // Check if logged in
