@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductAddCtrl', function ($scope, productFactory) {
-    $scope.message = 'Hello';
+  .controller('ProductAddCtrl', function ($scope, productFactory, Auth) {
+    $scope.isAdmin = Auth.isAdmin;
 
     $scope.newProduct = {
     	categories: [],
