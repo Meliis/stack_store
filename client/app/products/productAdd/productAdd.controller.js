@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductAddCtrl', function ($scope, productFactory, Category) {
+  .controller('ProductAddCtrl', function ($scope, productFactory, Category, Auth) {
+    $scope.isAdmin = Auth.isAdmin;
+
     $scope.newProduct = {
     	categories: [],
         images: []
