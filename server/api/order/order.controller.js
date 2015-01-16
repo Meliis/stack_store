@@ -23,25 +23,26 @@ exports.show = function(req, res) {
 
 // Creates a new order in the DB.
 exports.create = function(req, res) {
-  Order.create(req.body, function(err, order) {
-    if(err) { return handleError(res, err); }
-    var charge = stripe.charges.create({
-      amount: order.total,
+  var charge = stripe.charges.create({
+      amount: 20*100,
       currency: 'usd',
-      card: order.billing.stripeToken,
+      card: req.body.billing.stripeToken,
       description: "email@email.com"
     }, function(err,charge) {
-      if(err && err.type === 'StripeCardError') {
-        console.log(err);
-        return res.status(500);
-      }
-    });
-    order.closeOrder();
-    order.save(function(err) {
-      if (err) {return handleError(res, err); }
-      return res.json(201, order);  
-    });
-  });
+          if(err && err.type === 'StripeCardError') {
+            console.log(err);
+            return res.status(500);
+          } else {
+              Order.create(req.body, function(err, order) {
+                if(err) { return handleError(res, err); }
+                order.closeOrder();
+                order.save(function(err) {
+                if (err) {return handleError(res, err); }
+                return res.json(201, order);  
+                });
+              });
+            }
+      });
 };
 
 // Updates an existing order in the DB.

@@ -9,7 +9,7 @@ angular.module('stackStoreApp')
   	$scope.user = Auth.getCurrentUser();
     $scope.errorMessage;
     $scope.user.$promise.then(function(user) {
-      $scope.order = {userId: user._id, lineItems: [{productName:"Time", productId: ''}]};
+      $scope.order = {userId: user._id, lineItems: [{productName:"Time", productId: '', price:50000}, {productName:"Something", price:4000}]};
     });
 
 
