@@ -33,13 +33,19 @@
 			<div class='form-group'>
 				<label>Categories</label>
 				<ul class="list-unstyled">
-					<li ng-repeat='cat in existingCat'>
-					<input type="checkbox" ng-click='toggleCat(cat)'> {{cat}}
+					<li ng-repeat='cat in categories'>
+					<input type="checkbox" ng-click='toggleCat(cat)'> {{cat.name}}
 					</li>
 				</ul>
+				<div class="cat-create">
+					<label>Create a category</label>
+					<input type="text" ng-model="newCat.name" />
+					<button class="btn btn-default" type="button" ng-click="addCategory()">Create</button>
+				</div>
 			</div>
 			<input type="file" />
 			{{newProduct}}
+			<br />
 			<button type='submit' class='btn btn-primary' ng-disabled="addProductForm.$invalid">Add Product</button>
 
 		</form>
