@@ -8,7 +8,8 @@ var mongoose = require('mongoose'),
 var states = 'open closed closed_guest'.split(' ');
 
 var lineItemsSchema = new Schema({
-  product: String,
+  productId: String,
+  productName: String,
   price: Number,
   quantity: Number
 });
