@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Order = require('./order.model');
+var stripe = require('stripe')('sk_test_cpRVxDOZySsVJVoEW8xgYKpZ');
 
 // Get list of orders
 exports.index = function(req, res) {
@@ -24,10 +25,21 @@ exports.show = function(req, res) {
 exports.create = function(req, res) {
   Order.create(req.body, function(err, order) {
     if(err) { return handleError(res, err); }
+    var charge = stripe.charges.create({
+      amount: order.total,
+      currency: 'usd',
+      card: order.billing.stripeToken,
+      description: "email@email.com"
+    }, function(err,charge) {
+      if(err && err.type === 'StripeCardError') {
+        console.log(err);
+        return res.status(500);
+      }
+    });
     order.closeOrder();
     order.save(function(err) {
       if (err) {return handleError(res, err); }
-      return res.json(201, order);
+      return res.json(201, order);  
     });
   });
 };
