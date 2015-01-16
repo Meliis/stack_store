@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductAddCtrl', function ($scope, productFactory) {
+  .controller('ProductAddCtrl', function ($scope, productFactory, CategoryFactory) {
     $scope.message = 'Hello';
 
     $scope.newProduct = {
@@ -11,7 +11,9 @@ angular.module('stackStoreApp')
 
     $scope.addedSuccess = false;
 
-    $scope.existingCat = ['Cat1', 'Cat2', 'Cat3'];
+    // $scope.existingCat = ['Cat1', 'Cat2', 'Cat3'];
+
+    $scope.categories = CategoryFactory.query();
 
     $scope.addProduct = function(){
         var num = $scope.newProduct.price
