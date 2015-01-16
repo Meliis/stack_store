@@ -15,7 +15,7 @@ var lineItemsSchema = new Schema({
 });
 
 var OrderSchema = new Schema({
-  userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+  userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   lineItems: {type:[lineItemsSchema], required:true },
   status: {type: String, default:'open', enum: states},
   date: Date,
