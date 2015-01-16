@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: categoryService', function () {
+describe('Service: categoryFactory', function () {
 
   // load the service's module
   beforeEach(module('stackStoreApp'));
 
   // instantiate service
   var categoryService;
-  beforeEach(inject(function (_categoryService_) {
-    categoryService = _categoryService_;
+  beforeEach(inject(function (_categoryFactory_) {
+    categoryFactory = _categoryFactory_;
   }));
 
   it('should do something', function () {
-    expect(!!categoryService).toBe(true);
+    expect(!!categoryFactory).toBe(true);
   });
 
 });
