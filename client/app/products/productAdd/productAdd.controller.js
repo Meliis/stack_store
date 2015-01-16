@@ -1,18 +1,27 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductAddCtrl', function ($scope, productFactory, Auth) {
+  .controller('ProductAddCtrl', function ($scope, productFactory, Category, Auth) {
     $scope.isAdmin = Auth.isAdmin;
 
     $scope.newProduct = {
     	categories: [],
         images: []
     }
+    $scope.newCat = {
+        name: ""
+    }
 
     $scope.addedSuccess = false;
 
-    $scope.existingCat = ['Cat1', 'Cat2', 'Cat3'];
+    $scope.categories = Category.query();
 
+    $scope.addCategory = function() {
+        $scope.categories.push($scope.newCat);
+        var cat = new Category({name: $scope.newCat.name});
+        cat.$save();
+        $scope.newCat.name = "";
+    }
     $scope.addProduct = function(){
         var num = $scope.newProduct.price
         $scope.newProduct.price = Math.round(num * 100)/100
