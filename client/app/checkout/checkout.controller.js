@@ -9,19 +9,8 @@ angular.module('stackStoreApp')
   	$scope.user = Auth.getCurrentUser();
     $scope.errorMessage;
     $scope.user.$promise.then(function(user) {
-      $scope.order = {userId: user._id, lineItems: [{productName:"Time", productId: '', price:50000}, {productName:"Something", price:4000}]};
+      $scope.order = {userId: user._id, lineItems: [{productName:"Time", productId: '', price:50000, quantity: 1}, {productName:"Something", price:4000, quantity: 2}]};
     });
-
-
-  	// var currentOrder = function() {
-  	// 	angular.forEach($scope.user.orders, function(order) {
-  	// 		if(order.status === 'incomplete') {
-  	// 			return order;
-  	// 		}
-  	// 	})
-  	// };
-
-  	// $scope.userOrder = currentOrder();
 
   	$scope.checkout = function() {
   		if((/^\d{5}(?:[-\s]\d{4})?$/).test($scope.order.shipping.zip)) {
@@ -42,13 +31,22 @@ function stripeResponseHandler(status, response) {
     $scope.order.billing.stripeToken = response['id'];
     $scope.order.billing.cardType = response['card']['brand'];
     $scope.order.billing.last4 = response['card']['last4'];
-    // insert the token into the form so it gets submitted to the server
-    // form$.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
-    // and submit
+    $scope.order.total = sumTotal();
     $http.post('/api/orders', $scope.order).success(function(response) {
           console.log(response);
         });
   }
+}
+
+function sumTotal() {
+  var total = 0
+  $scope.order.lineItems.forEach(function(lineItem){
+    console.log(lineItem);
+    var subtotal = lineItem.price * lineItem.quantity;
+    total += subtotal
+  });
+  console.log(total);
+  return total;
 }
   
 

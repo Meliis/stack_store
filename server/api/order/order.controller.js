@@ -23,16 +23,18 @@ exports.show = function(req, res) {
 
 // Creates a new order in the DB.
 exports.create = function(req, res) {
+  console.log(req.body.total);
   var charge = stripe.charges.create({
-      amount: 20*100,
+      amount: req.body.total,
       currency: 'usd',
       card: req.body.billing.stripeToken,
       description: "email@email.com"
     }, function(err,charge) {
           if(err && err.type === 'StripeCardError') {
-            console.log(err);
-            return res.status(500);
-          } else {
+            return handleError(res, err);
+          } else if(err) {
+            return handleError(res, err);
+          }else {
               Order.create(req.body, function(err, order) {
                 if(err) { return handleError(res, err); }
                 order.closeOrder();
