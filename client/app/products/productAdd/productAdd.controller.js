@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductAddCtrl', function ($scope, productFactory, Category, Auth) {
+  .controller('ProductAddCtrl', function ($scope, Product, Category, Auth) {
     $scope.isAdmin = Auth.isAdmin;
 
     $scope.newProduct = {
@@ -26,7 +26,7 @@ angular.module('stackStoreApp')
     $scope.addProduct = function(){
         var num = $scope.newProduct.price
         $scope.newProduct.price = Math.round(num * 100)/100
-    	productFactory.addProduct($scope.newProduct);
+    	Product.save($scope.newProduct); //idk
 
     	$scope.addedSuccess = true;
 
@@ -50,5 +50,4 @@ angular.module('stackStoreApp')
     		$scope.newProduct.categories.push(cat);
     	}
     }
-
   });
