@@ -13,6 +13,26 @@ angular.module('stackStoreApp')
 
     $scope.existingCat = ['Cat1', 'Cat2', 'Cat3'];
 
+    filepicker.setKey("ABXzKGxApRcCcK8K59thqz");
+
+    $scope.pickFile = function(){
+        filepicker.pick(
+        {
+            mimetypes: ['image/*', 'text/plain'],
+            container: 'window',
+            services:['COMPUTER', 'FACEBOOK', 'GMAIL'],
+        },
+        function(Blob){
+            $scope.newProduct.images.push(Blob.url)
+            $scope.$apply();
+            // console.log(Blob.url);
+        },
+        function(FPError){
+            console.log(FPError.toString());
+        });
+    }
+
+
     $scope.addProduct = function(){
         var num = $scope.newProduct.price
         $scope.newProduct.price = Math.round(num * 100)/100
