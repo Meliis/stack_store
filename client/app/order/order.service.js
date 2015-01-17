@@ -8,7 +8,7 @@ angular.module('stackStoreApp')
     var Order = $resource('/api/orders/:id', { id: '@_id'}, {
       update: {
         method: 'PUT'
-      },
+      }
     });
 
 

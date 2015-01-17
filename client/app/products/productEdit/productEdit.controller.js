@@ -19,28 +19,19 @@ angular.module('stackStoreApp')
     }
     
     $scope.editProduct = function(){
-        var num = $scope.newProduct.price
-        $scope.newProduct.price = Math.round(num * 100)/100
-    	Product.editProduct($scope.newProduct);
-
-    	$scope.editProductForm.$setPristine();
-    	$scope.newProduct = {
-    		name: "",
-    		categories: [],
-    		images: [],
-    		description: {},
-    		price: null
-    	}
+        var num = $scope.product.price
+        $scope.price = Math.round(num * 100)/100
+    	Product.update($scope.product);
     }
 
     $scope.toggleCat = function(cat) {
-    	var indexCat = $scope.newProduct.categories.indexOf(cat);
+    	var indexCat = $scope.product.categories.indexOf(cat._id);
 
     	if(indexCat > -1){
-    		$scope.newProduct.categories.splice(indexCat,1);
+    		$scope.product.categories.splice(indexCat,1);
     	}
     	else{
-    		$scope.newProduct.categories.push(cat);
+    		$scope.product.categories.push(cat._id);
     	}
     }
 
