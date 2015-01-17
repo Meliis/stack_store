@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     Product = require('../product/product.model');
 
-var types = "all single category".split(' ');
+var types = "all_open all_closed single_open single_closed category_open category_closed".split(' ');
 
 var PromocodeSchema = new Schema({
   code:{type: String, required: true},
