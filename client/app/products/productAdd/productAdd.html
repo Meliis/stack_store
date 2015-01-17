@@ -1,6 +1,9 @@
 <div class="container">
+	<div class="row col-lg-8" ng-hide="isAdmin()">
+		<h2>You don't have permission to add products!</h2>
+	</div>
 
-	<div class="row col-lg-4">
+	<div class="row col-lg-4" ng-show="isAdmin()">
 		<h2>Add Product</h2>
 
 		<form name="addProductForm" ng-submit="addProduct()">
@@ -30,17 +33,28 @@
 			<div class='form-group'>
 				<label>Categories</label>
 				<ul class="list-unstyled">
-					<li ng-repeat='cat in existingCat'>
-					<input type="checkbox" ng-click='toggleCat(cat)'> {{cat}}
+					<li ng-repeat='cat in categories'>
+					<input type="checkbox" ng-click='toggleCat(cat)'> {{cat.name}}
 					</li>
 				</ul>
+				<div class="cat-create">
+					<label>Create a category</label>
+					<input type="text" ng-model="newCat.name" />
+					<button class="btn btn-default" type="button" ng-click="addCategory()">Create</button>
+				</div>
 			</div>
+<<<<<<< HEAD
 			<div>
 			<button class='btn btn-primary' ng-click='pickFile()'>add pictures</button>
 			</div>
 			<div ng-show='newProduct.images.length' ng-repeat='img in newProduct.images'>
 				<img ng-src='{{img}}' class="img-rounded" style='height: 200px'>
 			</div>
+=======
+			<input type="file" />
+			{{newProduct}}
+			<br />
+>>>>>>> master
 			<button type='submit' class='btn btn-primary' ng-disabled="addProductForm.$invalid">Add Product</button>
 			{{newProduct}}
 		</form>
