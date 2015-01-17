@@ -2,7 +2,6 @@
 
 var _ = require('lodash');
 var Order = require('./order.model');
-var stripe = require('stripe')('sk_test_cpRVxDOZySsVJVoEW8xgYKpZ');
 
 // Get list of orders
 exports.index = function(req, res) {
@@ -23,26 +22,15 @@ exports.show = function(req, res) {
 
 // Creates a new order in the DB.
 exports.create = function(req, res) {
-  console.log(req.body.total);
-  var charge = stripe.charges.create({
-      amount: req.body.total,
-      currency: 'usd',
-      card: req.body.billing.stripeToken,
-      description: "email@email.com"
-    }, function(err,charge) {
-          if(err && err.type === 'StripeCardError') {
-            return handleError(res, err);
-          }else {
-              Order.create(req.body, function(err, order) {
-                if(err) { return handleError(res, err); }
-                order.closeOrderCheck();
-                order.save(function(err) {
-                if (err) {return handleError(res, err); }
-                return res.json(201, order);  
-                });
-              });
-            }
+  Order.createStripeCharge(req.body, res);
+  Order.create(req.body, function(err, order) {
+    if(err) { return handleError(res, err); }
+      order.closeOrderCheck();
+      order.save(function(err) {
+        if (err) {return handleError(res, err); }
+        return res.json(201, order);  
       });
+  });
 };
 
 // Updates an existing order in the DB.
