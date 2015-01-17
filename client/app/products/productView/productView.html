@@ -13,7 +13,7 @@
 			<h2>BUY YOUR TIME NOW!</h2>
 			<form name="form">
 			qty: <input ng-model="quantity" type="number" min='1' max="{{product.quantity}}">
-			<button class="btn btn-success" ng-click="addToCart(quantity)">Add To Cart</button>
+			<button class="btn btn-success" ng-click="addToCart(product._id, quantity)">Add To Cart</button>
 		</form>
 		</div>	
 	</div>

@@ -1,15 +1,25 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('CartCtrl', function ($scope, CartFactory) {
+  .controller('CartCtrl', function ($scope, CartFactory, Auth) {
     $scope.message = 'Hello';
     $scope.cartTotal;
 
-    $scope.cart = [
-    {name: 'Time Machine', price: 100000, description: {blurb: "A time machine", full:"More than the last"}, qty: 1 },
-    {name: 'Watch', price: 10, description: {blurb: "A time machine", full:"More than the last"}, qty: 1},
-    {name: 'Clock', price: 5, description: {blurb: "A time machine", full:"More than the last"}, qty: 1},
-    ];
+    $scope.cart;
+
+    var getCart = function() {
+     if (Auth.isLoggedIn()) {
+       // retrieve user's cart
+     } else {
+       CartFactory.get({id: localStorage.cartId}, function(cart) {
+         $scope.cart = cart.lineItems;
+         console.log($scope.cart);
+         $scope.calculateTotal();
+       });
+     }
+    };
+
+    getCart();
 
     $scope.calculateTotal = function(){
     	var total = 0;
@@ -20,7 +30,5 @@ angular.module('stackStoreApp')
 
     	$scope.cartTotal = total;
     }
-
-    $scope.calculateTotal();
 
   	});

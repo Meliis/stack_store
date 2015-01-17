@@ -26,8 +26,9 @@ angular.module('stackStoreApp')
       if (Auth.isLoggedIn()) {
         // retrieve user's cart
       } else {
-        CartFactory.get({id: localStorage.cartId}, function(cart) {
-          $scope.cart = cart;
+        CartFactory.get({id: localStorage.cartId}, function(cart) { 
+          debugger;
+                  $scope.cart = cart;
           $scope.cartSize = cart.lineItems.length;
         });
       }

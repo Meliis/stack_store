@@ -64,12 +64,12 @@ angular.module('stackStoreApp', [
       // });
       // do some stuff
     } else {
-      var newCart = new CartFactory ({date: new Date()});
+      var newCart = new CartFactory({lineItems: [], date: new Date()});
       newCart.$save(function() {
         localStorage.cartId = newCart._id;
-        setTimeout(function() {
-          localStorage.removeItem('cartId');
-        }, 10000);
+        // setTimeout(function() {
+        //   localStorage.removeItem('cartId');
+        // }, 10000);
       });
     }
       
