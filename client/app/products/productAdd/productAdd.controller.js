@@ -16,7 +16,6 @@ angular.module('stackStoreApp')
 
     $scope.categories = Category.query();
 
-<<<<<<< HEAD
     filepicker.setKey("ABXzKGxApRcCcK8K59thqz");
 
     $scope.pickFile = function(){
@@ -36,15 +35,13 @@ angular.module('stackStoreApp')
         });
     }
 
-
-=======
     $scope.addCategory = function() {
         $scope.categories.push($scope.newCat);
         var cat = new Category({name: $scope.newCat.name});
         cat.$save();
         $scope.newCat.name = "";
     }
->>>>>>> master
+
     $scope.addProduct = function(){
         var num = $scope.newProduct.price
         $scope.newProduct.price = Math.round(num * 100)/100
