@@ -53,7 +53,10 @@ angular.module('stackStoreApp', [
       });
     });
   })
+<<<<<<< HEAD
+=======
   
+
   // .run(function (User, orderFactory, Auth) {
   //   if (Auth.isLoggedIn()) {
   //     // do some stuff
@@ -65,6 +68,7 @@ angular.module('stackStoreApp', [
   //   }
   // });
 
+>>>>>>> master
 
 // Check if logged in
   // If logged in, display incomplete order in cart
@@ -72,8 +76,6 @@ angular.module('stackStoreApp', [
   // Create new user
   // Create new order, using userID
   // Add order to new user's 'orders'
-
-
 
 
 

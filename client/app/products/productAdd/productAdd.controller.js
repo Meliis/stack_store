@@ -16,12 +16,35 @@ angular.module('stackStoreApp')
 
     $scope.categories = Category.query();
 
+<<<<<<< HEAD
+    filepicker.setKey("ABXzKGxApRcCcK8K59thqz");
+
+    $scope.pickFile = function(){
+        filepicker.pick(
+        {
+            mimetypes: ['image/*', 'text/plain'],
+            container: 'window',
+            services:['COMPUTER', 'FACEBOOK', 'GMAIL'],
+        },
+        function(Blob){
+            $scope.newProduct.images.push(Blob.url)
+            $scope.$apply();
+            // console.log(Blob.url);
+        },
+        function(FPError){
+            console.log(FPError.toString());
+        });
+    }
+
+
+=======
     $scope.addCategory = function() {
         $scope.categories.push($scope.newCat);
         var cat = new Category({name: $scope.newCat.name});
         cat.$save();
         $scope.newCat.name = "";
     }
+>>>>>>> master
     $scope.addProduct = function(){
         var num = $scope.newProduct.price
         $scope.newProduct.price = Math.round(num * 100)/100

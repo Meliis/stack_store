@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth) {
+  .controller('NavbarCtrl', function ($scope, $location, Auth, orderFactory) {
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
@@ -20,4 +20,6 @@ angular.module('stackStoreApp')
     $scope.isActive = function(route) {
       return route === $location.path();
     };
+
+    $scope.cart = orderFactory.getCart();
   });
