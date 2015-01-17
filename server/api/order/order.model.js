@@ -36,13 +36,17 @@ OrderSchema.virtual('total').get(function() {
 });
 
 //method for closed state
-OrderSchema.methods.closeOrder = function() {
-  this.status = 'closed';
+OrderSchema.methods.closeOrderCheck = function() {
+  if(this.userId) {
+    this.status = 'closed';
+  } else {
+    this.status = 'closed_guest';
+  }
 };
 
-//method for closed_guest state
-OrderSchema.methods.closeGuestOrder = function() {
-  this.status = 'closed_guest';
-};
+// //method for closed_guest state
+// OrderSchema.methods.closeGuestOrder = function() {
+//   this.status = 'closed_guest';
+// };
 
 module.exports = mongoose.model('Order', OrderSchema);

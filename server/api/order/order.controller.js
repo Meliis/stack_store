@@ -37,7 +37,7 @@ exports.create = function(req, res) {
           }else {
               Order.create(req.body, function(err, order) {
                 if(err) { return handleError(res, err); }
-                order.closeOrder();
+                order.closeOrderCheck();
                 order.save(function(err) {
                 if (err) {return handleError(res, err); }
                 return res.json(201, order);  
