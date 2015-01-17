@@ -4,8 +4,7 @@ angular.module('stackStoreApp')
   .controller('ProductViewCtrl', function ($scope, Product, $routeParams, Auth, Order) {
 
   	$scope.user = Auth.getCurrentUser();
-
-  	$scope.quantity = 1;
+    $scope.isAdmin = Auth.isAdmin;
   	
     Product.get({id: $routeParams.id}, function(product) {
     	$scope.product = product;
