@@ -76,6 +76,7 @@ describe('statics', function() {
   it('should be able to create new Date', function(done) {
     var promocode = new Promocode({
       code: "HEY123",
+      creationDate: new Date(),
       expirationDate: new Date(),
       promoType: 'all'
     });
@@ -87,4 +88,20 @@ describe('statics', function() {
    });
   });
 });
+describe('product for single promo', function() {
+  it('should have a productId if it is a single product promo', function(done) {
+    var promocode = new Promocode({
+      code: "HEY123",
+      creationDate: new Date(),
+      expirationDate: new Date(),
+      promoType: 'single'
+    });
+    promocode.save(function(err) {
+      should.exist(err);
+      done();
+    });
+
+  });
+});
+
 });

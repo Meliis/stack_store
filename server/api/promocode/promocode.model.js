@@ -25,6 +25,16 @@ var PromocodeSchema = new Schema({
 // 	}
 // };
 
+PromocodeSchema
+.path('promoType')
+.validate(function(value) {
+	if(value === 'single' && !this.productId) {
+		return false
+	} else {
+		return true;
+	}
+}, "You need a productId for a single promotion!");
+
 PromocodeSchema.statics.createDate = function(promocode) {
 	promocode.creationDate = new Date();
 	return promocode;
