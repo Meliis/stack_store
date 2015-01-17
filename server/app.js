@@ -1,4 +1,4 @@
-git q/**
+git qgit /**
  * Main application file
  */
 
