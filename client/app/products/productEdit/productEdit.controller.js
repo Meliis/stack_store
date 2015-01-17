@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductEditCtrl', function ($scope, Product, Category) {
+  .controller('ProductEditCtrl', function ($scope, Product, Category, Auth) {
+    $scope.isAdmin = Auth.isAdmin;
+    $scope.categories = Category.query();
     $scope.newCat = {
         name: ""
     }
-
-    $scope.categories = Category.query();
 
     $scope.addCategory = function() {
         $scope.categories.push($scope.newCat);
