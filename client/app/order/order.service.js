@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .factory('orderFactory', function ($resource) {
+  .factory('Order', function ($resource) {
     // Service logic
     // ...
     var currentCart = 1;
