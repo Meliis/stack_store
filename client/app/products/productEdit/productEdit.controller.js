@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductEditCtrl', function ($scope, $route, Product, Category, Auth) {
+  .controller('ProductEditCtrl', function ($scope, $route, $location, Product, Category, Auth) {
     $scope.isAdmin = Auth.isAdmin;
     $scope.categories = Category.query();
     $scope.newCat = {
@@ -22,6 +22,7 @@ angular.module('stackStoreApp')
         var num = $scope.product.price
         $scope.price = Math.round(num * 100)/100
     	Product.update($scope.product);
+        $location.path('/products/'+$route.current.params.id);
     }
 
     $scope.toggleCat = function(cat) {
