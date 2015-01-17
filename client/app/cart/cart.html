@@ -23,23 +23,23 @@
 				</div>
 			</div>
 
-			<div class='row' ng-repeat='item in cart'>
+			<div class='row' ng-repeat='lineItem in popCart'>
 				<div class="col-sm-2">
 					<img class="img-responsive" src="http://lorempixel.com/500/500">
 				</div>
 				
 				<div class="col-sm-5">
-					<h4>{{item.name}}</h4>
-					<p>{{item.description.full}}</p>
+					<h4>{{lineItem.item.name}}</h4>
+					<p>{{lineItem.item.description.full}}</p>
 				</div>
 
 				<div class="col-sm-3">	
-					<h3>{{item.price | currency}}</h3>
+					<h3>{{lineItem.item.price | currency}}</h3>
 				</div>
 
 				<div class="col-sm-2">	
 					<form>
-						<input type="number" class="form-control" ng-value='{{item.qty}}' min='0'> 
+						<input type="number" class="form-control" ng-value='{{lineItem.quantity}}' min='0'> 
 					</form>
 				</div>
 

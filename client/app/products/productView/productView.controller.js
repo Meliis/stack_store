@@ -41,24 +41,10 @@ angular.module('stackStoreApp')
       if (productExists === false) {
         $scope.cart.lineItems.push({item: productId, quantity: quantity});
         $scope.cart.$update();
-        console.log("check your db!", $scope.cart);
       }
 
       $scope.quantity = 1;
 
-    	// var productExists = false;
-    	// angular.forEach($scope.user.orders[0].products, function(product) {
-    	// 	if($scope.product._id === product.product._id) {
-    	// 		product.qty += quantity;
-    	// 		productExists = true;
-    	// 	}
-    	// });
-
-    	// if(productExists === false) {
-	    // 	$scope.user.orders[0].products.push({product: $scope.product, qty: quantity});    		
-    	// }
-
-    	// $scope.quantity = 1;
     };
 
     //initiate temporary banner for the cart

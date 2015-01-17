@@ -27,14 +27,17 @@ angular.module('stackStoreApp')
         // retrieve user's cart
       } else {
         CartFactory.get({id: localStorage.cartId}, function(cart) { 
-          debugger;
-                  $scope.cart = cart;
+          $scope.cart = cart;
           $scope.cartSize = cart.lineItems.length;
         });
       }
     };
 
     setCartSize();
+
+    // $scope.$watch('cart', function() {
+    //   setCartSize();
+    // });
 
 
     $scope.goToCart = function() {

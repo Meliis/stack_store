@@ -6,6 +6,24 @@ angular.module('stackStoreApp')
     $scope.cartTotal;
 
     $scope.cart;
+    $scope.popCart;
+
+
+    var populateCart = function() {
+     if (Auth.isLoggedIn()) {
+       // retrieve user's cart
+     } else {
+       CartFactory.populate({id: localStorage.cartId}, function(cart) {
+         $scope.popCart = cart.lineItems;
+         console.log($scope.popCart);
+       });
+     }
+    };
+
+    populateCart();
+
+
+
 
     var getCart = function() {
      if (Auth.isLoggedIn()) {
@@ -13,7 +31,7 @@ angular.module('stackStoreApp')
      } else {
        CartFactory.get({id: localStorage.cartId}, function(cart) {
          $scope.cart = cart.lineItems;
-         console.log($scope.cart);
+         // console.log($scope.cart);
          $scope.calculateTotal();
        });
      }

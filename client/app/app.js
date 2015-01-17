@@ -56,21 +56,23 @@ angular.module('stackStoreApp', [
 
   .run(function (User, CartFactory, Auth) {
 
-    if (Auth.isLoggedIn()) {
-      // do some stuff
-    } else if (localStorage.cartId){
-      // CartFactory.get({id: localStorage.cartId}, function(cart) {
-      //   currentCart = cart;
-      // });
-      // do some stuff
-    } else {
+    var startNewCart = function() {
+      localStorage.removeItem('cartId');
+      localStorage.removeItem('cartDate');
       var newCart = new CartFactory({lineItems: [], date: new Date()});
       newCart.$save(function() {
+        var date = new Date();
         localStorage.cartId = newCart._id;
-        // setTimeout(function() {
-        //   localStorage.removeItem('cartId');
-        // }, 10000);
+        localStorage.cartDate = date.getTime();
       });
+    }
+
+    var currentDate = new Date();
+
+    if (Auth.isLoggedIn() || (currentDate.getTime() - localStorage.cartDate)/3600000 < 24) {
+        // If user is logged in or guest cart is less than 24 hours old
+    } else {
+      startNewCart();
     }
       
   });
