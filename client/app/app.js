@@ -53,8 +53,6 @@ angular.module('stackStoreApp', [
       });
     });
   })
-<<<<<<< HEAD
-=======
   
 
   // .run(function (User, orderFactory, Auth) {
@@ -67,8 +65,6 @@ angular.module('stackStoreApp', [
   //     order.$save();
   //   }
   // });
-
->>>>>>> master
 
 // Check if logged in
   // If logged in, display incomplete order in cart
