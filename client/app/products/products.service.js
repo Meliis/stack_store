@@ -2,7 +2,11 @@
 
 angular.module('stackStoreApp')
   .factory('Product', function ($http, $location, $resource) {
-    var Product = $resource('/api/products/:id', { id: '@_id'});
+    var Product = $resource('/api/products/:id', { id: '@_id'}, {
+      update: {
+        method: 'PUT'
+      }
+    });
 
     Product.search = function(str) {
         var searchResults = [];
