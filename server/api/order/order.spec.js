@@ -42,14 +42,6 @@ describe('Order Model', function() {
       done();
     });
 
-    it('should require a userId', function(done) {
-      var order2 = new Order({});
-      order2.save(function(err) {
-        should.exist(err);
-        done();
-      });
-    });
-
     it('should require lineItems', function(done) {
       var order2 = new Order({userId: user._id});
       order2.save(function(err) {
@@ -76,16 +68,17 @@ describe('Order Model', function() {
   });
 
   describe('methods', function() {
-    it('should change the order to close status', function(done) {
-      order.closeOrder();
+    it('should change the order to close status when userId is present', function(done) {
+      order.closeOrderCheck();
       order.save(function(err, result) {
         result.status.should.equal('closed');
         done();
       });
     });
-    it('should change the order to closed_guest status', function(done) {
-      order.closeGuestOrder();
-      order.save(function(err, result) {
+    it('should change the order to closed_guest status when userId is not present', function(done) {
+      var order2 = new Order({lineItems: [{product:'time',price:10000,quantity:2}] });
+      order2.closeOrderCheck();
+      order2.save(function(err, result) {
         result.status.should.equal('closed_guest');
         done();
       });

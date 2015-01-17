@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     User = require('../user/user.model'),
     Product = require('../product/product.model');
+var stripe = require('stripe')('sk_test_cpRVxDOZySsVJVoEW8xgYKpZ');
 
 var states = 'open closed closed_guest'.split(' ');
 
@@ -36,13 +37,30 @@ OrderSchema.virtual('total').get(function() {
 });
 
 //method for closed state
-OrderSchema.methods.closeOrder = function() {
-  this.status = 'closed';
+OrderSchema.methods.closeOrderCheck = function() {
+  if(this.userId) {
+    this.status = 'closed';
+  } else {
+    this.status = 'closed_guest';
+  }
 };
 
-//method for closed_guest state
-OrderSchema.methods.closeGuestOrder = function() {
-  this.status = 'closed_guest';
+OrderSchema.statics.createStripeCharge = function(info) {
+  var charge = stripe.charges.create({
+      amount: info.total,
+      currency: 'usd',
+      card: info.billing.stripeToken,
+      description: info.billing.email
+    }, function(err,charge) {
+          if(err && err.type === 'StripeCardError') {
+            return res.send(500, err)
+          }
+    });
 };
+
+// //method for closed_guest state
+// OrderSchema.methods.closeGuestOrder = function() {
+//   this.status = 'closed_guest';
+// };
 
 module.exports = mongoose.model('Order', OrderSchema);
