@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('CheckoutCtrl', function ($scope, Auth, $http) {
+  .controller('CheckoutCtrl', function ($scope, Auth, $http, Order) {
 
     Stripe.setPublishableKey('pk_test_dA3Hb0dLKm0zVFQQ1DosksSf');
     
@@ -9,7 +9,7 @@ angular.module('stackStoreApp')
   	$scope.user = Auth.getCurrentUser();
     $scope.errorMessage;
     $scope.user.$promise.then(function(user) {
-      $scope.order = {userId: user._id, lineItems: [{productName:"Time", productId: '', price:50000, quantity: 1}, {productName:"Something", price:4000, quantity: 2}]};
+      $scope.order = {userId: user._id, lineItems: [{productName:"Time", productId: '', price:30000, quantity: 1}, {productName:"Something", price:4000, quantity: 2}]};
     });
 
   	$scope.checkout = function() {
@@ -32,20 +32,17 @@ function stripeResponseHandler(status, response) {
     $scope.order.billing.cardType = response['card']['brand'];
     $scope.order.billing.last4 = response['card']['last4'];
     $scope.order.total = sumTotal();
-    $http.post('/api/orders', $scope.order).success(function(response) {
-          console.log(response);
-        });
+
+    Order.save($scope.order);
   }
 }
 
 function sumTotal() {
   var total = 0
   $scope.order.lineItems.forEach(function(lineItem){
-    console.log(lineItem);
     var subtotal = lineItem.price * lineItem.quantity;
     total += subtotal
   });
-  console.log(total);
   return total;
 }
   
