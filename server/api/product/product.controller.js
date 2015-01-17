@@ -20,6 +20,15 @@ exports.show = function(req, res) {
   });
 };
 
+// Get multiple products BUT NOT ALL
+exports.showMultiple = function(req, res) {
+  Product.find(function (err, products) {
+    if(err) { return handleError(res, err); }
+    var searchResults = Product.search(req.params.query, products);
+    return res.json(200, searchResults);
+  });
+};
+
 // Creates a new product in the DB.
 exports.create = function(req, res) {
   console.log(req.body);
