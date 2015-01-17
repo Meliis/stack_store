@@ -32,8 +32,6 @@ exports.create = function(req, res) {
     }, function(err,charge) {
           if(err && err.type === 'StripeCardError') {
             return handleError(res, err);
-          } else if(err) {
-            return handleError(res, err);
           }else {
               Order.create(req.body, function(err, order) {
                 if(err) { return handleError(res, err); }

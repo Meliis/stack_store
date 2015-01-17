@@ -1,16 +1,18 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('CheckoutCtrl', function ($scope, Auth, $http, Order) {
+  .controller('CheckoutCtrl', function ($scope, Auth, Order) {
 
     Stripe.setPublishableKey('pk_test_dA3Hb0dLKm0zVFQQ1DosksSf');
-    
-
-  	$scope.user = Auth.getCurrentUser();
     $scope.errorMessage;
-    $scope.user.$promise.then(function(user) {
-      $scope.order = {userId: user._id, lineItems: [{productName:"Time", productId: '', price:30000, quantity: 1}, {productName:"Something", price:4000, quantity: 2}]};
-    });
+    if(Auth.isLoggedIn()) {
+      $scope.user = Auth.getCurrentUser();
+        $scope.user.$promise.then(function(user) {
+          $scope.order = {userId: user._id, lineItems: [{productName:"Time", productId: '', price:30000, quantity: 1}, {productName:"Something", price:4000, quantity: 2}]};
+      });
+    } else {
+        $scope.order = {lineItems: [{productName:"Time", productId: '', price:30000, quantity: 1}, {productName:"Something", price:4000, quantity: 2}]};
+    }
 
   	$scope.checkout = function() {
   		if((/^\d{5}(?:[-\s]\d{4})?$/).test($scope.order.shipping.zip)) {
@@ -26,6 +28,7 @@ function stripeResponseHandler(status, response) {
   if (response.error) {
     // show the errors on the form
     $scope.errorMessage = response.error.message;
+    $scope.$apply();
   } else {
     // token contains id, last4, and card type
     $scope.order.billing.stripeToken = response['id'];
@@ -33,7 +36,9 @@ function stripeResponseHandler(status, response) {
     $scope.order.billing.last4 = response['card']['last4'];
     $scope.order.total = sumTotal();
 
-    Order.save($scope.order);
+    Order.save($scope.order, function(order) {
+      // console.log(order);
+    });
   }
 }
 
