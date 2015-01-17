@@ -52,7 +52,7 @@ angular.module('stackStoreApp', [
         }
       });
     });
-  })
+  })git
 
 // Check if logged in
   // If logged in, display incomplete order in cart
