@@ -41,18 +41,23 @@ exports.create = function(req, res) {
 // Updates an existing cart in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
+  console.log("--------------------");
+  console.log("REQ BODY", req.body);
+  console.log("--------------------");
   Cart.findById(req.params.id, function (err, cart) {
     if (err) { return handleError(res, err); }
     if(!cart) { return res.send(404); }
-    var updated = _.assign(cart, req.body);
-    console.log("not updated cart", updated);
-    updated.lineItems = _.map(updated.lineItems, function(lineItem) {
-      if(lineItem.item && lineItem.item._id) { 
-        lineItem.item = lineItem.item._id.toString();
-      }
+
+    req.body.lineItems = req.body.lineItems.map(function(lineItem) {
+      console.log("LINE ITEM: ", lineItem);
+      lineItem.item = lineItem.item._id || lineItem.item;
       return lineItem;
     });
+
+    var updated = _.assign(cart, req.body);
+    console.log("not updated cart", updated);
     console.log("updated cart", updated);
+    // updated.markModified("lineItems");
     updated.save(function (err) {
       console.log("Error", err);
       if (err) { return handleError(res, err); }
@@ -60,6 +65,11 @@ exports.update = function(req, res) {
     });
   });
 };
+
+exports.addToCart = function(req, res) {
+
+  
+}
 
 // Deletes a cart from the DB.
 exports.destroy = function(req, res) {
