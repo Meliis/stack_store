@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductEditCtrl', function ($scope, productFactory, Category) {
+  .controller('ProductEditCtrl', function ($scope, Product, Category) {
     $scope.newCat = {
         name: ""
     }
@@ -18,7 +18,7 @@ angular.module('stackStoreApp')
     $scope.editProduct = function(){
         var num = $scope.newProduct.price
         $scope.newProduct.price = Math.round(num * 100)/100
-    	productFactory.editProduct($scope.newProduct);
+    	Product.editProduct($scope.newProduct);
 
     	$scope.editProductForm.$setPristine();
     	$scope.newProduct = {
