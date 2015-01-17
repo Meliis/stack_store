@@ -9,7 +9,8 @@ angular.module('stackStoreApp')
       })
       .when('/products/add', {
         templateUrl: 'app/products/productAdd/productAdd.html',
-        controller: 'ProductAddCtrl'
+        controller: 'ProductAddCtrl',
+        authenticate: true
       })
       .when('/products/:id', {
         templateUrl: 'app/products/productView/productView.html',
