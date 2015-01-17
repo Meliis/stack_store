@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductSearchCtrl', function ($scope, $route, Product) {
-  	// console.log(Product.query())
-    // $scope.products = Product.search($route.current.params.query, Product.query());
+  .controller('ProductSearchCtrl', function ($scope, $route, $http, Product) {
+  	Product.search({query: $route.current.params.query}, function(products) {
+    		$scope.products = products.map(function(result){return result.product});
+  	});
   });

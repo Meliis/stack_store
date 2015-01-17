@@ -29,6 +29,7 @@ exports.showMultiple = function(req, res) {
   Product.find(function (err, products) {
     if(err) { return handleError(res, err); }
     var searchResults = Product.search(req.params.query, products);
+    console.log(searchResults);
     return res.json(200, searchResults);
   });
 };
@@ -49,10 +50,8 @@ exports.update = function(req, res) {
     if (err) { return handleError(res, err); }
     if(!product) { return res.send(404); }
     var updated = _.extend(product, req.body);
-    console.log("here's the updated: " + updated);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
-      console.log("saved product: ", product);
       return res.json(200, product);
     });
   });
