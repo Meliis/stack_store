@@ -53,18 +53,6 @@ angular.module('stackStoreApp', [
       });
     });
   })
-  
-
-  // .run(function (User, orderFactory, Auth) {
-  //   if (Auth.isLoggedIn()) {
-  //     // do some stuff
-  //   }
-  //   else {
-  //     // Look up session ID stuff for browser
-  //     var order = new orderFactory;
-  //     order.$save();
-  //   }
-  // });
 
 // Check if logged in
   // If logged in, display incomplete order in cart

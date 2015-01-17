@@ -20,4 +20,8 @@ angular.module('stackStoreApp')
         templateUrl: 'app/products/productView/productView.html',
         controller: 'ProductViewCtrl'
       })
+      .when('/products/:id/edit', {
+        templateUrl: 'app/products/productEdit/productEdit.html',
+        controller: 'ProductEditCtrl'
+      })
   });
