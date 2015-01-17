@@ -39,8 +39,8 @@ exports.update = function(req, res) {
   Product.findById(req.params.id, function (err, product) {
     if (err) { return handleError(res, err); }
     if(!product) { return res.send(404); }
-    var updated = _.merge(product, req.body);
-    console.log("here's the req.body: " + req.body, "here's the updated: " + updated);
+    var updated = _.extend(product, req.body);
+    console.log("here's the updated: " + updated);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
       console.log("saved product: ", product);

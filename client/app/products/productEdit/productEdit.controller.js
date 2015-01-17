@@ -12,7 +12,7 @@ angular.module('stackStoreApp')
     });
 
     $scope.addCategory = function() {
-        $scope.categories.push($scope.newCat);
+        $scope.categories.push({name: $scope.newCat});
         var cat = new Category({name: $scope.newCat.name});
         cat.$save();
         $scope.newCat.name = "";
