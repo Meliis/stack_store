@@ -54,12 +54,18 @@ angular.module('stackStoreApp', [
     });
   })
   
-  .run(function ($http, productFactory) {
-    $http.get('/api/products')
-        .then(function(result) {
-          productFactory.setInitial(result.data);
-        });
-  })
+
+  // .run(function (User, orderFactory, Auth) {
+  //   if (Auth.isLoggedIn()) {
+  //     // do some stuff
+  //   }
+  //   else {
+  //     // Look up session ID stuff for browser
+  //     var order = new orderFactory;
+  //     order.$save();
+  //   }
+  // });
+
 
   .run(function (User, orderFactory, Auth) {
       function setCookie(cname, cvalue, exdays) {
