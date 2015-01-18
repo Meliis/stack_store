@@ -17,6 +17,9 @@ angular.module('stackStoreApp')
         params: {
           id:'me'
         }
+      },
+      update: {
+        method: 'PUT'
       }
 	  });
   });

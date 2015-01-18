@@ -1,6 +1,7 @@
 'use strict';
 
 var User = require('./user.model');
+var _ = require('lodash');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
@@ -57,6 +58,18 @@ exports.destroy = function(req, res) {
     return res.send(204);
   });
 };
+
+// change a user's permissions
+exports.update = function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    if(err) return next(err);
+    var updated = _.merge(user, req.body);
+    updated.save(function (err, user) {
+      if (err) { return handleError(res, err); }
+      return res.json(200, user);
+    });
+  });
+}
 
 /**
  * Change a users password
