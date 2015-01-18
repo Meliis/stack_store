@@ -60,7 +60,8 @@ OrderSchema.statics.createStripeCharge = function(info) {
       amount: info.total,
       currency: 'usd',
       card: info.billing.stripeToken,
-      description: info.billing.email
+      description: info.billing.email,
+      capture: false
     }, function(err,charge) {
           if(err && err.type === 'StripeCardError') {
             return res.send(500, err)
