@@ -55,7 +55,7 @@ OrderSchema.methods.processOrderCheck = function() {
 };
 
 OrderSchema.statics.createStripeCharge = function(info) {
-  var defferal = Q.defer();
+  var deferral = Q.defer();
   var charge = stripe.charges.create({
       amount: info.total,
       currency: 'usd',
@@ -65,10 +65,10 @@ OrderSchema.statics.createStripeCharge = function(info) {
           if(err && err.type === 'StripeCardError') {
             return res.send(500, err)
           }
-          defferal.resolve(charge);
-          console.log(defferal.promise);
+          deferral.resolve(charge);
+          console.log(deferral.promise);
     });
-    return defferal.promise;
+    return deferral.promise;
 };
 
 // //method for closed_guest state
