@@ -61,39 +61,8 @@ angular.module('stackStoreApp', [
 
     if (Auth.isLoggedIn() || (currentDate.getTime() - localStorage.cartDate)/3600000 < 24) {
         // If user is logged in or guest cart is less than 24 hours old
-      // Cart.getCart();
     } else {
       Cart.startNewCart();
     }
       
   });
-
-
-// Check if logged in
-  // If logged in, display incomplete order in cart
-// If not logged in 
-  // Create new user
-  // Create new order, using userID
-  // Add order to new user's 'orders'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  ;

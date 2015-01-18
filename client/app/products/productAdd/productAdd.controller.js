@@ -15,17 +15,42 @@ angular.module('stackStoreApp')
     $scope.addedSuccess = false;
 
     $scope.categories = Category.query();
+    console.log($scope.categories);
+
+    filepicker.setKey("ABXzKGxApRcCcK8K59thqz");
+
+    $scope.pickFile = function(){
+        filepicker.pick(
+        {
+            mimetypes: ['image/*', 'text/plain'],
+            container: 'window',
+            services:['COMPUTER', 'FACEBOOK', 'GMAIL'],
+        },
+        function(Blob){
+            $scope.newProduct.images.push(Blob.url)
+            $scope.$apply();
+            // console.log(Blob.url);
+        },
+        function(FPError){
+            console.log(FPError.toString());
+        });
+    }
 
     $scope.addCategory = function() {
-        $scope.categories.push($scope.newCat);
+        $scope.categories.push({name: $scope.newCat.name});
         var cat = new Category({name: $scope.newCat.name});
         cat.$save();
         $scope.newCat.name = "";
     }
+
     $scope.addProduct = function(){
         var num = $scope.newProduct.price
         $scope.newProduct.price = Math.round(num * 100)/100
-    	Product.save($scope.newProduct); //idk
+        // this isn't happening because the items in the "categories" array
+        // aren't ids, so they can't be saved.
+    	Product.save($scope.newProduct, function() {
+            console.log("??");
+        }); //idk
 
     	$scope.addedSuccess = true;
 
@@ -46,7 +71,7 @@ angular.module('stackStoreApp')
     		$scope.newProduct.categories.splice(indexCat,1);
     	}
     	else{
-    		$scope.newProduct.categories.push(cat);
+    		$scope.newProduct.categories.push(cat._id);
     	}
     }
   });

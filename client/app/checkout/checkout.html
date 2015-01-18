@@ -16,15 +16,19 @@
 	<div class="row">
 		<div class="col-lg-6">
 			<h4>Billing Info</h4>
+			<div ng-show="errorMessage">
+					{{errorMessage}}
+				</div>
 			<form class="form-group" name="checkoutForm" ng-submit="checkout()">
 				<label>Email</label>
 				<input class="form-control" type="email" ng-model="order.billing.email" name="email" ng-required="true">
 				<label>Credit Card Number</label>
-				<input class="form-control" type="text" ng-required="true" required>
+				<input class="form-control" type="text" ng-required="true" ng-model="ccinfo.number" required>
 				<label>CVC</label>
-				<input class="form-control" type="text" ng-required="true" required>
+				<input class="form-control" type="text" ng-required="true" ng-model="ccinfo.cvc" required>
 				<label>Expiration Date</label>
-				<input type="month" required>
+				<input type="text" ng-model="ccinfo.exp_month" required>
+				<input type="text" ng-model="ccinfo.exp_year" required>
 
 			<div class="form-group">
 				<h4>Shipping Info</h4>

@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductViewCtrl', function ($scope, Product, Cart, $routeParams, Auth, orderFactory) {
+  .controller('ProductViewCtrl', function ($scope, Product, Cart, $routeParams, Auth, Order) {
 
     $scope.cart;
   	$scope.user = Auth.getCurrentUser();
   	$scope.quantity = 1;
-
+    $scope.isAdmin = Auth.isAdmin;
   	
     Product.get({id: $routeParams.id}, function(product) {
     	$scope.product = product;

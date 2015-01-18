@@ -10,6 +10,9 @@
 			<img class="img-responsive" src="http://lorempixel.com/500/500">
 		</div>
 		<div class="col-lg-4 col-md-4 col-sm-6">
+			<div ng-show="isAdmin()">
+				<a href="/products/{{product._id}}/edit"><button class="btn btn-warning">Edit product page</button></a>
+			</div>
 			<h2>{{product.name}}</h2>
 			<h3>{{product.price | currency}}</h3>
 			<p><em>Quantity available: {{product.quantity}} minutes</em></p>

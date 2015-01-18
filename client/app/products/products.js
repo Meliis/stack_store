@@ -12,8 +12,16 @@ angular.module('stackStoreApp')
         controller: 'ProductAddCtrl',
         authenticate: true
       })
+      .when('/products/search/:query', {
+        templateUrl: '/app/products/productSearch/productSearch.html',
+        controller: 'ProductSearchCtrl'
+      })
       .when('/products/:id', {
         templateUrl: 'app/products/productView/productView.html',
         controller: 'ProductViewCtrl'
+      })
+      .when('/products/:id/edit', {
+        templateUrl: 'app/products/productEdit/productEdit.html',
+        controller: 'ProductEditCtrl'
       })
   });
