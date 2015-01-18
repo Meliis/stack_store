@@ -25,7 +25,7 @@ exports.create = function(req, res) {
   Order.createStripeCharge(req.body, res);
   Order.create(req.body, function(err, order) {
     if(err) { return handleError(res, err); }
-      order.closeOrderCheck();
+      order.processOrderCheck();
       order.save(function(err) {
         if (err) {return handleError(res, err); }
         return res.json(201, order);  
