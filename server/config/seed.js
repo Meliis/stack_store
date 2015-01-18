@@ -193,6 +193,20 @@ Review.find({}).remove(function() {
   );
 });
 
+Order.find({}).remove(function() {
+  Order.create({
+    userId: "54bc042668ae184b1a2b307f", // test user
+    lineItems: [{
+    productId: "54bc01affe9ac53e18dd236e",
+    productName: "deal",
+    price: 1,
+    quantity: 1
+    }]
+  }, function() {
+      console.log('finished populating orders');
+    }
+  );
+});
 
 User.find({}).remove(function() {
   User.create({
@@ -200,7 +214,7 @@ User.find({}).remove(function() {
     name: 'Test User',
     email: 'test@test.com',
     password: 'test',
-    orders: ["54b6fa3b4b9437f70fa579b6"]
+    orders: ["54bc04d4af33050e1bdaca16"]
   }, {
     provider: 'local',
     role: 'admin',
