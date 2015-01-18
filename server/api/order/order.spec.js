@@ -37,8 +37,8 @@ describe('Order Model', function() {
 
   describe('at the start', function() {
 
-    it('should begin with a status of open', function(done) {
-      order.status.should.equal('open');
+    it('should begin with a status of created', function(done) {
+      order.status.should.equal('created');
       done();
     });
 
@@ -68,18 +68,18 @@ describe('Order Model', function() {
   });
 
   describe('methods', function() {
-    it('should change the order to close status when userId is present', function(done) {
-      order.closeOrderCheck();
+    it('should change the order to completed status when userId is present', function(done) {
+      order.completeOrderCheck();
       order.save(function(err, result) {
-        result.status.should.equal('closed');
+        result.status.should.equal('completed');
         done();
       });
     });
-    it('should change the order to closed_guest status when userId is not present', function(done) {
+    it('should change the order to completed_guest status when userId is not present', function(done) {
       var order2 = new Order({lineItems: [{product:'time',price:10000,quantity:2}] });
-      order2.closeOrderCheck();
+      order2.completeOrderCheck();
       order2.save(function(err, result) {
-        result.status.should.equal('closed_guest');
+        result.status.should.equal('completed_guest');
         done();
       });
     });

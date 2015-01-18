@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
     Product = require('../product/product.model');
 var stripe = require('stripe')('sk_test_cpRVxDOZySsVJVoEW8xgYKpZ');
 
-var states = 'open closed closed_guest'.split(' ');
+var states = 'created processing processing_guest cancelled cancelled_guest completed completed_guest'.split(' ');
 
 var lineItemsSchema = new Schema({
   productId: String,
@@ -18,7 +18,7 @@ var lineItemsSchema = new Schema({
 var OrderSchema = new Schema({
   userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   lineItems: {type:[lineItemsSchema], required:true },
-  status: {type: String, default:'open', enum: states},
+  status: {type: String, default:'created', enum: states},
   date: Date,
   shipping: Object,
   billing: Object
@@ -37,11 +37,11 @@ OrderSchema.virtual('total').get(function() {
 });
 
 //method for closed state
-OrderSchema.methods.closeOrderCheck = function() {
+OrderSchema.methods.completeOrderCheck = function() {
   if(this.userId) {
-    this.status = 'closed';
+    this.status = 'completed';
   } else {
-    this.status = 'closed_guest';
+    this.status = 'completed_guest';
   }
 };
 
