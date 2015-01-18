@@ -67,7 +67,6 @@ OrderSchema.statics.createStripeCharge = function(info) {
             return res.send(500, err)
           }
           deferral.resolve(charge);
-          console.log(deferral.promise);
     });
     return deferral.promise;
 };
