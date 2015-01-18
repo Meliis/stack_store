@@ -63,6 +63,7 @@ OrderSchema.statics.createStripeCharge = function(info) {
           if(err && err.type === 'StripeCardError') {
             return res.send(500, err)
           }
+          return charge;
     });
 };
 
