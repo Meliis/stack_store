@@ -5,7 +5,8 @@ angular.module('stackStoreApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ngAnimate'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
@@ -54,16 +55,15 @@ angular.module('stackStoreApp', [
     });
   })
 
-  .run(function (User, CartFactory, Auth) {
+  .run(function (User, Cart, Auth) {
 
     var currentDate = new Date();
 
     if (Auth.isLoggedIn() || (currentDate.getTime() - localStorage.cartDate)/3600000 < 24) {
         // If user is logged in or guest cart is less than 24 hours old
-      CartFactory.populateCart(localStorage.cartId);
-      CartFactory.getCart();
+      // Cart.getCart();
     } else {
-      CartFactory.startNewCart();
+      Cart.startNewCart();
     }
       
   });

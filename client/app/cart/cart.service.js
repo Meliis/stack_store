@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .factory('CartFactory', function ($resource, Auth) {
+  .factory('Cart', function ($resource, Auth) {
 	// AngularJS will instantiate a singleton by calling "new" on this function
 
 
@@ -19,29 +19,32 @@ angular.module('stackStoreApp')
 
 	Cart.notifyListeners = function() {
 		Cart.listeners.forEach(function(listener) {
-			console.log("I'm listening..", listener);
 			listener();
 		})
 	}
 
 	Cart.addListener = function(listener) {
 		Cart.listeners.push(listener);
+		listener();
 	}
 
 	Cart.populateCart = function(cartId) {
 		Cart.populate({id: cartId}, function(cart) {
-			Cart.populatedCart = cart.lineItems;
+			Cart.populatedCart = cart;
 			Cart.notifyListeners();
 		})
 	}
 
-	Cart.getCart = function() {
+	Cart.getCart = function(func) {
 		if (Auth.isLoggedIn()) {
 			// retrieve user's cart
 		} else {
 			Cart.get({id: localStorage.cartId}, function(cart) {
 				Cart.currentCart = cart;
 				Cart.populateCart(cart._id);
+				if (func) {
+					func();
+				}
 	   	});
 		}
 	};
@@ -73,58 +76,23 @@ angular.module('stackStoreApp')
 		});
 
 		if (productExists === false) {
-			this.lineItems.push({item: productId, quantity: quantity});
-			this.$update();
+			cart.lineItems.push({item: productId, quantity: quantity});
+			cart.$update();
 		}
-
-// Add to cart works, but going to cart before refreshing page does NOT.
 
 		Cart.notifyListeners();
 
 	};
 
-	
+// Cart.prototype.calculateTotal needs work (could run into async issues)
+	Cart.prototype.calculateTotal = function() {
+		var cart = this;
+		var total = 0;
 
-	// var productExists = false;
-
-	// angular.forEach($scope.cart.lineItems, function(lineItem) {
-	//   if (lineItem.item === productId) {
-	//     lineItem.quantity += quantity;
-	//     $scope.cart.$update();
-	//     productExists = true;
-	//   }
-	// });
-
-	// if (productExists === false) {
-	//   $scope.cart.lineItems.push({item: productId, quantity: quantity});
-	//   $scope.cart.$update();
-	// }
-
-	// $scope.quantity = 1;
-	// CartFactory.getCart();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		cart.lineItems.forEach(function(lineItem) {
+			total += lineItem.item.price * lineItem.quantity;
+		})
+	};
 
 
 

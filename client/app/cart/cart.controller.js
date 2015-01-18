@@ -1,24 +1,35 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('CartCtrl', function ($scope, CartFactory, Auth) {
+  .controller('CartCtrl', function ($scope, Cart, Auth) {
 
-    console.log("WHEN I GET TO CART:");
-    console.log("CartFactory.currentCart:", CartFactory.currentCart);
+    var cartCtrlScope = $scope;
 
     $scope.message = 'Hello';
     $scope.cartTotal;
-    $scope.cart = CartFactory.currentCart;
-    $scope.populatedCart = CartFactory.populatedCart;
+    $scope.cart;
+    $scope.populatedCart;
 
-    $scope.calculateTotal = function(){
+// Might delete this function (trying to work from cart factory)
+    var calculateTotal = function(){
     	var total = 0;
     	
-    	$scope.cart.forEach(function(el){
+      console.log(cartCtrlScope.populatedCart);
+      cartCtrlScope.populatedCart.lineItems.forEach(function(lineItem){
     		total += el.price;
     	})
 
     	$scope.cartTotal = total;
-    }
+    };
 
-  	});
+    Cart.getCart(function() {
+      $scope.cart = Cart.currentCart;
+      $scope.populatedCart = Cart.populatedCart;
+      Cart.addListener(function() {
+        $scope.cart = Cart.currentCart;
+        $scope.populatedCart = Cart.populatedCart;
+      });
+    });
+
+
+	});
