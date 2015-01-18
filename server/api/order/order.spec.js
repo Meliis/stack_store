@@ -83,6 +83,21 @@ describe('Order Model', function() {
         done();
       });
     });
+    it('should change the order to processing status when userId is present', function(done) {
+      order.processOrderCheck();
+      order.save(function(err, result) {
+        result.status.should.equal('processing');
+        done();
+      });
+    });
+    it('should change the order to processing_guest status when userId is not present', function(done) {
+      var order2 = new Order({lineItems: [{product:'time',price:10000,quantity:2}] });
+      order2.processOrderCheck();
+      order2.save(function(err, result) {
+        result.status.should.equal('processing_guest');
+        done();
+      });
+    });
   });
 
   describe('virtuals', function() {

@@ -45,6 +45,14 @@ OrderSchema.methods.completeOrderCheck = function() {
   }
 };
 
+OrderSchema.methods.processOrderCheck = function() {
+  if(this.userId) {
+    this.status = 'processing';
+  } else {
+    this.status = 'processing_guest';
+  }
+};
+
 OrderSchema.statics.createStripeCharge = function(info) {
   var charge = stripe.charges.create({
       amount: info.total,
