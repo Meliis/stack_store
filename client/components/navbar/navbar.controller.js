@@ -6,12 +6,13 @@ angular.module('stackStoreApp')
       'title': 'Home',
       'link': '/'
     }];
-    $scope.cart;
-    $scope.cartSize = 0;
+    $scope.cart = CartFactory.currentCart;
+    $scope.cartSize = CartFactory.currentCart.lineItems.length;
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
+
 
     $scope.logout = function() {
       Auth.logout();
@@ -22,18 +23,18 @@ angular.module('stackStoreApp')
       return route === $location.path();
     };
 
-    var setCartSize = function() {
-      if (Auth.isLoggedIn()) {
-        // retrieve user's cart
-      } else {
-        CartFactory.get({id: localStorage.cartId}, function(cart) { 
-          $scope.cart = cart;
-          $scope.cartSize = cart.lineItems.length;
-        });
-      }
-    };
+    // var setCartSize = function() {
+    //   if (Auth.isLoggedIn()) {
+    //     // retrieve user's cart
+    //   } else {
+    //     CartFactory.get({id: localStorage.cartId}, function(cart) { 
+    //       $scope.cart = cart;
+    //       $scope.cartSize = cart.lineItems.length;
+    //     });
+    //   }
+    // };
 
-    setCartSize();
+    // setCartSize();
 
     // $scope.$watch('cart', function() {
     //   setCartSize();

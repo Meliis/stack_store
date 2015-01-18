@@ -7,7 +7,6 @@ var Cart = require('./cart.model');
 exports.index = function(req, res) {
   Cart.find(function (err, carts) {
     if(err) { return handleError(res, err); }
-    console.log("cart from backend", carts);
     return res.json(200, carts);
   });
 };
@@ -26,7 +25,6 @@ exports.populate = function(req, res) {
   Cart.findById(req.params.id)
     .populate('lineItems.item')
     .exec(function(err, cart) {
-      console.log("controller", cart);
       if(err) { return handleError(res, err); }
       return res.json(cart);
     });
@@ -66,9 +64,7 @@ exports.update = function(req, res) {
   Cart.findById(req.params.id, function (err, cart) {
     if (err) { return handleError(res, err); }
     if(!cart) { return res.send(404); }
-    console.log("this is req.body:", req.body);
     var updated = _.extend(cart, req.body);
-    console.log("this is updated cart:", updated);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
       return res.json(200, cart);

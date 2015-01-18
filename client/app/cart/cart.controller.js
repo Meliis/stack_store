@@ -2,42 +2,14 @@
 
 angular.module('stackStoreApp')
   .controller('CartCtrl', function ($scope, CartFactory, Auth) {
+
+    console.log("WHEN I GET TO CART:");
+    console.log("CartFactory.currentCart:", CartFactory.currentCart);
+
     $scope.message = 'Hello';
     $scope.cartTotal;
-
-    $scope.cart;
-    $scope.popCart;
-
-
-    var populateCart = function() {
-     if (Auth.isLoggedIn()) {
-       // retrieve user's cart
-     } else {
-       CartFactory.populate({id: localStorage.cartId}, function(cart) {
-         $scope.popCart = cart.lineItems;
-         console.log($scope.popCart);
-       });
-     }
-    };
-
-    populateCart();
-
-
-
-
-    var getCart = function() {
-     if (Auth.isLoggedIn()) {
-       // retrieve user's cart
-     } else {
-       CartFactory.get({id: localStorage.cartId}, function(cart) {
-         $scope.cart = cart.lineItems;
-         // console.log($scope.cart);
-         $scope.calculateTotal();
-       });
-     }
-    };
-
-    getCart();
+    $scope.cart = CartFactory.currentCart;
+    $scope.populatedCart = CartFactory.populatedCart;
 
     $scope.calculateTotal = function(){
     	var total = 0;
