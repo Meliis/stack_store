@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
     User = require('../user/user.model'),
     Product = require('../product/product.model');
 var stripe = require('stripe')('sk_test_cpRVxDOZySsVJVoEW8xgYKpZ');
+var Q = require('q');
 
 var states = 'created processing processing_guest cancelled cancelled_guest completed completed_guest'.split(' ');
 
@@ -54,6 +55,7 @@ OrderSchema.methods.processOrderCheck = function() {
 };
 
 OrderSchema.statics.createStripeCharge = function(info) {
+  var defferal = Q.defer();
   var charge = stripe.charges.create({
       amount: info.total,
       currency: 'usd',
@@ -63,8 +65,10 @@ OrderSchema.statics.createStripeCharge = function(info) {
           if(err && err.type === 'StripeCardError') {
             return res.send(500, err)
           }
-          return charge;
+          defferal.resolve(charge);
+          console.log(defferal.promise);
     });
+    return defferal.promise;
 };
 
 // //method for closed_guest state
