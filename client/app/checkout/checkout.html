@@ -3,12 +3,12 @@
 <div class="container">
 	<div class="row">
 		<h2>Checkout</h2>
-
+		<!-- {{order.lineItems}} -->
 		<ul>
-			<li ng-repeat="lineItem in order.products">
-				{{lineItem.product.name}}
-				{{lineItem.product.price}}
-				{{lineItem.product.description.blurb}}
+			<li ng-repeat="lineItem in order.lineItems">
+				{{lineItem.item.name}}
+				{{lineItem.item.price}}
+				{{lineItem.item.description.blurb}}
 				{{lineItem.quantity}}
 			</li>
 		</ul>
