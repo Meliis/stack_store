@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductViewCtrl', function ($scope, Product, Auth, Order, Review, User, $routeParams) {
+  .controller('ProductViewCtrl', function ($scope, Product, Auth, Order, Review, User, $routeParams, Cart) {
     $scope.cart;
   	$scope.user = Auth.getCurrentUser();
   	$scope.quantity = 1;
@@ -13,13 +13,13 @@ angular.module('stackStoreApp')
     Product.get({id: $routeParams.id}, function(product) {
         $scope.product = product;
     // this doesn't do anything yet bc orders, man
-        $scope.user.orders.forEach(function(order) {
-            order.lineItems.forEach(function(lineItem) {
-                if(lineItem.productId == $routeParams.id) {
-                    $scope.bought = true;
-                }
-            });
-        });
+    //     $scope.user.orders.forEach(function(order) {
+    //         order.lineItems.forEach(function(lineItem) {
+    //             if(lineItem.productId == $routeParams.id) {
+    //                 $scope.bought = true;
+    //             }
+    //         });
+    //     });
     });
 
     // ugh this is terrible why am i even
