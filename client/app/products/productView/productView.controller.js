@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductViewCtrl', function ($scope, Product, Auth, Order, Review, $routeParams) {
+  .controller('ProductViewCtrl', function ($scope, Product, Auth, Order, Review, User, $routeParams) {
 
   	$scope.user = Auth.getCurrentUser();
     $scope.isAdmin = Auth.isAdmin;
@@ -43,10 +43,8 @@ angular.module('stackStoreApp')
 
     $scope.postReview = function() {
         Review.save($scope.newReview, function(savedReview) {
-            $scope.product.reviews.push(savedReview._id);
-            Product.update($scope.product, function(prod) {
-                console.log(prod);
-            });
+            $scope.user.reviews.push(savedReview._id);
+            User.update($scope.user);
         });
     }
 
