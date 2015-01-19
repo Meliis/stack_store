@@ -3,10 +3,9 @@
 <div class="container">
 	<div class="row">
 		<h2>Checkout</h2>
-		<!-- {{order.lineItems}} -->
 		<div class="col-lg-6">
 			<div class="row">
-
+				{{order}}
 				<div class="col-sm-2">
 					<h4> Image </h4>
 				</div>
@@ -21,7 +20,6 @@
 				</div>
 			</div>
 			<div class='row top-padding bottom-padding' ng-repeat="lineItem in order.lineItems">
-
 				<div class="col-sm-2">
 					<a href="./products/{{lineItem.item._id}}"><img class="img-responsive" src="http://lorempixel.com/500/500"></a>
 				</div>
