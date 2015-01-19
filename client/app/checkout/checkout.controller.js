@@ -37,7 +37,7 @@ function stripeResponseHandler(status, response) {
     $scope.order.total = sumTotal();
 
     Order.save($scope.order, function(order) {
-      // console.log(order);
+      console.log(order);
     });
   }
 }
