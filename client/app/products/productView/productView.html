@@ -40,6 +40,9 @@
 					<span ng-repeat='stars in maxStars | limitTo:review.stars' class="pull-right">
 						<span class="glyphicon glyphicon-star star-color"></span>
 					</span>
+					<span ng-repeat='stars in maxStars | limitTo:5-review.stars'>
+						<span class="glyphicon glyphicon-star"></span>
+					</span>
 					<h4>{{review.title}}</h4>
 					<p>{{review.body}}</p>
 				</div>
