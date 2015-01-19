@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Category = require('./category.model');
+var Product = require('../product/product.model');
 
 // Get list of categories
 exports.index = function(req, res) {
@@ -12,13 +13,29 @@ exports.index = function(req, res) {
   });
 };
 
-// Get a single category
+// Get products from single category
 exports.show = function(req, res) {
-  Category.findById(req.params.id, function (err, category) {
-    if(err) { return handleError(res, err); }
-    if(!category) { return res.send(404); }
-    return res.json(category);
-  });
+    
+    var productsInCat = [];
+
+    Category.findOne({name: req.params.name}, function(err, categoryObj){
+    console.log('finding this:', categoryObj.id);
+
+      Product.find({}, function(err, allProducts){
+
+          allProducts.forEach(function(singleProduct){
+            // console.log(singleProduct);
+            singleProduct.categories.forEach(function(catEl){
+              // console.log(JSON.stringify(catEl));
+              if (JSON.stringify(catEl) == JSON.stringify(categoryObj._id)){
+                productsInCat.push(singleProduct);
+              }
+            });
+          });
+          console.log(productsInCat);
+          return res.json(201,productsInCat);
+      });
+    });
 };
 
 // Creates a new category in the DB.

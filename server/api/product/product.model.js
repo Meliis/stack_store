@@ -9,7 +9,7 @@ var ProductSchema = new Schema({
   name: {type: String, required: true},
   price: {type: Number, required: true},
   description: {blurb: {type: String, required: true}, full: {type: String, required: true}},
-  categories: [{ type: Schema.Types.ObjectId, ref: 'Category'}],
+  categories: [{ type: Schema.Types.ObjectId, ref: 'Category', index: true}],
   images: {type: Array, default: ['http://lorempixel.com/400/400']}, 
   reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
   quantity: Number // quantity available--needs to increment when order placed
