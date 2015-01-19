@@ -28,10 +28,11 @@ angular.module('stackStoreApp')
 		listener();
 	}
 
-	Cart.populateCart = function(cartId) {
+	Cart.populateCart = function(cartId, done) {
 		Cart.populate({id: cartId}, function(cart) {
 			Cart.populatedCart = cart;
 			Cart.notifyListeners();
+			done();
 		})
 	}
 
@@ -41,10 +42,11 @@ angular.module('stackStoreApp')
 		} else {
 			Cart.get({id: localStorage.cartId}, function(cart) {
 				Cart.currentCart = cart;
-				Cart.populateCart(cart._id);
-				if (func) {
-					func();
-				}
+				Cart.populateCart(cart._id, function() {
+					if (func) {
+						func();
+					}	
+				});
 	   	});
 		}
 	};

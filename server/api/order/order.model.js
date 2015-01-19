@@ -54,7 +54,11 @@ OrderSchema.methods.processOrderCheck = function() {
   }
 };
 
-OrderSchema.statics.createStripeCharge = function(info) {
+OrderSchema.methods.createDate = function() {
+  this.date = new Date();
+}
+
+OrderSchema.statics.createStripeCharge = function(info, res) {
   var deferral = Q.defer();
   var charge = stripe.charges.create({
       amount: info.total,
