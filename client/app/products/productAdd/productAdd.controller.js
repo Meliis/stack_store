@@ -49,24 +49,6 @@ angular.module('stackStoreApp')
         $("#exampleDropPane").text("Uploading ("+percentage+"%)");
       }
     });
-
-
-    $scope.pickFile = function(){
-        filepicker.pick(
-        {
-            mimetypes: ['image/*', 'text/plain'],
-            container: 'window',
-            services:['COMPUTER', 'FACEBOOK', 'GMAIL'],
-        },
-        function(Blob){
-            $scope.newProduct.images.push(Blob.url);
-            $scope.$apply();
-            // console.log(Blob.url);
-        },
-        function(FPError){
-            console.log(FPError.toString());
-        });
-    }
     //EndFilePickerStuff*******************************************************
 
 
