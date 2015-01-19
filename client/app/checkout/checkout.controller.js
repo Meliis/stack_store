@@ -16,10 +16,12 @@ angular.module('stackStoreApp')
             $scope.cart = Cart.currentCart;
             $scope.populatedCart = Cart.populatedCart;
             $scope.order = {lineItems: $scope.populatedCart.lineItems};
+            $scope.order.total = sumTotal();
             Cart.addListener(function() {
               $scope.cart = Cart.currentCart;
               $scope.populatedCart = Cart.populatedCart;
               $scope.order = {lineItems: $scope.populatedCart.lineItems};
+              $scope.order.total = sumTotal();
             });
     });
     }
@@ -44,7 +46,6 @@ function stripeResponseHandler(status, response) {
     $scope.order.billing.stripeToken = response['id'];
     $scope.order.billing.cardType = response['card']['brand'];
     $scope.order.billing.last4 = response['card']['last4'];
-    $scope.order.total = sumTotal();
     angular.forEach($scope.order.lineItems, function(lineItem) {
       lineItem.productId = lineItem.item._id;
       lineItem.productName = lineItem.item.name;
@@ -64,6 +65,4 @@ function sumTotal() {
   });
   return total;
 }
-  
-
   });
