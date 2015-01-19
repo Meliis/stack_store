@@ -5,7 +5,8 @@ angular.module('stackStoreApp')
 
   	$scope.user = Auth.getCurrentUser();
     $scope.isAdmin = Auth.isAdmin;
-    $scope.bought = false;
+    $scope.reviews = [];
+    $scope.bought = false; // not implemented yet bc orders, man
     $scope.reviewSubmitted = false;
   	
     Product.get({id: $routeParams.id}, function(product) {
@@ -17,6 +18,16 @@ angular.module('stackStoreApp')
                     $scope.bought = true;
                 }
             });
+        });
+    });
+
+    // ugh this is terrible why am i even
+    var reviews = [];
+    Review.query().$promise.then(function(reviews) {
+        reviews.forEach(function(review) {
+            if(review.productId === $routeParams.id) {
+                $scope.reviews.push(review);
+            }
         });
     });
 
@@ -42,10 +53,12 @@ angular.module('stackStoreApp')
     }
 
     $scope.postReview = function() {
+        $scope.reviews.push($scope.newReview);
         Review.save($scope.newReview, function(savedReview) {
             $scope.user.reviews.push(savedReview._id);
             User.update($scope.user);
         });
+        $scope.reviewSubmitted = true;
     }
 
     $scope.addToCart = function(quantity) {
@@ -63,7 +76,4 @@ angular.module('stackStoreApp')
 
     	$scope.quantity = 1;
     };
-
-    //initiate temporary banner for the cart
-
   });
