@@ -14,7 +14,6 @@ angular.module('stackStoreApp')
     var calculateTotal = function(){
     	var total = 0;
     	
-      console.log(cartCtrlScope.populatedCart);
       cartCtrlScope.populatedCart.lineItems.forEach(function(lineItem){
     		total += el.price;
     	})

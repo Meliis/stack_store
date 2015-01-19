@@ -24,6 +24,7 @@ angular.module('stackStoreApp')
     $scope.logout = function() {
       Auth.logout();
       $location.path('/login');
+      Cart.startNewCart();
     };
 
     $scope.isActive = function(route) {
