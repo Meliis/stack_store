@@ -38,20 +38,14 @@ angular.module('stackStoreApp')
 
     $scope.addCategory = function() {
         $scope.categories.push({name: $scope.newCat.name});
-        var cat = new Category({name: $scope.newCat.name});
-        cat.$save();
+        Category.save({name: $scope.newCat.name});
         $scope.newCat.name = "";
     }
 
     $scope.addProduct = function(){
         var num = $scope.newProduct.price
-        $scope.newProduct.price = Math.round(num * 100)/100
-        // this isn't happening because the items in the "categories" array
-        // aren't ids, so they can't be saved.
-    	Product.save($scope.newProduct, function() {
-            console.log("??");
-        }); //idk
-
+        $scope.newProduct.price = Math.round(num * 100)/100;
+    	Product.save($scope.newProduct);
     	$scope.addedSuccess = true;
 
     	$scope.addProductForm.$setPristine();
@@ -66,7 +60,6 @@ angular.module('stackStoreApp')
 
     $scope.toggleCat = function(cat) {
     	var indexCat = $scope.newProduct.categories.indexOf(cat);
-
     	if(indexCat > -1){
     		$scope.newProduct.categories.splice(indexCat,1);
     	}

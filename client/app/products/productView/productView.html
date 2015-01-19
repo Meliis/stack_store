@@ -32,11 +32,28 @@
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-12">
 			<h3>Reviews</h3>
-				<div ng-repeat="review in product.reviews">
-					<span ng-repeat='stars in maxStars | limitTo:review.stars' class="pull-right">
+				<button class="btn btn-default" ng-show="user._id && !reviewSubmitted" ng-click="showForm=!showForm">Review this product</button>
+				<span class="bg-success" ng-show="reviewSubmitted">Your review has been successfully submitted.</span>
+				<form class="review-form" ng-submit="postReview()" ng-show="showForm">
+					<label>Stars (required)</label>
+						<span ng-repeat='star in starClasses track by $index'>
+							<span class="glyphicon glyphicon-star" ng-class="star" ng-click="setStars($index+1)"></span>
+						</span>
+					<label>Title</label>
+					<input type="text" class="form-control" ng-model="newReview.title" />
+					<label>Review (at least 20 characters)</label>
+					<textarea class="form-control" ng-model="newReview.body"></textarea>
+					<input type="submit" ng-disabled="newReview.stars<1 || newReview.body.length<20" ng-click="showForm=false" class="btn btn-default" />
+				</form>
+				<div ng-repeat="review in reviews | orderBy:'date':true">
+					<span ng-repeat='stars in maxStars | limitTo:review.stars'>
 						<span class="glyphicon glyphicon-star star-color"></span>
 					</span>
+					<span ng-repeat='stars in maxStars | limitTo:5-review.stars'>
+						<span class="glyphicon glyphicon-star"></span>
+					</span>
 					<h4>{{review.title}}</h4>
+					<strong>{{review.userId}}</strong>{{review.date}}
 					<p>{{review.body}}</p>
 				</div>
 		</div>

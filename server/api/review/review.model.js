@@ -10,7 +10,7 @@ var ReviewSchema = new Schema({
   productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
   stars: { type: Number, min: 1, max: 5, required: true },
   date: Date,
-  title: { type: String, required: true },
+  title: String,
   body: { type: String, required: true }
 });
 
