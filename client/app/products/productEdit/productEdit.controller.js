@@ -12,9 +12,8 @@ angular.module('stackStoreApp')
     });
 
     $scope.addCategory = function() {
-        $scope.categories.push({name: $scope.newCat});
-        var cat = new Category({name: $scope.newCat.name});
-        cat.$save();
+        $scope.categories.push({name: $scope.newCat.name});
+        Category.save({name: $scope.newCat.name});
         $scope.newCat.name = "";
     }
     

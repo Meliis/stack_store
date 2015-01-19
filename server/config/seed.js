@@ -193,14 +193,13 @@ Review.find({}).remove(function() {
   );
 });
 
-
 User.find({}).remove(function() {
   User.create({
     provider: 'local',
     name: 'Test User',
     email: 'test@test.com',
     password: 'test',
-    orders: ["54b6fa3b4b9437f70fa579b6"]
+    orders: ["54bc04d4af33050e1bdaca16"]
   }, {
     provider: 'local',
     role: 'admin',

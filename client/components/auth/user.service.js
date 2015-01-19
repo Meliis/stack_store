@@ -24,6 +24,12 @@ angular.module('stackStoreApp')
           id:'me'
         }
       },
+      adminUpdate: {
+        method: 'PUT',
+        params: {
+          controller: 'adminUpdate'
+        }
+      },
       update: {
         method: 'PUT'
       }

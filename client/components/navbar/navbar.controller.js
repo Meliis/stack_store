@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth, Cart) {
+  .controller('NavbarCtrl', function ($scope, $location, Auth, Order, Cart, Category) {
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
@@ -12,6 +12,7 @@ angular.module('stackStoreApp')
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
 
+    $scope.categories = Category.query()
 
     Cart.getCart(function() {
       $scope.cartSize = Cart.currentCart.lineItems.length;

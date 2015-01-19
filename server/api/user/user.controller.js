@@ -60,11 +60,25 @@ exports.destroy = function(req, res) {
 };
 
 // change a user's permissions
-exports.update = function(req, res, next) {
+exports.adminUpdate = function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if(err) return next(err);
     var updated = _.merge(user, req.body);
     updated.save(function (err, user) {
+      if (err) return next(err);
+      return res.json(200, user);
+    });
+  });
+}
+
+// change a user's password, if you are an admin
+exports.adminChangePassword = function(req, res, next) {
+  User.findOne({
+    _id: req.params.id
+  }, '-salt -hashedPassword', function(err, user) {
+    console.log(user);
+    user.password = req.body.newPassword;
+    user.save(function(err) {
       if (err) return next(err);
       return res.json(200, user);
     });
@@ -92,16 +106,18 @@ exports.changePassword = function(req, res, next) {
   });
 };
 
-// change a user's password, if you are an admin
-exports.adminChangePassword = function(req, res, next) {
-  User.findById(req.params.id, function(err, user) {
-    console.log(user);
-    user.password = req.body.newPassword;
-    user.save(function(err) {
+// Change other user info, i don't KNOW okay
+exports.update = function(req, res, next) {
+  var userId = req.user._id;
+  User.findById(userId, function(err, user) {
+    if(err) return next(err);
+    var updated = _.extend(user, req.body);
+    console.log(updated);
+    updated.save(function(err) {
       if (err) return next(err);
-      return res.json(200, user);
-    })
-  })
+      res.send(200);
+    });
+  });
 }
 
 /**
@@ -114,6 +130,10 @@ exports.me = function(req, res, next) {
   }, '-salt -hashedPassword', function(err, user) { // don't ever give out the password or salt
     if (err) return next(err);
     if (!user) return res.json(401);
+  })
+  .populate('reviews orders')
+  .exec(function(err, user){
+    if (err) return next(err);
     res.json(user);
   });
 };

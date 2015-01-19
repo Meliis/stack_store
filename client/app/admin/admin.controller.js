@@ -13,12 +13,12 @@ angular.module('stackStoreApp')
 
     $scope.givePermissions = function(user) {
       user.role = 'admin';
-      User.update(user);
+      User.adminUpdate(user);
     };
 
     $scope.removePermissions = function(user) {
       user.role = 'user';
-      User.update(user);
+      User.adminUpdate(user);
     };
 
     $scope.changePassword = function(user) {
