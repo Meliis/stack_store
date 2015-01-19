@@ -16,18 +16,17 @@ CategorySchema.statics.findProducts = function(categoryName, productSchema, cb){
       productSchema.find({}, function(err, allProducts){
 
           allProducts.forEach(function(singleProduct){
-            // console.log(singleProduct);
+       
             singleProduct.categories.forEach(function(catEl){
-              // console.log(JSON.stringify(catEl));
+           
               if (JSON.stringify(catEl) == JSON.stringify(categoryObj._id)){
                 productsInCat.push(singleProduct);
               }
+
             });
           });
-          
           cb(productsInCat);
       });
-
     });
 }
 
