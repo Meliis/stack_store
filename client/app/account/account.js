@@ -20,7 +20,7 @@ angular.module('stackStoreApp')
         templateUrl: 'app/account/profile/profile.html',
         controller: 'ProfileCtrl',
         authenticate: true
-      });
+      })
       .when('/profile/orders', {
         templateUrl: 'app/account/profile/orders/orders.html',
         controller: 'OrdersCtrl',

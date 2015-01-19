@@ -1,32 +1,25 @@
 <div class="container">
-	<div class="row">
+	<!-- {{user.orders}} -->
+	<h2>Past Orders</h2>
+	<div class="row" ng-repeat="order in user.orders">
+		<h3>Status: {{order.status}}</h3> <button class="btn btn-warning" ng-click="cancelOrder()">Cancel Order</button>
+		<h4>Date Ordered: {{order.date | date}}</h4>
+		<div class='row top-padding bottom-padding' ng-repeat='lineItem in order.lineItems'>
+				<div class="col-sm-2">
+					<a href="./products/{{lineItem.item._id}}"><img class="img-responsive" src="http://lorempixel.com/100/100"></a>
+				</div>
+				
+				<div class="col-sm-3">
+					<a href="./products/{{lineItem.productId}}"><h5>{{lineItem.productName}}</h5></a>
+				</div>
 
-		<div class="col-lg-6">
-			<h2>Your Account</h2>
-			<h3>Name: {{user.name}}</h3>
-			<h3 class="profile-h3">Email: {{user.email}}</h3><button class="btn btn-default">Change email address</button><br>
-			<h3 class="profile-h3">Password: **********</h3><button class="btn btn-default"><a href="/settings">Change password</a></button>
-		</div>
-	</div>
+				<div class="col-sm-3">	
+					<p>{{lineItem.price | currency}}</p>
+				</div>
 
-	<div class="row">
-		<div class="col-lg-6">
-			<h3>Your Most Recent Order</h3>
-			<div ng-repeat="products in user.orders[0].products">
-				{{product.image[0]}}
-				{{product.name}}
-				{{product.price}}
+				<div class="col-sm-2">	
+					<p>{{lineItem.quantity}}</p>
+				</div>
+
 			</div>
-			<a class="btn btn-default" href="profile/orders">View your complete order history</a>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-lg-6">
-			<h3>Your Most Recent Review</h3>
-			{{user.reviews[0].title}}
-			{{user.reviews[0].body}}
-			<a class="btn btn-default" href="profile/reviews">View all your reviews</a>
-		</div>
-	</div>
 </div>
