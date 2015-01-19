@@ -27,6 +27,7 @@ exports.create = function(req, res) {
     if(err) { return handleError(res, err); }
     newCharge.then(function(charge) {
       order.processOrderCheck();
+      order.createDate();
       order.billing.chargeId = charge.id;
       order.save(function(err) {
         if (err) {return handleError(res, err); }
