@@ -45,7 +45,11 @@ function stripeResponseHandler(status, response) {
     $scope.order.billing.cardType = response['card']['brand'];
     $scope.order.billing.last4 = response['card']['last4'];
     $scope.order.total = sumTotal();
-    console.log($scope.order.total);
+    angular.forEach($scope.order.lineItems, function(lineItem) {
+      lineItem.productId = lineItem.item._id;
+      lineItem.productName = lineItem.item.name;
+      lineItem.price = lineItem.item.price;
+    });
     Order.save($scope.order, function(order) {
       console.log(order);
     });
