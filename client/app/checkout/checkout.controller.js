@@ -28,7 +28,6 @@ angular.module('stackStoreApp')
 
   	$scope.checkout = function() {
   		if((/^\d{5}(?:[-\s]\d{4})?$/).test($scope.order.shipping.zip)) {
-  			console.log('working');
         Stripe.card.createToken($scope.ccinfo, stripeResponseHandler);
   			return true;
   		} else {
