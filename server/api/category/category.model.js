@@ -8,9 +8,9 @@ var CategorySchema = new Schema({
   name: String
 });
 
-var productsInCat = [];
-
 CategorySchema.statics.findProducts = function(categoryName, productSchema, cb){
+	var productsInCat = [];
+	
     this.findOne({name: categoryName}, function(err, categoryObj){
 
       productSchema.find({}, function(err, allProducts){
