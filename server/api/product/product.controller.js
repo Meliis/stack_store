@@ -37,7 +37,7 @@ exports.showMultiple = function(req, res) {
 // Creates a new product in the DB.
 exports.create = function(req, res) {
   Product.create(req.body, function(err, product) {
-    console.log(err);
+    // console.log(err);
     if(err) { return handleError(res, err); }
     return res.json(201, product);
   });
