@@ -24,19 +24,18 @@
 	<div class="row">
 		<div class="col-lg-6">
 			<h3>Reviews</h3>
-				<form class="review-form" ng-submit="">
-					<h4>Write a review</h4>
-					<label>Stars</label>
+				<button class="btn btn-default" ng-show="user._id" ng-click="showForm=!showForm">Review this product</button>
+				<form class="review-form" ng-submit="postReview()" ng-show="showForm">
+					<label>Stars (required)</label>
 						<span ng-repeat='star in starClasses track by $index'>
 							<span class="glyphicon glyphicon-star" ng-class="star" ng-click="setStars($index+1)"></span>
 						</span>
 					<label>Title</label>
 					<input type="text" class="form-control" ng-model="newReview.title" />
-					<label>Review</label>
+					<label>Review (at least 20 characters)</label>
 					<textarea class="form-control" ng-model="newReview.body"></textarea>
-					<input type="submit" class="btn btn-default" />
+					<input type="submit" ng-disabled="newReview.stars<1 || newReview.body.length<20" ng-click="showForm=false" class="btn btn-default" />
 				</form>
-				{{newReview}}
 				<div ng-repeat="review in product.reviews">
 					<span ng-repeat='stars in maxStars | limitTo:review.stars' class="pull-right">
 						<span class="glyphicon glyphicon-star star-color"></span>

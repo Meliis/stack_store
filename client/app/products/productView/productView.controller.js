@@ -1,20 +1,20 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductViewCtrl', function ($scope, Product, $routeParams, Auth, Order) {
+  .controller('ProductViewCtrl', function ($scope, Product, Auth, Order, Review, $routeParams) {
 
   	$scope.user = Auth.getCurrentUser();
     $scope.isAdmin = Auth.isAdmin;
     $scope.bought = false;
+    $scope.reviewSubmitted = false;
   	
     Product.get({id: $routeParams.id}, function(product) {
-    	$scope.product = product;
+        $scope.product = product;
+    // this doesn't do anything yet bc orders, man
         $scope.user.orders.forEach(function(order) {
-            console.log(order);
             order.lineItems.forEach(function(lineItem) {
                 if(lineItem.productId == $routeParams.id) {
                     $scope.bought = true;
-                    console.log("HELLO");
                 }
             });
         });
@@ -36,14 +36,18 @@ angular.module('stackStoreApp')
     $scope.newReview = {
         userId: $scope.user._id,
         productId: $routeParams.id,
-        stars: 5,
+        stars: 0,
         date: new Date(),
-        title: "",
         body: ""
     }
 
     $scope.postReview = function() {
-
+        Review.save($scope.newReview, function(savedReview) {
+            $scope.product.reviews.push(savedReview._id);
+            Product.update($scope.product, function(prod) {
+                console.log(prod);
+            });
+        });
     }
 
     $scope.addToCart = function(quantity) {
