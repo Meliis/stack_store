@@ -12,6 +12,10 @@ angular.module('stackStoreApp')
 		populate: {
 			method: 'GET',
 			url: 'api/cart/:id/populate'
+		},
+		getByUserId: {
+			method: 'GET',
+			url: 'api/cart/user/:userId',
 		} 
 	});
 
@@ -21,32 +25,52 @@ angular.module('stackStoreApp')
 		Cart.listeners.forEach(function(listener) {
 			listener();
 		})
-	}
+	};
 
 	Cart.addListener = function(listener) {
 		Cart.listeners.push(listener);
 		listener();
-	}
+	};
 
 	Cart.populateCart = function(cartId, done) {
 		Cart.populate({id: cartId}, function(cart) {
 			Cart.populatedCart = cart;
 			Cart.notifyListeners();
-			done();
+			if (done) {
+				done();
+			}
 		})
-	}
+	};
+
+	Cart.mergeCarts = function(userId) {
+		if (localStorage.cartId) {
+			Cart.get({id: localStorage.cartId}, function(cart) {
+				Cart.getByUserId({userId: userId}, function(userCart) {
+					cart.lineItems.forEach(function(lineItem) {
+						userCart.addToCart(lineItem.item, lineItem.quantity); 
+					});
+					localStorage.clear();
+					cart.$remove();
+					Cart.getCart();
+				});
+			});
+		}
+	};
+
+
 
 	Cart.getCart = function(func) {
 		if (Auth.isLoggedIn()) {
+			var user = Auth.getCurrentUser().$promise.then(function(user) {
 			// retrieve user's cart
-		} else {
-			Cart.get({id: localStorage.cartId}, function(cart) {
-				Cart.currentCart = cart;
-				Cart.populateCart(cart._id, function() {
-					if (func) {
-						func();
-					}	
+				Cart.getByUserId({userId: user._id}, function(cart) {
+					Cart.currentCart = cart;
+					Cart.populateCart(cart._id, func);
 				});
+	   	})} else {			
+				Cart.get({id: localStorage.cartId}, function(cart) {
+					Cart.currentCart = cart;
+					Cart.populateCart(cart._id, func);
 	   	});
 		}
 	};
@@ -61,7 +85,13 @@ angular.module('stackStoreApp')
 		  localStorage.cartDate = date.getTime();
 			Cart.getCart();
 		});
+	};
 
+	Cart.startAuthCart = function(userId) {
+		var newCart = new Cart({userId: userId, lineItems: [], date: new Date()});
+		newCart.$save(function() {
+			Cart.getCart();
+		});
 	};
 
 	//instance method (`this` is an *instance* of the class)

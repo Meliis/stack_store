@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location, $window) {
+  .controller('LoginCtrl', function ($scope, Auth, $location, $window, Cart) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -15,7 +15,10 @@ angular.module('stackStoreApp')
         })
         .then( function() {
           // Logged in, redirect to home
-          $location.path('/');
+          Auth.getCurrentUser().$promise.then(function(user){
+            Cart.mergeCarts(user._id);
+            $location.path('/');
+          });
         })
         .catch( function(err) {
           $scope.errors.other = err.message;
