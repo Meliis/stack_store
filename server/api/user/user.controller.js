@@ -94,14 +94,16 @@ exports.changePassword = function(req, res, next) {
 
 // change a user's password, if you are an admin
 exports.adminChangePassword = function(req, res, next) {
-  User.findById(req.params.id, function(err, user) {
+  User.findOne({
+    _id: req.params.id
+  }, '-salt -hashedPassword', function(err, user) {
     console.log(user);
     user.password = req.body.newPassword;
     user.save(function(err) {
       if (err) return next(err);
       return res.json(200, user);
-    })
-  })
+    });
+  });
 }
 
 /**
@@ -114,6 +116,10 @@ exports.me = function(req, res, next) {
   }, '-salt -hashedPassword', function(err, user) { // don't ever give out the password or salt
     if (err) return next(err);
     if (!user) return res.json(401);
+  })
+  .populate('reviews orders')
+  .exec(function(err, user){
+    if (err) return next(err);
     res.json(user);
   });
 };
