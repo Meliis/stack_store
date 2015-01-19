@@ -5,8 +5,9 @@ var mongoose = require('mongoose'),
     User = require('../user/user.model'),
     Product = require('../product/product.model');
 var stripe = require('stripe')('sk_test_cpRVxDOZySsVJVoEW8xgYKpZ');
+var Q = require('q');
 
-var states = 'open closed closed_guest'.split(' ');
+var states = 'created processing processing_guest cancelled cancelled_guest completed completed_guest'.split(' ');
 
 var lineItemsSchema = new Schema({
   productId: String,
@@ -18,7 +19,7 @@ var lineItemsSchema = new Schema({
 var OrderSchema = new Schema({
   userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   lineItems: {type:[lineItemsSchema], required:true },
-  status: {type: String, default:'open', enum: states},
+  status: {type: String, default:'created', enum: states},
   date: Date,
   shipping: Object,
   billing: Object
@@ -37,25 +38,37 @@ OrderSchema.virtual('total').get(function() {
 });
 
 //method for closed state
-OrderSchema.methods.closeOrderCheck = function() {
+OrderSchema.methods.completeOrderCheck = function() {
   if(this.userId) {
-    this.status = 'closed';
+    this.status = 'completed';
   } else {
-    this.status = 'closed_guest';
+    this.status = 'completed_guest';
+  }
+};
+
+OrderSchema.methods.processOrderCheck = function() {
+  if(this.userId) {
+    this.status = 'processing';
+  } else {
+    this.status = 'processing_guest';
   }
 };
 
 OrderSchema.statics.createStripeCharge = function(info) {
+  var deferral = Q.defer();
   var charge = stripe.charges.create({
       amount: info.total,
       currency: 'usd',
       card: info.billing.stripeToken,
-      description: info.billing.email
+      description: info.billing.email,
+      capture: false
     }, function(err,charge) {
           if(err && err.type === 'StripeCardError') {
             return res.send(500, err)
           }
+          deferral.resolve(charge);
     });
+    return deferral.promise;
 };
 
 // //method for closed_guest state

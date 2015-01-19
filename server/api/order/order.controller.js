@@ -22,14 +22,17 @@ exports.show = function(req, res) {
 
 // Creates a new order in the DB.
 exports.create = function(req, res) {
-  Order.createStripeCharge(req.body, res);
+  var newCharge = Order.createStripeCharge(req.body, res);
   Order.create(req.body, function(err, order) {
     if(err) { return handleError(res, err); }
-      order.closeOrderCheck();
+    newCharge.then(function(charge) {
+      order.processOrderCheck();
+      order.billing.chargeId = charge.id;
       order.save(function(err) {
         if (err) {return handleError(res, err); }
         return res.json(201, order);  
       });
+    });
   });
 };
 

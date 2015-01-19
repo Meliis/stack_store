@@ -1,26 +1,35 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('CartCtrl', function ($scope) {
+  .controller('CartCtrl', function ($scope, Cart, Auth) {
+
+    var cartCtrlScope = $scope;
+
     $scope.message = 'Hello';
     $scope.cartTotal;
+    $scope.cart;
+    $scope.populatedCart;
 
-    $scope.cart = [
-    {name: 'Time Machine', price: 100000, description: {blurb: "A time machine", full:"More than the last"}, qty: 1 },
-    {name: 'Watch', price: 10, description: {blurb: "A time machine", full:"More than the last"}, qty: 1},
-    {name: 'Clock', price: 5, description: {blurb: "A time machine", full:"More than the last"}, qty: 1},
-    ];
-
-    $scope.calculateTotal = function(){
+// Might delete this function (trying to work from cart factory)
+    var calculateTotal = function(){
     	var total = 0;
     	
-    	$scope.cart.forEach(function(el){
+      console.log(cartCtrlScope.populatedCart);
+      cartCtrlScope.populatedCart.lineItems.forEach(function(lineItem){
     		total += el.price;
     	})
 
     	$scope.cartTotal = total;
-    }
+    };
 
-    $scope.calculateTotal();
+    Cart.getCart(function() {
+      $scope.cart = Cart.currentCart;
+      $scope.populatedCart = Cart.populatedCart;
+      Cart.addListener(function() {
+        $scope.cart = Cart.currentCart;
+        $scope.populatedCart = Cart.populatedCart;
+      });
+    });
 
-  	});
+
+	});
