@@ -15,27 +15,30 @@ exports.index = function(req, res) {
 
 // Get products from single category
 exports.show = function(req, res) {
-    
-    var productsInCat = [];
 
-    Category.findOne({name: req.params.name}, function(err, categoryObj){
-    console.log('finding this:', categoryObj.id);
-
-      Product.find({}, function(err, allProducts){
-
-          allProducts.forEach(function(singleProduct){
-            // console.log(singleProduct);
-            singleProduct.categories.forEach(function(catEl){
-              // console.log(JSON.stringify(catEl));
-              if (JSON.stringify(catEl) == JSON.stringify(categoryObj._id)){
-                productsInCat.push(singleProduct);
-              }
-            });
-          });
-          console.log(productsInCat);
-          return res.json(201,productsInCat);
-      });
+    Category.findProducts(req.params.name, Product, function(results){
+      return res.json(201, results)
     });
+
+    
+    // var productsInCat = [];
+
+    // Category.findOne({name: req.params.name}, function(err, categoryObj){
+
+    //   Product.find({}, function(err, allProducts){
+
+    //       allProducts.forEach(function(singleProduct){
+    //         // console.log(singleProduct);
+    //         singleProduct.categories.forEach(function(catEl){
+    //           // console.log(JSON.stringify(catEl));
+    //           if (JSON.stringify(catEl) == JSON.stringify(categoryObj._id)){
+    //             productsInCat.push(singleProduct);
+    //           }
+    //         });
+    //       });
+    //       return res.json(201,productsInCat);
+    //   });
+    // });
 };
 
 // Creates a new category in the DB.
