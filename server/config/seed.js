@@ -193,21 +193,6 @@ Review.find({}).remove(function() {
   );
 });
 
-Order.find({}).remove(function() {
-  Order.create({
-    userId: "54bc042668ae184b1a2b307f", // test user
-    lineItems: [{
-    productId: "54bc01affe9ac53e18dd236e",
-    productName: "deal",
-    price: 1,
-    quantity: 1
-    }]
-  }, function() {
-      console.log('finished populating orders');
-    }
-  );
-});
-
 User.find({}).remove(function() {
   User.create({
     provider: 'local',

@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductViewCtrl', function ($scope, Product, Auth, Order, Review, $routeParams) {
-
+  .controller('ProductViewCtrl', function ($scope, Product, Auth, Order, Review, User, $routeParams) {
+    $scope.cart;
   	$scope.user = Auth.getCurrentUser();
+  	$scope.quantity = 1;
     $scope.isAdmin = Auth.isAdmin;
-    $scope.bought = false;
+    $scope.reviews = [];
+    $scope.bought = false; // not implemented yet bc orders, man
     $scope.reviewSubmitted = false;
   	
     Product.get({id: $routeParams.id}, function(product) {
@@ -17,6 +19,16 @@ angular.module('stackStoreApp')
                     $scope.bought = true;
                 }
             });
+        });
+    });
+
+    // ugh this is terrible why am i even
+    var reviews = [];
+    Review.query().$promise.then(function(reviews) {
+        reviews.forEach(function(review) {
+            if(review.productId === $routeParams.id) {
+                $scope.reviews.push(review);
+            }
         });
     });
 
@@ -42,30 +54,29 @@ angular.module('stackStoreApp')
     }
 
     $scope.postReview = function() {
+        $scope.reviews.push($scope.newReview);
         Review.save($scope.newReview, function(savedReview) {
-            $scope.product.reviews.push(savedReview._id);
-            Product.update($scope.product, function(prod) {
-                console.log(prod);
-            });
+            $scope.user.reviews.push(savedReview._id);
+            User.update($scope.user);
         });
+        $scope.reviewSubmitted = true;
     }
 
-    $scope.addToCart = function(quantity) {
-    	var productExists = false;
-    	angular.forEach($scope.user.orders[0].products, function(product) {
-    		if($scope.product._id === product.product._id) {
-    			product.qty += quantity;
-    			productExists = true;
-    		}
-    	});
+    Cart.getCart(function() {
+      $scope.cart = Cart.currentCart;
+      Cart.addListener(function() {
+        $scope.cart = Cart.currentCart;
+      });
+    });
 
-    	if(productExists === false) {
-	    	$scope.user.orders[0].products.push({product: $scope.product, qty: quantity});    		
-    	}
-
-    	$scope.quantity = 1;
-    };
-
-    //initiate temporary banner for the cart
-
+    $scope.addToCart = function(productId, quantity) {
+      $scope.cart.addToCart(productId, quantity);
+      $scope.added = true;
+      setTimeout(function() {
+        $scope.$apply(function() {
+          $scope.added = false
+          $scope.quantity = 1;
+        })
+      }, 3000);
+    }
   });
