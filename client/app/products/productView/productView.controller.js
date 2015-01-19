@@ -1,9 +1,11 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductViewCtrl', function ($scope, Product, $routeParams, Auth, Order) {
+  .controller('ProductViewCtrl', function ($scope, Product, Cart, $routeParams, Auth, Order) {
 
+    $scope.cart;
   	$scope.user = Auth.getCurrentUser();
+  	$scope.quantity = 1;
     $scope.isAdmin = Auth.isAdmin;
   	
     Product.get({id: $routeParams.id}, function(product) {
@@ -12,23 +14,22 @@ angular.module('stackStoreApp')
 
     $scope.maxStars = [1,2,3,4,5];
 
-    $scope.addToCart = function(quantity) {
+    Cart.getCart(function() {
+      $scope.cart = Cart.currentCart;
+      Cart.addListener(function() {
+        $scope.cart = Cart.currentCart;
+      });
+    });
 
-    	var productExists = false;
-    	angular.forEach($scope.user.orders[0].products, function(product) {
-    		if($scope.product._id === product.product._id) {
-    			product.qty += quantity;
-    			productExists = true;
-    		}
-    	});
-
-    	if(productExists === false) {
-	    	$scope.user.orders[0].products.push({product: $scope.product, qty: quantity});    		
-    	}
-
-    	$scope.quantity = 1;
-    };
-
-    //initiate temporary banner for the cart
+    $scope.addToCart = function(productId, quantity) {
+      $scope.cart.addToCart(productId, quantity);
+      $scope.quantity = 1;
+      $scope.added = true;
+      setTimeout(function() {
+        $scope.$apply(function() {
+          $scope.added = false
+        })
+      }, 5000);
+    }
 
   });

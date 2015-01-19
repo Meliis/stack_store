@@ -23,7 +23,7 @@
         <li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().name }}</p> </li>
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li>
-        <li ng-class=""><a href="" ng-click=""><span class="glyphicon glyphicon-shopping-cart"></span> Cart ({{cart}})</a></li>
+        <li><a href="/cart/{{ cart._id }}" ng-click=""><span class="glyphicon glyphicon-shopping-cart"></span> Cart ({{ cartSize }})</a></li>
       </ul>
     </div>
   </div>
