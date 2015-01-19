@@ -23,13 +23,13 @@ angular.module('stackStoreApp')
 
     $scope.addToCart = function(productId, quantity) {
       $scope.cart.addToCart(productId, quantity);
-      $scope.quantity = 1;
       $scope.added = true;
       setTimeout(function() {
         $scope.$apply(function() {
           $scope.added = false
+          $scope.quantity = 1;
         })
-      }, 5000);
+      }, 3000);
     }
 
   });
