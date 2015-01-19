@@ -2,7 +2,6 @@
 
 angular.module('stackStoreApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth, Order, Cart, Category) {
-  .controller('NavbarCtrl', function ($scope, $location, Auth, Cart) {
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
