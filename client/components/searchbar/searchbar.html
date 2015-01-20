@@ -1,8 +1,14 @@
-<div class="container">
-   <div class="input-group col-lg-6 col-xs-12">
-      <input type="text" class="form-control" ng-model="query" />
-      <span class="input-group-btn">
-        <a href="/products/search/{{query}}"><button class="btn btn-primary" type="button">Go!</button></a>
-      </span>
-    </div>
-  </div>
+<header class="hero-unit" id="banner">
+	<div class="container">
+		<div class="row home-search-bar">
+	   <div class="input-group col-lg-6 col-xs-12 center-block">
+	   		<form class="form-inline">
+	   			<div class="form-group search-bar">
+			      <input type="text" placeholder="Search our store" class="form-control" ng-model="query">
+		      </div>
+	        <a href="/products/search/{{query}}"><button class="btn btn-warning" type="submit">Search</button></a>
+		    </form>
+	    </div>
+	  </div>
+	</div>
+</header>

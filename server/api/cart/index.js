@@ -7,6 +7,7 @@ var router = express.Router();
 
 router.get('/', controller.index);
 router.get('/:id', controller.show);
+router.get('/user/:userId', controller.showUserCart);
 router.get('/:id/populate', controller.populate);
 router.post('/', controller.create);
 router.put('/:id', controller.update);

@@ -14,8 +14,10 @@
         <li ng-class="{active: isActive(item.link)}">
             <a href="/">Home</a>
         </li>
-        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Browse by category</a>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Products <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
+            <li><a href="/products">All Products</a></li>
+            <li role="presentation" class="dropdown-header">Browse by category:</li>
             <li ng-repeat="category in categories"><a href="/">{{category.name}}</a></li>
           </ul>
         </li>
@@ -28,7 +30,7 @@
         <li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().name }}</p> </li>
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li>
-        <li><a href="/cart/{{ cart._id }}" ng-click=""><span class="glyphicon glyphicon-shopping-cart"></span> Cart ({{ cartSize }})</a></li>
+        <li ng-controller="CartCtrl"><a href="/cart/{{ cart._id }}" ng-click=""><span class="glyphicon glyphicon-shopping-cart"></span> Cart ({{ cartSize }})</a></li>
       </ul>
     </div>
   </div>

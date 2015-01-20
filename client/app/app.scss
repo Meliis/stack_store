@@ -5,8 +5,12 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import 'font-awesome/scss/font-awesome';
 
 /**
- * App-wide Styles
+ * App-wide Styless
  */
+
+ $main-color: #4393B9;
+ $gray: #f8f8f8;
+ $dk-gray: #e7e7e7;
 
 .browsehappy {
     margin: 0.2em 0;
@@ -29,4 +33,6 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import 'products/productView/productView.scss';
 @import 'products/products.scss';
 @import 'modal/modal.scss';
+@import 'navbar/navbar.scss';
+@import 'searchbar/searchbar.scss';
 // endinjector

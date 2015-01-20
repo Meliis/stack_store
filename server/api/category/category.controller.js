@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Category = require('./category.model');
+var Product = require('../product/product.model');
 
 // Get list of categories
 exports.index = function(req, res) {
@@ -12,13 +13,13 @@ exports.index = function(req, res) {
   });
 };
 
-// Get a single category
+// Get products from single category
 exports.show = function(req, res) {
-  Category.findById(req.params.id, function (err, category) {
-    if(err) { return handleError(res, err); }
-    if(!category) { return res.send(404); }
-    return res.json(category);
-  });
+
+    Category.findProducts(req.params.name, Product, function(results){
+      return res.json(201, results)
+    });
+    
 };
 
 // Creates a new category in the DB.

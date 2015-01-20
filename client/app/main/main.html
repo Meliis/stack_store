@@ -1,22 +1,36 @@
 <header class="hero-unit" id="banner">
   <div class="container">
-    <h1>'Allo, welcome to BuyTime</h1>
+    <h1>Looking to buy some time?</h1>
   </div>
 </header>
 
+<div ng-include src="'../../components/searchbar/searchbar.html'"></div>
 <div class="container">
-  <div ng-include src="'../../components/searchbar/searchbar.html'"></div>
   <div class="row">
     <div class="col-lg-12">
       <h1 class="page-header">Top Sellers:</h1>
       <ul class="col-md-3 col-lg-3 col-sm-4 col-xs-6 list-unstyled" ng-repeat="product in products">
         <li>
-          <img src="http://placekitten.com/g/300/300" style="width: 100%"/>
+          <a href="/products/{{product._id}}"><img src="http://placekitten.com/g/300/300" style="width: 100%"/></a>
           <a href="/products/{{product._id}}">{{product.name}}</a>
         </li>
       </ul>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Categories:</h1>
+      <ul class="col-md-3 col-lg-3 col-sm-4 col-xs-6 list-unstyled" ng-repeat="category in categories">
+        <li>
+          <img src="http://placekitten.com/g/300/300" style="width: 100%"/>
+          <a href="/category/query/{{category.name}}">{{category.name}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
 </div>
 
 <footer class="footer">

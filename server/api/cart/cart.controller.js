@@ -20,6 +20,16 @@ exports.show = function(req, res) {
   });
 };
 
+// Get a single cart by userId
+exports.showUserCart = function(req, res) {
+  console.log("WHYYY");
+  Cart.findOne({userId: req.params.userId}, function (err, cart) {
+    if(err) { return handleError(res, err); }
+    if(!cart) { return res.send(404); }
+    return res.json(cart);
+  });
+};
+
 // Populate a single cart
 exports.populate = function(req, res) {
   Cart.findById(req.params.id)
