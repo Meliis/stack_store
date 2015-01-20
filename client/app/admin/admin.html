@@ -16,4 +16,33 @@
         </div>
     </li>
   </ul>
+
+    <!-- {{user.orders}} -->
+    <h2>Recent Orders</h2>
+    <li class="list-group-item" ng-repeat="order in orders | orderBy : 'date' : true | limitTo: 10">
+        <h3>Status: {{order.status}}</h3> 
+        <h4>Date Ordered: {{order.date | date}}</h4>
+        <div class='row top-padding bottom-padding' ng-repeat='lineItem in order.lineItems'>
+                <div class="col-sm-2">
+                    <a href="./products/{{lineItem.item._id}}"><img class="img-responsive" ng-src="{{lineItem.item.images[0]}}"></a>
+                </div>
+                
+                <div class="col-sm-3">
+                    <a href="./products/{{lineItem.productId}}"><h5>{{lineItem.productName}}</h5></a>
+                </div>
+
+                <div class="col-sm-3">  
+                    <p>{{lineItem.price | currency}}</p>
+                </div>
+
+                <div class="col-sm-2">  
+                    <p>{{lineItem.quantity}}</p>
+                </div>
+
+            </div>
+            <div id="{{order._id}}" ng-show="(order.status =='processing' || order.status == 'processing_guest')">
+            <button class="btn btn-warning" ng-click="cancelOrder(order)">Cancel Order</button>
+            <button class="btn btn-success" ng-click="confirmOrder(order)">Confirm Order</button>
+            </div>
+    </li>
 </div>
