@@ -1,7 +1,7 @@
 <div class="container">
 	<!-- {{user.orders}} -->
 	<h2>Past Orders</h2>
-	<div class="row" ng-repeat="order in user.orders">
+	<div class="row" ng-repeat="order in orders">
 		<h3>Status: {{order.status}}</h3> <button class="btn btn-warning" ng-click="cancelOrder()">Cancel Order</button>
 		<h4>Date Ordered: {{order.date | date}}</h4>
 		<div class='row top-padding bottom-padding' ng-repeat='lineItem in order.lineItems'>
