@@ -66,6 +66,10 @@ ProductSchema
     });
 }, 'A product with this name already exists.');
 
+ProductSchema.methods.changeQuantity = function(qty) {
+  this.quantity -= qty;
+};
+
 // ProductSchema
 //   .path('categories')
 //   .validate(function(arr, respond) {
