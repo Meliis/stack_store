@@ -16,23 +16,27 @@ angular.module('stackStoreApp')
         Category.save({name: $scope.newCat.name});
         $scope.newCat.name = "";
     }
-    
-    $scope.editProduct = function(){
-        var num = $scope.product.price
-        $scope.price = Math.round(num * 100)/100
-    	Product.update($scope.product);
-        $location.path('/products/'+$route.current.params.id);
-    }
-
     $scope.toggleCat = function(cat) {
     	var indexCat = $scope.product.categories.indexOf(cat._id);
-
     	if(indexCat > -1){
     		$scope.product.categories.splice(indexCat,1);
     	}
     	else{
     		$scope.product.categories.push(cat._id);
     	}
+    }
+    
+    $scope.editProduct = function(){
+        var num = $scope.product.price
+        $scope.price = Math.round(num * 100)/100
+        Product.update($scope.product);
+        $location.path('/products/'+$route.current.params.id);
+    }
+
+    $scope.deleteProduct = function() {
+        console.log("ayyyy");
+        Product.remove({id: $scope.product._id});
+        $location.path('/products');
     }
 
   });
