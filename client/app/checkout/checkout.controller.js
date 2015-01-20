@@ -8,7 +8,20 @@ angular.module('stackStoreApp')
     if(Auth.isLoggedIn()) {
       $scope.user = Auth.getCurrentUser();
         $scope.user.$promise.then(function(user) {
-          $scope.order = {"userId":user._id, "lineItems":[{"item":{"_id":"54bd679f17b17d2c30747729","name":"Adventure Time","price":50,"quantity":3000,"__v":0,"reviews":[],"images":[],"categories":["54b54dbd356afaad0411ed12"],"description":{"blurb":"Dis be a blurb","full":"Like the show, but better"}},"quantity":5,"_id":"54bd6abf17b17d2c30747733"},{"item":{"_id":"54bd679f17b17d2c3074772a","name":"Leisure Time","price":725,"quantity":7000,"__v":0,"reviews":[],"images":[],"categories":["54b54dbd356afaad0411ed12","54b54dbd356afaad0411ed14"],"description":{"blurb":"Dis be a blurb","full":"Great for people who need a break"}},"quantity":3,"_id":"54bd6ac917b17d2c30747734"}],"total":2425};
+        Cart.getCart(function() {
+            $scope.cart = Cart.currentCart;
+            $scope.populatedCart = Cart.populatedCart;
+            $scope.order = {lineItems: $scope.populatedCart.lineItems};
+            $scope.order.total = sumTotal();
+            $scope.order.userId = user._id;
+            Cart.addListener(function() {
+              $scope.cart = Cart.currentCart;
+              $scope.populatedCart = Cart.populatedCart;
+              $scope.order = {lineItems: $scope.populatedCart.lineItems};
+              $scope.order.total = sumTotal();
+              $scope.order.userId = user._id;
+            });
+        });
       });
     } else { 
 
