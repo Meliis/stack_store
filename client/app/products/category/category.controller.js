@@ -4,5 +4,6 @@ angular.module('stackStoreApp')
   .controller('CategoryCtrl', function ($scope, $routeParams, Category) {
     
   	$scope.categoryResults = Category.search({name: $routeParams.name});
-  	console.log($scope.categoryResults);
+ 	$scope.categoryName = $routeParams.name;
+ 	// console.log($scope.categoryResults);
   });
