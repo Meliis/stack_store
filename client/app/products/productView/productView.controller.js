@@ -3,10 +3,15 @@
 angular.module('stackStoreApp')
   .controller('ProductViewCtrl', function ($scope, Product, Auth, Order, Review, User, $routeParams, Cart) {
     $scope.cart;
-  	Auth.getCurrentUser().$promise.then(function(user) {
-        $scope.user = user;
-        $scope.newReview.userId = user._id;
-    })
+    // why?  whyyyyyyyyyyyyyyyy
+  	$scope.user = Auth.getCurrentUser();
+    if ($scope.user.$promise) {
+        $scope.user.$promise.then(function(user) {
+            $scope.user = user;
+            console.log($scope.user);
+            $scope.newReview.userId = user._id;
+        });
+    }
   	$scope.quantity = 1;
     $scope.isAdmin = Auth.isAdmin;
     $scope.reviews = [];
@@ -49,7 +54,7 @@ angular.module('stackStoreApp')
     }
 
       $scope.newReview = {
-        // userId: $scope.user._id,
+        userId: $scope.user._id,
         productId: $routeParams.id,
         stars: 0,
         date: new Date(),
