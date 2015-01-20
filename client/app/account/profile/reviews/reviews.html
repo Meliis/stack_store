@@ -4,6 +4,7 @@
 			<h3>Reviews</h3>
 				<div class="panel panel-default" ng-repeat="review in reviews | orderBy:'date':true">
 					<h4>Review for {{review.productId.name}}:</h4>
+					<h5>{{review.date | date}}</h5>
 					<span ng-repeat='stars in maxStars | limitTo:review.stars'>
 						<span class="glyphicon glyphicon-star star-color"></span>
 					</span>
@@ -11,7 +12,6 @@
 						<span class="glyphicon glyphicon-star"></span>
 					</span>
 					<h5>{{review.title}}</h5>
-					<strong>{{review.date | date}}</strong>
 					<p>{{review.body}}</p>
 				</div>
 		</div>
