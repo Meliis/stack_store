@@ -24,6 +24,7 @@ angular.module('stackStoreApp')
 	Cart.listeners = [];
 
 	Cart.notifyListeners = function() {
+		console.log(Cart.listeners.length);
 		Cart.listeners.forEach(function(listener) {
 			listener();
 		})

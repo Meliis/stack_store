@@ -9,6 +9,7 @@ angular.module('stackStoreApp')
     $scope.cartTotal;
     $scope.cart;
     $scope.populatedCart;
+    $scope.cartSize;
     $scope.cartUpdated = false;
 
     $scope.getData = function() {
@@ -16,6 +17,7 @@ angular.module('stackStoreApp')
       $scope.populatedCart = Cart.populatedCart;
       $scope.populatedCart.calculateTotal();
       $scope.cartTotal = Cart.cartTotal;
+      $scope.cartSize = Cart.currentCart.lineItems.length;
     }
 
     Cart.getCart(function() {
