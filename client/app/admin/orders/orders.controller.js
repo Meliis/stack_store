@@ -33,4 +33,26 @@ angular.module('stackStoreApp')
   		}
   	}
 
+  	$scope.cancelOrder = function(order){
+  		console.log(order);
+      if (order.status.indexOf('guest') > -1){
+        order.status = 'cancelled_guest';
+      }
+      else{
+        order.status = 'cancelled';
+      }
+      Order.update(order);
+      angular.element("#"+order._id).css({display: 'none'});
+    }
+
+    $scope.confirmOrder = function(order){
+      if (order.status.indexOf('guest') > -1){
+        order.status = 'completed_guest';
+      }
+      else{
+        order.status = 'completed';
+      }
+      Order.update(order);
+    }
+
   	});
