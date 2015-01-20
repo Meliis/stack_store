@@ -1,58 +1,67 @@
 <div class="container">
-<h2> Cart </h2>
+
+	<div ng-show="cartUpdated" class="row fit-child-to-page-width">
+		<div class="item-added-banner col-lg-12 bg-success">
+			<p class="text-success">Cart successfully updated!</p>
+		</div>
+	</div>
+	<h2> Cart </h2>
 	<div ng-hide="populatedCart.lineItems.length">
 		<h4 class="pull-left">Your cart is empty! Fill 'er up... &nbsp; &nbsp;</h4>
 		<a href="./products"><button class="btn btn-primary btn-lg">View Products</button></a>
 	</div>
-	<div ng-show="populatedCart.lineItems.length" class="row"> 
+	<div ng-show="populatedCart.lineItems.length" class="row fit-child-to-page-width"> 
 
-		<div class="col-lg-8">
+		<div class="col-lg-7">
 			<div class="row">
 
 				<div class="col-sm-2">
-					<h4> Image </h4>
+					<h4></h4>
 				</div>
-				<div class="col-sm-5">
-					<h4> Description </h4>
+				<div class="col-sm-4">
+					<h4> Item </h4>
 				</div>
 				<div class="col-sm-3">
 					<h4> Price </h4>
 				</div>
-				<div class="col-sm-2">
+				<div class="col-sm-3">
 					<h4> Qty </h4>
 				</div>
 			</div>
 
-			<div class='row top-padding bottom-padding' ng-repeat='lineItem in populatedCart.lineItems'>
+			<div class='row line-item' ng-repeat='lineItem in populatedCart.lineItems'>
 				<div class="col-sm-2">
 					<a href="./products/{{lineItem.item._id}}"><img class="img-responsive" src="http://lorempixel.com/500/500"></a>
 				</div>
 				
-				<div class="col-sm-5">
+				<div class="col-sm-4">
 					<a href="./products/{{lineItem.item._id}}"><h4>{{lineItem.item.name}}</h4></a>
 					<p>{{lineItem.item.description.blurb}}</p>
 				</div>
 
 				<div class="col-sm-3">	
-					<h3>{{lineItem.item.price | currency}}</h3>
+					<h4 class="">{{lineItem.item.price | currency}}</h4>
 				</div>
 
-				<div class="col-sm-2">	
+				<div class="col-sm-3">	
 					<form>
-						<input type="number" class="form-control" ng-value='{{lineItem.quantity}}' min='0'> 
+						<input type="number" class="form-control bottom-margin" ng-init='quantity=lineItem.quantity' ng-model='quantity' min='0'>
+						<button class="btn btn-default btn-xs" ng-click="editCart(lineItem.item._id, quantity)">Update</button> 
+						<button class="btn btn-danger btn-xs" ng-click="editCart(lineItem.item._id, 0)">Delete</button>
 					</form>
 				</div>
+
 
 			</div>
 
 		</div>
 
-		<div class="col-lg-4">
-			<h3>Total: {{cartTotal | currency}}</h3> 
-			<h4>Checkout to Payment Details</h4>
-			<form>
-				<a href='/checkout'><button class="btn btn-success">Checkout</button></a>
-			</form>
+		<div class="col-lg-1">
+		</div>
+
+		<div class="col-lg-4 gray-box">
+			<h4 class="bottom-padding">Total: {{cartTotal | currency}}</h4>
+			<a href='/checkout'><button class="btn btn-success">Proceed to Checkout</button></a>
 		</div>	
 
 	</div>

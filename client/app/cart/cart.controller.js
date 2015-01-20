@@ -9,26 +9,30 @@ angular.module('stackStoreApp')
     $scope.cartTotal;
     $scope.cart;
     $scope.populatedCart;
+    $scope.cartUpdated = false;
 
-// Might delete this function (trying to work from cart factory)
-    var calculateTotal = function(){
-    	var total = 0;
-    	
-      cartCtrlScope.populatedCart.lineItems.forEach(function(lineItem){
-    		total += el.price;
-    	})
-
-    	$scope.cartTotal = total;
-    };
-
-    Cart.getCart(function() {
+    $scope.getData = function() {
       $scope.cart = Cart.currentCart;
       $scope.populatedCart = Cart.populatedCart;
+      $scope.populatedCart.calculateTotal();
+      $scope.cartTotal = Cart.cartTotal;
+    }
+
+    Cart.getCart(function() {
+      $scope.getData();
       Cart.addListener(function() {
-        $scope.cart = Cart.currentCart;
-        $scope.populatedCart = Cart.populatedCart;
+        $scope.getData();
       });
     });
 
+    $scope.editCart = function(productId, quantity) {
+      $scope.cart.editCart(productId, quantity);
+      $scope.cartUpdated = true;
+      setTimeout(function() {
+        $scope.$apply(function() {
+          $scope.cartUpdated = false;
+        })
+      }, 3000);
+    };
 
-	});
+  });

@@ -18,6 +18,7 @@ angular.module('stackStoreApp')
           // Account created, redirect to home
           var user = Auth.getCurrentUser().$promise.then(function(user){
             Cart.startAuthCart(user._id);
+            Cart.mergeCarts(user._id);
             $location.path('/');
           });
         })

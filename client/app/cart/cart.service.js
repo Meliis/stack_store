@@ -19,6 +19,8 @@ angular.module('stackStoreApp')
 		} 
 	});
 
+
+// ****** LISTENERS ****************************************************
 	Cart.listeners = [];
 
 	Cart.notifyListeners = function() {
@@ -30,6 +32,44 @@ angular.module('stackStoreApp')
 	Cart.addListener = function(listener) {
 		Cart.listeners.push(listener);
 		listener();
+	};
+
+// ****** CREATING CART ************************************************
+	Cart.startNewCart = function() {
+		localStorage.removeItem('cartId');
+		localStorage.removeItem('cartDate');
+		var newCart = new Cart({lineItems: [], date: new Date()});
+		newCart.$save(function() {
+		  var date = new Date();
+		  localStorage.cartId = newCart._id;
+		  localStorage.cartDate = date.getTime();
+			Cart.getCart();
+		});
+	};
+
+	Cart.startAuthCart = function(userId) {
+		var newCart = new Cart({userId: userId, lineItems: [], date: new Date()});
+		newCart.$save(function() {
+			Cart.getCart();
+		});
+	};
+
+
+// ****** GET - POPULATE - MERGE ****************************************
+	Cart.getCart = function(func) {
+		if (Auth.isLoggedIn()) {
+			var user = Auth.getCurrentUser().$promise.then(function(user) {
+			// retrieve user's cart
+				Cart.getByUserId({userId: user._id}, function(cart) {
+					Cart.currentCart = cart;
+					Cart.populateCart(cart._id, func);
+				});
+	   	})} else {			
+				Cart.get({id: localStorage.cartId}, function(cart) {
+					Cart.currentCart = cart;
+					Cart.populateCart(cart._id, func);
+	   	});
+		}
 	};
 
 	Cart.populateCart = function(cartId, done) {
@@ -58,43 +98,7 @@ angular.module('stackStoreApp')
 	};
 
 
-
-	Cart.getCart = function(func) {
-		if (Auth.isLoggedIn()) {
-			var user = Auth.getCurrentUser().$promise.then(function(user) {
-			// retrieve user's cart
-				Cart.getByUserId({userId: user._id}, function(cart) {
-					Cart.currentCart = cart;
-					Cart.populateCart(cart._id, func);
-				});
-	   	})} else {			
-				Cart.get({id: localStorage.cartId}, function(cart) {
-					Cart.currentCart = cart;
-					Cart.populateCart(cart._id, func);
-	   	});
-		}
-	};
-
-	Cart.startNewCart = function() {
-		localStorage.removeItem('cartId');
-		localStorage.removeItem('cartDate');
-		var newCart = new Cart({lineItems: [], date: new Date()});
-		newCart.$save(function() {
-		  var date = new Date();
-		  localStorage.cartId = newCart._id;
-		  localStorage.cartDate = date.getTime();
-			Cart.getCart();
-		});
-	};
-
-	Cart.startAuthCart = function(userId) {
-		var newCart = new Cart({userId: userId, lineItems: [], date: new Date()});
-		newCart.$save(function() {
-			Cart.getCart();
-		});
-	};
-
-	//instance method (`this` is an *instance* of the class)
+// ****** INSTANCE METHODS (ON PROTOTYPE) *******************************
 	Cart.prototype.addToCart = function(productId, quantity) {
 		var productExists = false;
 		var cart = this;
@@ -113,17 +117,36 @@ angular.module('stackStoreApp')
 		}
 
 		Cart.notifyListeners();
-
 	};
 
-// Cart.prototype.calculateTotal needs work (could run into async issues)
+	Cart.prototype.editCart = function(productId, quantity) {
+		var cart = this;
+		var cartLength = cart.lineItems.length;
+		var itemFound = false;
+		for (var i=0; i < cartLength; i++) {
+			if (itemFound === false && productId === cart.lineItems[i].item) {
+				if (quantity === 0) {
+					cart.lineItems.splice(i, 1);
+				} else {
+					cart.lineItems[i].quantity = quantity;
+				}
+				itemFound = true;
+			}
+		}
+		cart.$update(function(cart) {
+			Cart.currentCart = cart;
+			Cart.populateCart(cart._id); 
+		});
+	}
+
 	Cart.prototype.calculateTotal = function() {
 		var cart = this;
 		var total = 0;
 
 		cart.lineItems.forEach(function(lineItem) {
 			total += lineItem.item.price * lineItem.quantity;
-		})
+		});
+		Cart.cartTotal = total;
 	};
 
 

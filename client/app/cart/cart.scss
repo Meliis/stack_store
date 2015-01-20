@@ -5,3 +5,26 @@
 .bottom-padding {
 	padding-bottom: 15px;
 }
+
+.top-margin {
+	margin-top: 15px;
+}
+
+.bottom-margin {
+	margin-bottom: 15px;
+}
+
+.clear-top-margin {
+	margin-top: 0px !important;
+}
+
+.gray-box {
+	background-color: $gray;
+	padding: 30px;
+}
+
+.line-item {
+	padding: 15px 0 15px 0;
+	border-top: 1px solid $dk-gray;
+	border-bottom: 1px solid $dk-gray;
+}
