@@ -3,8 +3,10 @@
 angular.module('stackStoreApp')
   .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
     var currentUser = {};
+    var populatedUser = {};
     if($cookieStore.get('token')) {
       currentUser = User.get();
+      populatedUser = User.populate();
     }
 
     return {
@@ -100,7 +102,9 @@ angular.module('stackStoreApp')
       getCurrentUser: function() {
         return currentUser;
       },
-
+      getPopulatedUser: function() {
+        return populatedUser;
+      },
       /**
        * Check if a user is logged in
        *

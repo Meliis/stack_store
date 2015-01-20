@@ -5,6 +5,8 @@ var _ = require('lodash');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var Review = require('../review/review.model'),
+    Product = require('../product/product.model');
 
 var validationError = function(res, err) {
   return res.json(422, err);
@@ -69,7 +71,7 @@ exports.adminUpdate = function(req, res, next) {
       return res.json(200, user);
     });
   });
-}
+};
 
 // change a user's password, if you are an admin
 exports.adminChangePassword = function(req, res, next) {
@@ -83,7 +85,7 @@ exports.adminChangePassword = function(req, res, next) {
       return res.json(200, user);
     });
   });
-}
+};
 
 /**
  * Change a users password
@@ -118,7 +120,7 @@ exports.update = function(req, res, next) {
       res.send(200);
     });
   });
-}
+};
 
 /**
  * Get my info
@@ -130,11 +132,27 @@ exports.me = function(req, res, next) {
   }, '-salt -hashedPassword', function(err, user) { // don't ever give out the password or salt
     if (err) return next(err);
     if (!user) return res.json(401);
-  })
-  .populate('reviews orders')
-  .exec(function(err, user){
-    if (err) return next(err);
     res.json(user);
+  });
+};
+
+// get populated
+exports.populate = function(req, res, next) {
+  var userId = req.user._id;
+    User.findOne({
+    _id: userId
+  }, '-salt -hashedPassword', function(err, user) { // don't ever give out the password or salt
+    if (err) return next(err);
+    if (!user) return res.json(401);
+  })
+  .populate('orders reviews')
+  .exec(function(err, user) {
+    // is this a thing? only time will tell
+    Review.populate(user, {path: 'reviews.productId', model: 'Product'}, function(err) {
+      if (err) return next(err);
+      console.log(user);
+      res.json(user);
+    });
   });
 };
 
