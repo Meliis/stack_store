@@ -5,13 +5,6 @@ angular.module('stackStoreApp')
 
   	$scope.orders = Order.query();
 
-  	// $scope.testFilter = function(order, index, array) {
-  	// 	console.log(order)
-  	// 	console.log(index);
-  	// 	console.log(array);
-	  // 	// $scope.processingOrder = function(orders)
-  	// }
-
   	$scope.viewAll = function() {
   		$scope.filterOption = null;
   	}
