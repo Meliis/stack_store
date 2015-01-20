@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('CheckoutCtrl', function ($scope, Auth, Order, Cart, User) {
+  .controller('CheckoutCtrl', function ($scope, Auth, Order, Cart, User, Product) {
 
     Stripe.setPublishableKey('pk_test_dA3Hb0dLKm0zVFQQ1DosksSf');
     $scope.errorMessage;
@@ -62,6 +62,7 @@ function stripeResponseHandler(status, response) {
       lineItem.productId = lineItem.item._id;
       lineItem.productName = lineItem.item.name;
       lineItem.price = lineItem.item.price;
+      Product.updateQuantity(lineItem);
     });
     Order.save($scope.order, function(order) {
       console.log(order);

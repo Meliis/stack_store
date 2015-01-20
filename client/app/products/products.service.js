@@ -10,6 +10,10 @@ angular.module('stackStoreApp')
         url: '/api/products/search/:query',
         isArray: true,
         method: 'GET'
+      },
+      updateQuantity : {
+        url: '/api/products',
+        method: 'PUT'
       }
     });
 
