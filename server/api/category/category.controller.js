@@ -8,7 +8,6 @@ var Product = require('../product/product.model');
 exports.index = function(req, res) {
   Category.find(function (err, categories) {
     if(err) { return handleError(res, err); }
-    console.log(categories);
     return res.json(200, categories);
   });
 };

@@ -28,8 +28,10 @@ exports.create = function(req, res) {
     newCharge.then(function(charge) {
       order.processOrderCheck();
       order.createDate();
-      order.billing.chargeId = charge.id;
-      order.save(function(err) {
+      order.setChargeId(charge.id);
+      order.save(function(err, updatedOrder, numModified) {
+        console.log(updatedOrder);
+        console.log(numModified);
         if (err) {return handleError(res, err); }
         return res.json(201, order);  
       });
@@ -50,6 +52,20 @@ exports.update = function(req, res) {
     });
   });
 };
+
+
+exports.capture = function(req, res) {
+  Order.findById(req.params.id, function (err, order) {
+    if (err) { return handleError(res, err); }
+    if(!order) { return res.send(404); }
+    Order.captureStripeCharge(req.body.billing.chargeId); // where do you get the charge id from?
+    var updated = _.merge(order, req.body);
+    updated.save(function (err) {
+      if (err) { return handleError(res, err); }
+      return res.json(200, order);
+    });
+  });
+}
 
 // Deletes a order from the DB.
 exports.destroy = function(req, res) {

@@ -22,8 +22,8 @@ var OrderSchema = new Schema({
   lineItems: {type:[lineItemsSchema], required:true },
   status: {type: String, default:'created', enum: states},
   date: Date,
-  shipping: Object,
-  billing: Object
+  shipping: {},
+  billing: {} // includes chargeId
 });
 
 
@@ -60,6 +60,11 @@ OrderSchema.methods.createDate = function() {
   this.date = new Date();
 }
 
+OrderSchema.methods.setChargeId = function(chargeId) {
+  this.billing.chargeId = chargeId;
+  this.markModified('billing');
+}
+
 OrderSchema.statics.createStripeCharge = function(info, res) {
   var deferral = Q.defer();
   var charge = stripe.charges.create({
@@ -76,6 +81,15 @@ OrderSchema.statics.createStripeCharge = function(info, res) {
     });
     return deferral.promise;
 };
+
+OrderSchema.statics.captureStripeCharge = function(chargeId) {
+  stripe.charges.capture(chargeId, function(err,charge) {
+        console.log(charge);
+          if(err && err.type === 'StripeCardError') {
+            return res.send(500, err)
+          }
+    });
+}
 
 // //method for closed_guest state
 // OrderSchema.methods.closeGuestOrder = function() {
