@@ -40,7 +40,9 @@
                 </div>
 
             </div>
+            <div id="{{order._id}}" ng-show="(order.status =='processing' || order.status == 'processing_guest')">
             <button class="btn btn-warning" ng-click="cancelOrder(order)">Cancel Order</button>
             <button class="btn btn-success" ng-click="confirmOrder(order)">Confirm Order</button>
+            </div>
     </li>
 </div>

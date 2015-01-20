@@ -45,8 +45,17 @@ angular.module('stackStoreApp')
         order.status = 'cancelled';
       }
       Order.update(order);
-      
-      
+      angular.element("#"+order._id).css({display: 'none'});
+    }
+
+    $scope.confirmOrder = function(order){
+      if (order.status.indexOf('guest') > -1){
+        order.status = 'completed_guest';
+      }
+      else{
+        order.status = 'completed';
+      }
+      Order.update(order);
     }
 
   });
