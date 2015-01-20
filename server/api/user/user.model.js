@@ -4,7 +4,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
 var authTypes = ['github', 'twitter', 'facebook', 'google'];
-var Order = require('../order/order.model')
+var Order = require('../order/order.model'),
+    Review = require('../review/review.model');
 
 var UserSchema = new Schema({
   name: String,
@@ -18,7 +19,7 @@ var UserSchema = new Schema({
   salt: String,
   google: {},
   github: {},
-  reviews: Array,
+  reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}],
   orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }],
   address: {},
   stripeToken: String

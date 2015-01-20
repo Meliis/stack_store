@@ -32,6 +32,13 @@ angular.module('stackStoreApp')
       },
       update: {
         method: 'PUT'
+      },
+      populate: {
+        method: 'GET',
+        params: {
+          id: 'me',
+          controller: 'populate'
+        }
       }
 	  });
   });
