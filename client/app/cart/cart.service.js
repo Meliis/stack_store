@@ -153,10 +153,16 @@ angular.module('stackStoreApp')
 	Cart.prototype.clearCart = function() {
 		var cart = this;
 		cart.lineItems = [];
-		cart.$update(function(cart) {
-			Cart.currentCart = cart;
-			Cart.cartTotal = 0;
-		})
+		if (Auth.isLoggedIn()) {
+			cart.$update(function(cart) {
+				Cart.currentCart = cart;
+				Cart.cartTotal = 0;
+			});	
+		} else {
+			cart.$delete(function(cart) {
+				Cart.startNewCart();
+			});
+		}
 		console.log(cart);
 	}
 
