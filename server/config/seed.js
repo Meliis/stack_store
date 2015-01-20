@@ -17,7 +17,6 @@ Product.find({}).remove(function() {
     price: 100.00,
     description: {blurb: "Dis be a blurb", full: "For when you're out of the real stuff"},
     categories: ["54b54dbd356afaad0411ed12", "54b54dbd356afaad0411ed14"],
-    images: [], 
     reviews: [],
     quantity: 10000
   }, {
@@ -25,7 +24,6 @@ Product.find({}).remove(function() {
     price: 250.00,
     description: {blurb: "Dis be a blurb", full: "Not always recommended"},
     categories: ["54b54dbd356afaad0411ed12", "54b54dbd356afaad0411ed14"],
-    images: [], 
     reviews: [],
     quantity: 4000
   }, {
@@ -33,7 +31,6 @@ Product.find({}).remove(function() {
     price: 800.00,
     description: {blurb: "Dis be a blurb", full: "Recommended for workaholics"},
     categories: ["54b54dbd356afaad0411ed12", "54b54dbd356afaad0411ed15"],
-    images: [], 
     reviews: [],
     quantity: 100000
   }, {
@@ -41,7 +38,6 @@ Product.find({}).remove(function() {
     price: 10000.00,
     description: {blurb: "Dis be a blurb", full: "Very rare. For more information, visit youtube"},
     categories: ["54b54dbd356afaad0411ed12"],
-    images: [], 
     reviews: [],
     quantity: 1
   }, {
@@ -49,7 +45,6 @@ Product.find({}).remove(function() {
     price: 50.00,
     description: {blurb: "Dis be a blurb", full: "Like the show, but better"},
     categories: ["54b54dbd356afaad0411ed12"],
-    images: [], 
     reviews: [],
     quantity: 3000
   }, {
@@ -57,7 +52,6 @@ Product.find({}).remove(function() {
     price: 725.00,
     description: {blurb: "Dis be a blurb", full: "Great for people who need a break"},
     categories: ["54b54dbd356afaad0411ed12", "54b54dbd356afaad0411ed14"],
-    images: [], 
     reviews: [],
     quantity: 7000
   }, {
@@ -65,7 +59,6 @@ Product.find({}).remove(function() {
     price: 30.00,
     description: {blurb: "Dis be a blurb", full: "For those who hunger"},
     categories: ["54b54dbd356afaad0411ed12"],
-    images: [], 
     reviews: [],
     quantity: 100000
   }, {
@@ -73,7 +66,6 @@ Product.find({}).remove(function() {
     price: 125.00,
     description: {blurb: "Dis be a blurb", full: "Perfect for a hot summer day"},
     categories: ["54b54dbd356afaad0411ed12"],
-    images: [], 
     reviews: [],
     quantity: 80000
   }, function() {
