@@ -68,6 +68,7 @@ function stripeResponseHandler(status, response) {
       console.log(order);
       if($scope.user) {
         $scope.user.orders.push(order._id);
+        delete $scope.user.__v;
         User.update($scope.user);
       }
       $scope.cart.clearCart();
