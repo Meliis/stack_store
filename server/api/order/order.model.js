@@ -13,7 +13,8 @@ var lineItemsSchema = new Schema({
   productId: String,
   productName: String,
   price: Number,
-  quantity: Number
+  quantity: Number,
+  image: {type: String, default:'http://lorempixel.com/400/400'}
 });
 
 var OrderSchema = new Schema({

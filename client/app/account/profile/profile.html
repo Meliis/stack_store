@@ -12,10 +12,12 @@
 	<div class="row">
 		<div class="col-lg-6">
 			<h3>Your Most Recent Order</h3>
-			<div ng-repeat="products in user.orders[0].products">
+			Order Placed On: {{user.orders[0].date | date}}
+			<div ng-repeat="product in user.orders[0].lineItems">
 				{{product.image[0]}}
-				{{product.name}}
-				{{product.price}}
+				{{product.productName}}
+				Price: {{product.price | currency}}
+				{{product.total}}
 			</div>
 			<a class="btn btn-default" href="profile/orders">View your complete order history</a>
 		</div>

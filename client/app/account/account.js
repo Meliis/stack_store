@@ -21,9 +21,14 @@ angular.module('stackStoreApp')
         controller: 'ProfileCtrl',
         authenticate: true
       })
+      .when('/profile/orders', {
+        templateUrl: 'app/account/profile/orders/orders.html',
+        controller: 'OrdersCtrl',
+        authenticate: true
+      })
       .when('/profile/reviews', {
         templateUrl: 'app/account/profile/reviews/reviews.html',
         controller: 'ReviewCtrl',
         authenticate: true
-      })
+      });
   });
