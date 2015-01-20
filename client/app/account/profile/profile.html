@@ -24,9 +24,12 @@
 	<div class="row">
 		<div class="col-lg-6">
 			<h3>Your Most Recent Review</h3>
-			<h5>{{user.reviews[0].title}}</h5>
-			<strong>{{user.reviews[0].date | date}}</strong>
-			<div>{{user.reviews[0].body}}</div>
+			<!-- I AM SUCH A HACK I'M SO SORRY -->
+			<div ng-repeat="review in user.reviews | orderBy:'date':true | limitTo:1">
+				<h5>{{review.title}}</h5>
+				<strong>{{review.date | date}}</strong>
+				<div>{{review.body}}</div>
+			</div>
 			<a class="btn btn-default" href="profile/reviews">View all your reviews</a>
 		</div>
 	</div>
