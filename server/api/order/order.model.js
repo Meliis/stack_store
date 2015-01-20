@@ -33,6 +33,7 @@ OrderSchema.virtual('total').get(function() {
     var subtotal = lineItem.price * lineItem.quantity;
     total += subtotal;
   });
+
   return {
     'total': total
   }
@@ -62,7 +63,7 @@ OrderSchema.methods.createDate = function() {
 OrderSchema.statics.createStripeCharge = function(info, res) {
   var deferral = Q.defer();
   var charge = stripe.charges.create({
-      amount: info.total,
+      amount: info.total*100,
       currency: 'usd',
       card: info.billing.stripeToken,
       description: info.billing.email,
