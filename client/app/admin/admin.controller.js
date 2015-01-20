@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('AdminCtrl', function ($scope, $http, Auth, User) {
+  .controller('AdminCtrl', function ($scope, $http, Auth, User, Order) {
 
     // Use the User $re""e to fetch all users
     $scope.users = User.query();
@@ -34,4 +34,19 @@ angular.module('stackStoreApp')
         }
       });
     };
+
+    $scope.orders = Order.query();
+
+    $scope.cancelOrder = function(order){
+      if (order.status.indexOf('guest') > -1){
+        order.status = 'cancelled_guest';
+      }
+      else{
+        order.status = 'cancelled';
+      }
+      Order.update(order);
+      
+      
+    }
+
   });
