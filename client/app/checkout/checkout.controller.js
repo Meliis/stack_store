@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('CheckoutCtrl', function ($scope, Auth, Order, Cart, User, Product) {
+  .controller('CheckoutCtrl', function ($scope, Auth, Order, Cart, User, Product, $location) {
 
     Stripe.setPublishableKey('pk_test_dA3Hb0dLKm0zVFQQ1DosksSf');
     $scope.errorMessage;
@@ -71,6 +71,7 @@ function stripeResponseHandler(status, response) {
         User.update($scope.user);
       }
       $scope.cart.clearCart();
+      $location.path('/checkout/complete');
     });
   }
 }
