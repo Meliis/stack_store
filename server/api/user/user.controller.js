@@ -5,6 +5,8 @@ var _ = require('lodash');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var Review = require('../review/review.model'),
+    Product = require('../product/product.model');
 
 var validationError = function(res, err) {
   return res.json(422, err);
@@ -145,8 +147,12 @@ exports.populate = function(req, res, next) {
   })
   .populate('orders reviews')
   .exec(function(err, user) {
-    if (err) return next(err);
-    res.json(user);
+    // is this a thing? only time will tell
+    Review.populate(user, {path: 'reviews.productId', model: 'Product'}, function(err) {
+      if (err) return next(err);
+      console.log(user);
+      res.json(user);
+    });
   });
 };
 
