@@ -68,7 +68,7 @@ function stripeResponseHandler(status, response) {
       console.log(order);
       $scope.user.orders.push(order._id);
       User.update($scope.user);
-
+      $scope.cart.clearCart();
     });
   }
 }
