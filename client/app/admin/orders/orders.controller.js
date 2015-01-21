@@ -52,7 +52,7 @@ angular.module('stackStoreApp')
       else{
         order.status = 'completed';
       }
-      Order.update(order);
+      Order.capture(order);
     }
 
   	});

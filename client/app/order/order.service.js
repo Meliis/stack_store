@@ -6,11 +6,19 @@ angular.module('stackStoreApp')
     // ...
     var currentCart = 1;
 
-    var Order = $resource('/api/orders/:id', { id: '@_id' }, {
+    var Order = $resource('/api/orders/:id/:controller', { id: '@_id' }, {
+      capture: {
+        method: 'PUT',
+        params: {
+          controller: 'capture'
+        }
+      },
       update: {
         method: 'PUT'
       }
     });
+
+    Order.latestOrder;
 
     Order.findCart = function(myCart) {
       currentCart = myCart;
@@ -20,6 +28,10 @@ angular.module('stackStoreApp')
     Order.getCart = function() {
       console.log('getting cart..', currentCart);
       return currentCart;
+    };
+
+    Order.setLatestOrder = function(order) {
+      Order.latestOrder = order;
     };
 
     // Public API here

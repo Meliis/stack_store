@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .factory('Cart', function ($resource, Auth) {
+  .factory('Cart', function ($resource, Auth, Product) {
 	// AngularJS will instantiate a singleton by calling "new" on this function
 
 
@@ -24,7 +24,6 @@ angular.module('stackStoreApp')
 	Cart.listeners = [];
 
 	Cart.notifyListeners = function() {
-		console.log(Cart.listeners.length);
 		Cart.listeners.forEach(function(listener) {
 			listener();
 		})
@@ -100,43 +99,89 @@ angular.module('stackStoreApp')
 
 
 // ****** INSTANCE METHODS (ON PROTOTYPE) *******************************
+	Cart.prototype.checkInventory = function(numToAdd, product, lineItem) {
+		var newNumToAdd;
+
+		if (lineItem) {
+			if ((numToAdd + lineItem.quantity) > product.quantity) {
+				console.log("Line 107");
+				newNumToAdd = product.quantity - lineItem.quantity;
+				if (newNumToAdd <= 0) {
+					console.log("Line 110");
+					Cart.messageIndex = 1;
+					// error banner: maximum amount reached
+				} else {
+					Cart.messageIndex = 0;
+				}
+			} else {
+				Cart.messageIndex = 2;
+				newNumToAdd = numToAdd;
+			} 
+		} else if (numToAdd > product.quantity) {
+			newNumToAdd = product.quantity;
+			Cart.messageIndex = 0;
+			//error banner: only this many could be added
+		} else {
+			Cart.messageIndex = 2;
+			newNumToAdd = numToAdd;
+		}
+		return newNumToAdd;
+	};
+
+	// if number added < inventory 
+	// 	if in cart
+	// 		if # added + # in cart > inventory
+	// 			add (inventory - # in cart)
+	// 			error banner: Only # minutes in stock. Available minutes have been added..
+
+
 	Cart.prototype.addToCart = function(productId, quantity) {
 		var productExists = false;
 		var cart = this;
 
-		cart.lineItems.forEach(function(lineItem) {
-			if (lineItem.item === productId) {
-			  lineItem.quantity += quantity;
-			  cart.$update();
-			  productExists = true;
+		Product.get({id: productId}, function(product) {
+			cart.lineItems.forEach(function(lineItem) {
+				if (lineItem.item === productId) {
+					var num = cart.checkInventory(quantity, product, lineItem);
+				  lineItem.quantity += num;
+				  cart.$update();
+				  productExists = true;
+				}
+			});
+
+			if (productExists === false) {
+				var num = cart.checkInventory(quantity, product);
+				cart.lineItems.push({item: productId, quantity: num});
+				cart.$update();
 			}
+
+			Cart.notifyListeners();
 		});
-
-		if (productExists === false) {
-			cart.lineItems.push({item: productId, quantity: quantity});
-			cart.$update();
-		}
-
-		Cart.notifyListeners();
 	};
 
 	Cart.prototype.editCart = function(productId, quantity) {
 		var cart = this;
 		var cartLength = cart.lineItems.length;
 		var itemFound = false;
-		for (var i=0; i < cartLength; i++) {
-			if (itemFound === false && productId === cart.lineItems[i].item) {
-				if (quantity === 0) {
-					cart.lineItems.splice(i, 1);
-				} else {
-					cart.lineItems[i].quantity = quantity;
+
+		Product.get({id: productId}, function(product) {
+			for (var i=0; i < cartLength; i++) {
+				if (itemFound === false && productId === cart.lineItems[i].item) {
+					if (quantity === 0) {
+						Cart.messageIndex = 2;
+						cart.lineItems.splice(i, 1);
+					} else {
+						var num = cart.checkInventory(quantity, product);
+						console.log(num, cart.lineItems[i].quantity);
+						cart.lineItems[i].quantity = num;
+					}
+					itemFound = true;
 				}
-				itemFound = true;
 			}
-		}
-		cart.$update(function(cart) {
-			Cart.currentCart = cart;
-			Cart.populateCart(cart._id); 
+			cart.$update(function(cart) {
+				Cart.currentCart = cart;
+				Cart.populateCart(cart._id); 
+			});
 		});
 	}
 
@@ -149,6 +194,22 @@ angular.module('stackStoreApp')
 		});
 		Cart.cartTotal = total;
 	};
+
+	Cart.prototype.clearCart = function() {
+		var cart = this;
+		cart.lineItems = [];
+		if (Auth.isLoggedIn()) {
+			cart.$update(function(cart) {
+				Cart.currentCart = cart;
+				Cart.cartTotal = 0;
+			});	
+		} else {
+			cart.$delete(function(cart) {
+				Cart.startNewCart();
+			});
+		}
+		console.log(cart);
+	}
 
 
 
