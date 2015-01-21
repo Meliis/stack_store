@@ -5,7 +5,8 @@ angular.module('stackStoreApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'angularPayments'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
