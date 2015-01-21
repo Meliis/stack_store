@@ -64,6 +64,7 @@ angular.module('stackStoreApp')
 				Cart.getByUserId({userId: user._id}, function(cart) {
 					Cart.currentCart = cart;
 					Cart.populateCart(cart._id, func);
+					Cart.currentUser = user;
 				});
 	   	})} else {			
 				Cart.get({id: localStorage.cartId}, function(cart) {
