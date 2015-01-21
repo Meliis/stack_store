@@ -19,7 +19,8 @@
 
     <!-- {{user.orders}} -->
     <h2>Recent Orders</h2>
-    <li class="list-group-item" ng-repeat="order in orders | orderBy : 'date' : true | limitTo: 10">
+    <a href="/admin/orders"><button class="btn btn-primary">View All Orders</button></a>
+    <li class="list-group-item" ng-repeat="order in orders | orderBy : 'date' : true | limitTo: 3">
         <h3>Status: {{order.status}}</h3> 
         <h4>Date Ordered: {{order.date | date}}</h4>
         <div class='row line-item' ng-repeat='lineItem in order.lineItems'>
