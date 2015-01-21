@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/stackstore-dev'
   },
 
-  seedDB: true
+  seedDB: false
 };

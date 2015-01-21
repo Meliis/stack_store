@@ -5,8 +5,7 @@ angular.module('stackStoreApp')
     $scope.isAdmin = Auth.isAdmin;
 
     $scope.newProduct = {
-    	categories: [],
-        images: []
+    	categories: []
     }
     $scope.newCat = {
         name: ""
@@ -37,7 +36,7 @@ angular.module('stackStoreApp')
       onSuccess: function(Blobs) {
         $("#filePickerDropPane").text("Done, see result below");
         $("#localDropResult").text(JSON.stringify(Blobs));
-
+        $scope.newProduct.images = [];
         $scope.newProduct.images.push(Blobs[0].url);
         $scope.$apply();
 

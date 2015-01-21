@@ -1,5 +1,11 @@
 .thumbnail {
 	padding: 0px;
+	a {
+		img {
+			height: 212px;
+		}
+	}
+	
 }
 
 .caption {
@@ -12,6 +18,7 @@
 }
 
 .product-box {
+	height: 350px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	color: blue;

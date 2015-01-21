@@ -4,9 +4,9 @@
 	<div class="row" ng-repeat="order in orders">
 		<h3>Status: {{order.status}}</h3> <button class="btn btn-warning" ng-click="cancelOrder()">Cancel Order</button>
 		<h4>Date Ordered: {{order.date | date}}</h4>
-		<div class='row top-padding bottom-padding' ng-repeat='lineItem in order.lineItems'>
+		<div class='row line-item' ng-repeat='lineItem in order.lineItems'>
 				<div class="col-sm-2">
-					<a href="./products/{{lineItem.item._id}}"><img class="img-responsive" ng-src="{{lineItem.item.images[0]}}"></a>
+					<a href="./products/{{lineItem.item._id}}"><img class="img-responsive" ng-src="{{lineItem.image}}"></a>
 				</div>
 				
 				<div class="col-sm-3">
@@ -22,4 +22,4 @@
 				</div>
 
 			</div>
-</div>
+</div>a
