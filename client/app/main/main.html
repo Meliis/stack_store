@@ -10,26 +10,10 @@
     <div class="col-lg-12">
       <h1 class="page-header">Top Sellers:</h1>
       <ul class="col-md-3 col-lg-3 col-sm-4 col-xs-6 list-unstyled" ng-repeat="product in products">
-        <li>
-          <a href="/products/{{product._id}}"><img ng-src="{{product.images[0]}}" style="max-width: 100%"/></a>
-          <a href="/products/{{product._id}}">{{product.name}}</a>
-        </li>
+        <product-view info="product"></product-view>
       </ul>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Categories:</h1>
-      <ul class="col-md-3 col-lg-3 col-sm-4 col-xs-6 list-unstyled" ng-repeat="category in categories">
-        <li>
-          <img src="http://placekitten.com/g/300/300" style="width: 100%"/>
-          <a href="/category/query/{{category.name}}">{{category.name}}</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-
 
 </div>
 
