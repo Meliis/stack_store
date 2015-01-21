@@ -80,6 +80,9 @@ Order.find(function(err, orders) {
 
 server.post('/:id', function(req, res) {
 	Product.findById(req.params.id, function(err, product){
+		// console.log(obj);
+		// console.log(product._id);
+		// console.log(obj[product._id]);
 		var highestValues = [{num: 0}, {num: 0}, {num: 0}];
 		// go to that item's section of the hash (obj[product._id])
 		// go through each entry in that section (by key)
@@ -94,7 +97,7 @@ server.post('/:id', function(req, res) {
 			}
 		}
 		var ids = [highestValues[0].productId, highestValues[1].productId, highestValues[2].productId];
-		console.log(ids);
+		// console.log(ids);
 		// console.log(highestValues);
 		res.send(ids);
 	});
