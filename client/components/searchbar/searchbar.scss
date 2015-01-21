@@ -14,11 +14,11 @@
 
 .search-bar-translucent {
 	background-color: rgba(255, 255, 255, 0.5);
-	color: white;
+	color: $black-gray;
 }
 
 ::-webkit-input-placeholder {
-   color: white !important;
+   color: $dk-gray !important;
 }
 
 .search-bar-translucent:-moz-placeholder { /* Firefox 18- */

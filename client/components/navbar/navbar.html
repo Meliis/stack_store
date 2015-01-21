@@ -34,8 +34,16 @@
             <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li>
           </ul>
         </li>
-        <li ng-controller="CartCtrl"><a href="/cart/{{ cart._id }}" ng-click=""><span class="glyphicon glyphicon-shopping-cart"></span> Cart ({{ cartSize }})</a></li>
+        <li ng-controller="CartCtrl"><a href="/cart/{{ cart._id }}" ng-click=""><span class="glyphicon glyphicon-shopping-cart"></span> ({{ cartSize }})</a></li>
+        <li ng-controller="CartCtrl"><a href="" ng-click="toggleSearch()"><span class="glyphicon glyphicon-search"></span></a></li>
       </ul>
+    </div>
+  </div>
+  <div ng-show="showSearch" class="toggle-search">
+    <div class="container center-block">
+      <div class="row">
+        <div ng-include src="'../../components/searchbar/searchbar.html'"></div>
+      </div>
     </div>
   </div>
 </div>

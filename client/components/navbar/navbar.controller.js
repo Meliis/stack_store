@@ -10,8 +10,13 @@ angular.module('stackStoreApp')
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
+    $scope.showSearch = false;
 
-    $scope.categories = Category.query()
+    $scope.categories = Category.query();
+
+    $scope.toggleSearch = function() {
+      $scope.showSearch = !$scope.showSearch;
+    };
 
     $scope.logout = function() {
       Auth.logout();

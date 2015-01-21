@@ -2,8 +2,23 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+a {
+  text-decoration: none;
+  :hover {
+    text-decoration: none !important;
+  }
+}
+
 b {
   font-weight: 700;
+}
+
+h2, h3, h4, .h2, .h3, .h4 {
+  font-weight: 300;
+}
+
+h2, .h2 {
+  text-transform: uppercase;
 }
 
 .thing-form {

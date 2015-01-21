@@ -1,9 +1,11 @@
 <div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1>Sign up</h1>
+  <div class="row rm-margin-l rm-margin-r page-header">
+    <div class="col-lg-10 col-m-8 col-sm-8 rm-padding-l">
+      <h2>Sign Up</h2>
     </div>
-    <div class="col-sm-12">
+  </div>
+  <div class="row">
+    <div class="col-lg-5 col-md-5 col-sm-12">
       <form class="form" name="form" ng-submit="register(form)" novalidate>
 
         <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
@@ -53,7 +55,7 @@
         </div>
 
         <div>
-          <button class="btn btn-inverse btn-lg btn-login" type="submit">
+          <button class="btn btn-warning btn-lg btn-login" type="submit">
             Sign up
           </button>
           <a class="btn btn-default btn-lg btn-register" href="/login">
@@ -61,8 +63,7 @@
           </a>
         </div>
 
-        <hr>
-        <div>
+        <div class="add-padding-t">
           <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
             <i class="fa fa-google-plus"></i> Connect with Google+
           </a>
@@ -70,5 +71,4 @@
       </form>
     </div>
   </div>
-  <hr>
 </div>

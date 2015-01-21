@@ -1,11 +1,14 @@
-<div class="col-md-12">
-	<div class="container">
-		<h1>Products in {{categoryName}} Category</h1>
+<div class="container">
+	<div class="row rm-margin-l rm-margin-r">
+	  <div class="col-lg-12 page-header rm-padding-l rm-padding-r">
+	      <h2>{{categoryName}}</h2>
+	  </div>
+	</div>
 	<div class='row'>
 		<div ng-repeat="product in categoryResults">
 			<a ng-href="/products/{{product._id}}">
 				<div class="col-lg-3">
-					<product-view info='product'></product-view>
+					<product-box info='product'></product-box>
 				</div>
 			</a>
 		</div>
