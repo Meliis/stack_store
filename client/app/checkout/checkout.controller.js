@@ -54,6 +54,7 @@ function stripeResponseHandler(status, response) {
       lineItem.productId = lineItem.item._id;
       lineItem.productName = lineItem.item.name;
       lineItem.price = lineItem.item.price;
+      lineItem.image = lineItem.item.images;
       Product.updateQuantity(lineItem);
     });
     Order.save($scope.order, function(order) {
