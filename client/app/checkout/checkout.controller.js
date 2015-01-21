@@ -60,6 +60,7 @@ function stripeResponseHandler(status, response) {
         delete $scope.user.__v;
         User.update($scope.user);
       }
+      Order.setLatestOrder(order);
       $scope.cart.clearCart();
       $location.path('/checkout/complete');
     });

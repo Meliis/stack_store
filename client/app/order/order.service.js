@@ -12,6 +12,8 @@ angular.module('stackStoreApp')
       }
     });
 
+    Order.latestOrder;
+
     Order.findCart = function(myCart) {
       currentCart = myCart;
       console.log("myCart equals:", myCart);
@@ -20,6 +22,10 @@ angular.module('stackStoreApp')
     Order.getCart = function() {
       console.log('getting cart..', currentCart);
       return currentCart;
+    };
+
+    Order.setLatestOrder = function(order) {
+      Order.latestOrder = order;
     };
 
     // Public API here
