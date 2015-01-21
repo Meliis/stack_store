@@ -10,8 +10,12 @@
 		<p class="text-danger" ng-bind-html="message"></p>
 	</div>
 </div>
-	<h2> Cart </h2>
-	<div ng-hide="populatedCart.lineItems.length">
+<div class="row rm-margin-l rm-margin-r page-header">
+  <div class="col-lg-10 col-m-8 col-sm-8 rm-padding-l">
+    <h2>Cart</h2>
+  </div>
+</div>
+	<div ng-hide="populatedCart.lineItems.length" class="add-padding-t">
 		<h4 class="pull-left">Your cart is empty! Fill 'er up... &nbsp; &nbsp;</h4>
 		<a href="./products"><button class="btn btn-primary btn-lg">View Products</button></a>
 	</div>

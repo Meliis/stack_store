@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .directive('productView', function () {
+  .directive('productBox', function () {
     return {
-      templateUrl: 'app/productView/productView.html',
+      templateUrl: 'app/products/productBox/productBox.html',
       restrict: 'EA',
       scope: {
       	product: '=info'

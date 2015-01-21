@@ -4,34 +4,17 @@ angular.module('stackStoreApp')
   .controller('AdminOrderCtrl', function ($scope, $filter, Order) {
 
   	$scope.orders = Order.query();
-
+    $scope.criterion = "all";
   	$scope.viewAll = function() {
   		$scope.filterOption = null;
   	}
 
-  	$scope.viewProcessing = function(){
-  		$scope.filterOption = function(order) {
-	      	if (order.status.indexOf('processing') > -1) {
-	      		return order;
-	      	}
-	    }
-  	}
-
-  	$scope.viewCompleted = function(){
-  		$scope.filterOption = function(order) {
-  			if (order.status.indexOf('completed') > -1) {
-	      		return order;
-	      	}
-  		}
-  	}
-
-  	$scope.viewCancelled = function(){
-  		$scope.filterOption = function(order) {
-  			if (order.status.indexOf('cancelled') > -1) {
-	      		return order;
-	      	}
-  		}
-  	}
+    $scope.match = function(criterion) {
+      if(criterion == 'all') return function(){ return true };
+      else return function(order) {
+        return (order.status.indexOf(criterion) > -1);
+      }
+    }
 
   	$scope.cancelOrder = function(order){
   		console.log(order);

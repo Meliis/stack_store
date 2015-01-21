@@ -10,5 +10,9 @@ angular.module('stackStoreApp')
       .when('/admin/orders', {
       	templateUrl: 'app/admin/orders/orders.html',
       	controller: 'AdminOrderCtrl'
+      })
+      .when('/admin/users', {
+        templateUrl: 'app/admin/users/users.html',
+        controller: 'AdminCtrl'
       });
   });

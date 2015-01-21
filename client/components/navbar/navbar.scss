@@ -1,0 +1,29 @@
+.navbar-inverse {
+	border-bottom: 0px;
+}
+
+.toggle-search {
+	background-color: $gray;
+	height: 94px;
+}
+
+.search-bar-translucent {
+	background-color: rgba(255, 255, 255, 0.5);
+	color: white;
+}
+
+::-webkit-input-placeholder {
+   color: $dk-gray !important;
+}
+
+.search-bar-translucent:-moz-placeholder { /* Firefox 18- */
+   color: red;  
+}
+
+.search-bar-translucent:-moz-placeholder {  /* Firefox 19+ */
+   color: red;  
+}
+
+.search-bar-translucent:-ms-input-placeholder {  
+   color: red;  
+}

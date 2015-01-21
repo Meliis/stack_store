@@ -1,11 +1,15 @@
 <div class="container">
+  <div class="row rm-margin-l rm-margin-r page-header">
+    <div class="col-lg-10 col-m-8 col-sm-8 rm-padding-l">
+      <h2>Login</h2>
+    </div>
+  </div>
   <div class="row">
-    <div class="col-sm-12">
-      <h1>Login</h1>
+    <!-- <div class="col-sm-12 add-padding-b">
       <p>Accounts are reset on server restart from <code>server/config/seed.js</code>. Default account is <code>test@test.com</code> / <code>test</code></p>
       <p>Admin account is <code>admin@admin.com</code> / <code>admin</code></p>
-    </div>
-    <div class="col-sm-12">
+    </div> -->
+    <div class="col-lg-5 col-md-5 col-sm-12">
       <form class="form" name="form" ng-submit="login(form)" novalidate>
 
         <div class="form-group">
@@ -32,16 +36,15 @@
         </div>
 
         <div>
-          <button class="btn btn-inverse btn-lg btn-login" type="submit">
+          <button class="btn btn-warning btn-lg btn-login" type="submit">
             Login
           </button>
           <a class="btn btn-default btn-lg btn-register" href="/signup">
-            Register
+            Sign up
           </a>
         </div>
 
-        <hr>
-        <div>
+        <div class="add-padding-t">
           <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
             <i class="fa fa-google-plus"></i> Connect with Google+
           </a>
@@ -49,5 +52,4 @@
       </form>
     </div>
   </div>
-  <hr>
 </div>

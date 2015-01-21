@@ -22,7 +22,6 @@ exports.show = function(req, res) {
 
 // Get a single cart by userId
 exports.showUserCart = function(req, res) {
-  console.log("WHYYY");
   Cart.findOne({userId: req.params.userId}, function (err, cart) {
     if(err) { return handleError(res, err); }
     if(!cart) { return res.send(404); }

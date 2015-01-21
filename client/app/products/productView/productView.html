@@ -10,11 +10,11 @@
 			<p class="text-danger" ng-bind-html="message"></p>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-lg-6 col-md-6 col-sm-6">
+	<div class="row rm-margin-r">
+		<div class="col-lg-4 col-md-6 col-sm-6">
 			<img class="img-responsive" ng-src="{{product.images[0]}}">
 		</div>
-		<div class="col-lg-4 col-md-4 col-sm-6">
+		<div class="col-lg-6 col-md-4 col-sm-6">
 			<div ng-show="isAdmin()">
 				<a href="/products/{{product._id}}/edit"><button class="btn btn-warning">Edit product page</button></a>
 			</div>
@@ -23,8 +23,7 @@
 			<p><em>Quantity available: {{product.quantity}} minutes</em></p>
 			<p>{{product.description.full}}</p>
 		</div>
-		<div class="col-lg-2 col-md-2 col-sm-12">
-			<h2>BUY YOUR TIME NOW!</h2>
+		<div class="col-lg-2 col-md-2 col-sm-12 add-margin-t add-padding-t">
 			<form name="form">
 				<div class="form-group">
 					<input ng-model="quantity" class="" type="number" min='1'> minute(s)

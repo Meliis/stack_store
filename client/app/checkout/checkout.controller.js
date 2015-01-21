@@ -30,6 +30,9 @@ angular.module('stackStoreApp')
 
   	$scope.checkout = function() {
   		if((/^\d{5}(?:[-\s]\d{4})?$/).test($scope.order.shipping.zip)) {
+        var ccArr = $scope.ccinfo.expiry.split('/');
+        $scope.ccinfo.exp_month = ccArr[0];
+        $scope.ccinfo.exp_year = ccArr[1];
         Stripe.card.createToken($scope.ccinfo, stripeResponseHandler);
   			return true;
   		} else {

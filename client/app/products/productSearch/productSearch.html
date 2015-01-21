@@ -1,19 +1,16 @@
-<div ng-include src="'../../components/searchbar/searchbar.html'"></div>
-<div class="col-md-12">
-	<div class="container">
-		<h1>Search Results</h1>
-	<div class='row'>
-		<div ng-repeat="product in products">
-			<a ng-href="/products/{{product._id}}">
-				<div class="col-lg-3">
-					<div class="products text-center">
-					<img ng-src="{{product.images[0]}}" class="product-thumb">
-						Name: {{product.name}}<br>
-						Price: {{product.price | currency}}
-						<p>{{product.description.blurb}}</p>
-					</div>
-				</div>
-			</a>
-		</div>
+<div class="container">
+	<div class="row rm-margin-l rm-margin-r">
+	  <div class="col-lg-12 page-header rm-padding-l rm-padding-r add-padding-b add-padding-t">
+	      <span class="h2 add-padding-r">SEARCH RESULTS</span> for <span class="h4 add-padding-l">{{query}}</span>
+	  </div>
 	</div>
+<div class='row'>
+	<div ng-repeat="product in products">
+		<a ng-href="/products/{{product._id}}">
+			<div class="col-lg-3">
+				<product-box info='product'></product-box>
+			</div>
+		</a>
+	</div>
+</div>
 </div>

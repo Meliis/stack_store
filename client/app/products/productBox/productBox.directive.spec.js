@@ -13,7 +13,7 @@ describe('Directive: productView', function () {
   }));
 
   it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<product-view></product-view>');
+    element = angular.element('<product-box></product-box>');
     element = $compile(element)(scope);
     scope.$apply();
     expect(element.text()).toBe('this is the productView directive');
