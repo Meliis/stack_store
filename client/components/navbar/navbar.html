@@ -18,7 +18,7 @@
           <ul class="dropdown-menu" role="menu">
             <li><a href="/products">All Products</a></li>
             <li role="presentation" class="dropdown-header">Browse by category:</li>
-            <li ng-repeat="category in categories"><a href="/">{{category.name}}</a></li>
+            <li ng-repeat="category in categories"><a href="/category/query/{{category.name}}">{{category.name}}</a></li>
           </ul>
         </li>
         <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li>
@@ -27,9 +27,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li>
         <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}"><a href="/login">Login</a></li>
-        <li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().name }}</p> </li>
-        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
-        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li>
+        <li ng-show="isLoggedIn()" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello, {{ getCurrentUser().name }} <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-show="isLoggedIn()" ng-class="{active: isActive('/profile')}"><a href="/profile">Profile</a></li>
+            <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a href="/settings">Change Password</a></li>
+            <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li>
+          </ul>
+        </li>
         <li ng-controller="CartCtrl"><a href="/cart/{{ cart._id }}" ng-click=""><span class="glyphicon glyphicon-shopping-cart"></span> Cart ({{ cartSize }})</a></li>
       </ul>
     </div>

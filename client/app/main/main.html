@@ -5,37 +5,37 @@
 </header>
 
 <div ng-include src="'../../components/searchbar/searchbar.html'"></div>
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Top Sellers:</h1>
-      <ul class="col-md-3 col-lg-3 col-sm-4 col-xs-6 list-unstyled" ng-repeat="product in products">
-        <li>
-          <a href="/products/{{product._id}}"><img src="http://placekitten.com/g/300/300" style="width: 100%"/></a>
-          <a href="/products/{{product._id}}">{{product.name}}</a>
-        </li>
-      </ul>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Categories:</h1>
-      <ul class="col-md-3 col-lg-3 col-sm-4 col-xs-6 list-unstyled" ng-repeat="category in categories">
-        <li>
-          <img src="http://placekitten.com/g/300/300" style="width: 100%"/>
-          <a href="/category/query/{{category.name}}">{{category.name}}</a>
-        </li>
-      </ul>
+<div class="container" ng-controller="ProductsCtrl">
+  <div class="row rm-margin-l rm-margin-r">
+    <div class="col-lg-12 page-header rm-padding-l rm-padding-r">
+      <div class="col-lg-12 rm-padding-l">
+        <h1>Top Sellers</h1>
+      </div>
     </div>
   </div>
+  <div class="row">
+    <ul class="col-lg-12 rm-padding-l rm-padding-r">
+      <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6 list-unstyled" ng-repeat="product in products | orderBy:sortMethod">
+        <a href="/products/{{product._id}}">
+          <img src="http://www.project-octo.com/wp-content/uploads/2013/11/Out-of-Stock.jpg" ng-init="outOfStock=false" ng-hide="checkStock(product)" class="width-100" />
+          <img ng-show="checkStock(product)" src="http://placekitten.com/g/300/300" class="width-100"/>
+        </a>
+        <a href="/products/{{product._id}}"><span class="h4 rm-margins add-padding-t add-padding-b pull-left"><strong>{{product.name}}</strong></span></a>
+        <p class="add-padding-t add-padding-b pull-right">{{product.price | currency}}/min.</p>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
 
 
 </div>
 
 <footer class="footer">
   <div class="container">
-      <p>Angular Fullstack v2.0.13 |
+      <p>Created using Angular Fullstack v2.0.13 |
         <a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
          <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
   </div>
