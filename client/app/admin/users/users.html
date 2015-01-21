@@ -1,0 +1,18 @@
+<div class="container">
+	<ul class="list-group">
+    <li class="list-group-item" ng-repeat="user in users">
+        <a ng-click="delete(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+        <strong>{{user.name}}</strong><br>
+        <span class="text-muted">{{user.email}}</span><br />
+        <button class="btn btn-primary" ng-show="user.role=='user'" ng-click="givePermissions(user)">Give admin permissions</button>
+        <button class="btn btn-danger" ng-show="user.role=='admin' && user._id!==self._id" ng-click="removePermissions(user)">Remove admin permissions</button>
+        <div ng-show="user.role=='user'">
+        	<button class="btn btn-warning" ng-click="showForm=!showForm" type="button">Change password</button><br />
+        	<form name="form" ng-submit="changePassword(user)" ng-show="showForm" novalidate>
+        		<input type="password" name="newPassword" ng-model="user.newPassword" ng-minlength="3" required />
+        		<button class="btn btn-default" type="submit" ng-disabled="form.$invalid" ng-click="showForm=false">Save</button>
+        	</form>
+        </div>
+    </li>
+  </ul>
+</div>
