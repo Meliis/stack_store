@@ -30,6 +30,11 @@
 				<textarea class="form-control" ng-model='newProduct.description.full' ng-required="true"></textarea> 
 			</div>
 
+			<div class='form-group' style="width:10%;">
+				<label>Quantity</label>
+				<input type="number" class="form-control" ng-model='newProduct.quantity' ng-required="true">
+			</div>
+
 			<div class='form-group'>
 				<label>Categories</label>
 				<ul class="list-unstyled">
@@ -53,7 +58,6 @@
 			<br />
 
 			<button type='submit' class='btn btn-primary' ng-disabled="addProductForm.$invalid">Add Product</button>
-			{{newProduct}}
 		</form>
 
 
