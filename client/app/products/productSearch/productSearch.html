@@ -7,7 +7,7 @@
 			<a ng-href="/products/{{product._id}}">
 				<div class="col-lg-3">
 					<div class="products text-center">
-					<img src="http://lorempixel.com/100/100" class="product-thumb">
+					<img ng-src="{{product.images[0]}}" class="product-thumb">
 						Name: {{product.name}}<br>
 						Price: {{product.price | currency}}
 						<p>{{product.description.blurb}}</p>
