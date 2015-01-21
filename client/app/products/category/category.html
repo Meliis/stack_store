@@ -1,16 +1,11 @@
 <div class="col-md-12">
 	<div class="container">
-		<h1>All Products In TESTING</h1>
+		<h1>Products in {{categoryName}} Category</h1>
 	<div class='row'>
 		<div ng-repeat="product in categoryResults">
 			<a ng-href="/products/{{product._id}}">
 				<div class="col-lg-3">
-					<div class="products text-center">
-					<img src="http://lorempixel.com/100/100" class="product-thumb">
-						Name: {{product.name}}<br>
-						Price: {{product.price | currency}}
-						<p>{{product.description.blurb}}</p>
-					</div>
+					<product-view info='product'></product-view>
 				</div>
 			</a>
 		</div>

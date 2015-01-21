@@ -13,7 +13,8 @@ var lineItemsSchema = new Schema({
   productId: String,
   productName: String,
   price: Number,
-  quantity: Number
+  quantity: Number,
+  image: {type: String, default:'http://lorempixel.com/400/400'}
 });
 
 var OrderSchema = new Schema({
@@ -32,6 +33,7 @@ OrderSchema.virtual('total').get(function() {
     var subtotal = lineItem.price * lineItem.quantity;
     total += subtotal;
   });
+
   return {
     'total': total
   }
@@ -61,7 +63,7 @@ OrderSchema.methods.createDate = function() {
 OrderSchema.statics.createStripeCharge = function(info, res) {
   var deferral = Q.defer();
   var charge = stripe.charges.create({
-      amount: info.total,
+      amount: info.total*100,
       currency: 'usd',
       card: info.billing.stripeToken,
       description: info.billing.email,

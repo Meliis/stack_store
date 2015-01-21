@@ -57,6 +57,20 @@ exports.update = function(req, res) {
   });
 };
 
+exports.updateQuantity = function(req, res) {
+  console.log(req.body);
+  Product.findById(req.body.productId, function (err, product) {
+    if (err) { return handleError(res, err); }
+    if(!product) { return res.send(404); }
+    product.changeQuantity(req.body.quantity);
+    console.log(product);
+    product.save(function (err) {
+      if (err) { return handleError(res, err); }
+      return res.json(200, product);
+    });
+  });
+};
+
 // Deletes a product from the DB.
 exports.destroy = function(req, res) {
   Product.findById(req.params.id, function (err, product) {

@@ -36,7 +36,7 @@
 
 			<div class='row line-item' ng-repeat='lineItem in populatedCart.lineItems'>
 				<div class="col-sm-2 rm-padding-l">
-					<a href="./products/{{lineItem.item._id}}"><img class="img-responsive" src="http://lorempixel.com/500/500"></a>
+					<a href="./products/{{lineItem.item._id}}"><img class="img-responsive" ng-src="{{lineItem.item.images[0]}}"></a>
 				</div>
 				
 				<div class="col-sm-4">

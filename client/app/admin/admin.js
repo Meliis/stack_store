@@ -6,5 +6,9 @@ angular.module('stackStoreApp')
       .when('/admin', {
         templateUrl: 'app/admin/admin.html',
         controller: 'AdminCtrl'
+      })
+      .when('/admin/orders', {
+      	templateUrl: 'app/admin/orders/orders.html',
+      	controller: 'AdminOrderCtrl'
       });
   });

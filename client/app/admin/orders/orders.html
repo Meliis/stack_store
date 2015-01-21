@@ -1,0 +1,36 @@
+<div class="container">
+	<h2>Orders</h2>
+	 Filter by status:
+	<button class="btn btn-default" ng-click="viewAll()">All</button>
+	<button class="btn btn-default" ng-click="viewProcessing()">Processing</button>
+	<button class="btn btn-default" ng-click="viewCompleted()">Completed</button>
+	<button class="btn btn-default" ng-click="viewCancelled()">Cancelled</button>
+	<ul>
+		<li class="list-group-item" ng-repeat="order in orders | filter:filterOption"> <!-- set default option? -->
+			<h3>Status: {{order.status}}</h3>
+			<h4>Date Ordered: {{order.date | date}}</h4>
+			<div class='row top-padding bottom-padding' ng-repeat='lineItem in order.lineItems'>
+					<div class="col-sm-2">
+						<a href="./products/{{lineItem.item._id}}"><img class="img-responsive" ng-src="{{lineItem.item.images[0]}}"></a>
+					</div>
+					
+					<div class="col-sm-3">
+						<a href="./products/{{lineItem.productId}}"><h5>{{lineItem.productName}}</h5></a>
+					</div>
+
+					<div class="col-sm-3">	
+						<p>{{lineItem.price | currency}}</p>
+					</div>
+
+					<div class="col-sm-2">	
+						<p>{{lineItem.quantity}}</p>
+					</div>
+
+				</div>
+			<div id="{{order._id}}" ng-show="(order.status =='processing' || order.status == 'processing_guest')">
+	            <button class="btn btn-warning" ng-click="cancelOrder(order)">Cancel Order</button>
+	            <button class="btn btn-success" ng-click="confirmOrder(order)">Confirm Order</button>
+	        </div>
+		</li>
+	</ul>
+</div>
