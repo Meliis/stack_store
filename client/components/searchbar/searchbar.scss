@@ -1,6 +1,6 @@
 .home-search-bar {
-	background-color: $main-color;
 	height: 60px;
+	margin-top: 30px;
 }
 
 .btn-search {
@@ -10,4 +10,25 @@
 
 .search-bar {
 	width: 80%;
+}
+
+.search-bar-translucent {
+	background-color: rgba(255, 255, 255, 0.5);
+	color: white;
+}
+
+::-webkit-input-placeholder {
+   color: white !important;
+}
+
+.search-bar-translucent:-moz-placeholder { /* Firefox 18- */
+   color: red;  
+}
+
+.search-bar-translucent:-moz-placeholder {  /* Firefox 19+ */
+   color: red;  
+}
+
+.search-bar-translucent:-ms-input-placeholder {  
+   color: red;  
 }

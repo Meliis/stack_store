@@ -1,13 +1,38 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+b {
+  font-weight: 700;
+}
+
 .thing-form {
   margin: 20px 0;
 }
 
 #banner {
   border-bottom: none;
-  margin-top: -20px;
+  margin-top: -45px;
+  height: 400px;
+  background-image: url('../assets/images/KgqDYXRLSeyeSbhxYTjK_lookingAtTheArch_cropped.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-top: 25px;
+    height: 400px;
+    background-image: linear-gradient(to bottom right,#002f4b,#dc4225);
+    opacity: .6; 
+  }
 }
 
-#banner h1 {
+#banner .h1 {
   font-size: 60px;
   line-height: 1;
   letter-spacing: -1px;
@@ -19,7 +44,11 @@
   color: #F5F5F5;
   text-align: center;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-  background: $main-color;
+  /*background: $main-color;*/
+}
+
+.hero-header {
+  padding-top: 80px;
 }
 
 .footer {
@@ -113,7 +142,13 @@
 .width-100 {
   width: 100%;
 }
-
+.size-h1 {
+  font-size: $h1;
+}
+.size-36 {
+  font-size: 36px;
+  padding: 0 3px 0 3px;
+}
 
 
 
