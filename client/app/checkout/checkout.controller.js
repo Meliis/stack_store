@@ -1,24 +1,19 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('CheckoutCtrl', function ($scope, Auth, Order, Cart, User, Product) {
+  .controller('CheckoutCtrl', function ($scope, Auth, Order, Cart, User, Product, $location) {
 
     Stripe.setPublishableKey('pk_test_dA3Hb0dLKm0zVFQQ1DosksSf');
     $scope.errorMessage;
+
     if(Auth.isLoggedIn()) {
       $scope.user = Auth.getCurrentUser();
         $scope.user.$promise.then(function(user) {
         Cart.getCart(function() {
-            $scope.cart = Cart.currentCart;
-            $scope.populatedCart = Cart.populatedCart;
-            $scope.order = {lineItems: $scope.populatedCart.lineItems};
-            $scope.order.total = sumTotal();
+            getData();
             $scope.order.userId = user._id;
             Cart.addListener(function() {
-              $scope.cart = Cart.currentCart;
-              $scope.populatedCart = Cart.populatedCart;
-              $scope.order = {lineItems: $scope.populatedCart.lineItems};
-              $scope.order.total = sumTotal();
+              getData();
               $scope.order.userId = user._id;
             });
         });
@@ -26,17 +21,11 @@ angular.module('stackStoreApp')
     } else { 
 
           Cart.getCart(function() {
-            $scope.cart = Cart.currentCart;
-            $scope.populatedCart = Cart.populatedCart;
-            $scope.order = {lineItems: $scope.populatedCart.lineItems};
-            $scope.order.total = sumTotal();
+            getData();
             Cart.addListener(function() {
-              $scope.cart = Cart.currentCart;
-              $scope.populatedCart = Cart.populatedCart;
-              $scope.order = {lineItems: $scope.populatedCart.lineItems};
-              $scope.order.total = sumTotal();
+              getData();
             });
-    });
+          });
     }
 
   	$scope.checkout = function() {
@@ -66,9 +55,14 @@ function stripeResponseHandler(status, response) {
     });
     Order.save($scope.order, function(order) {
       console.log(order);
-      $scope.user.orders.push(order._id);
-      User.update($scope.user);
-
+      if($scope.user) {
+        $scope.user.orders.push(order._id);
+        delete $scope.user.__v;
+        User.update($scope.user);
+      }
+      Order.setLatestOrder(order);
+      $scope.cart.clearCart();
+      $location.path('/checkout/complete');
     });
   }
 }
@@ -81,4 +75,13 @@ function sumTotal() {
   });
   return total;
 }
+
+function getData() {
+  $scope.cart = Cart.currentCart;
+  $scope.populatedCart = Cart.populatedCart;
+  $scope.order = {lineItems: $scope.populatedCart.lineItems};
+  $scope.order.total = sumTotal();
+}
+
+
   });
