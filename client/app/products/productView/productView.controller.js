@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductViewCtrl', function ($scope, Product, Auth, Order, Review, User, $routeParams, Cart) {
+  .controller('ProductViewCtrl', function ($scope, Product, Auth, Order, Review, User, $routeParams, Cart, $sce) {
     $scope.cart;
     // why?  whyyyyyyyyyyyyyyyy
   	$scope.user = Auth.getCurrentUser();
@@ -77,12 +77,28 @@ angular.module('stackStoreApp')
       });
     });
 
+
     $scope.addToCart = function(productId, quantity) {
+      var alertMessages = ["Only <strong>" + $scope.product.quantity + " minute(s)</strong> of <strong>" + $scope.product.name + "</strong> in stock. Any available minutes have been added to your cart.",
+                           "Only <strong>" + $scope.product.quantity + " minute(s)</strong> of <strong>" + $scope.product.name + "</strong> in stock. Cart is at maximum capacity.",
+                           "You just added <strong>" + quantity + " minute(s)</strong> of <strong>" + $scope.product.name + "</strong> to your cart!"];
+
       $scope.cart.addToCart(productId, quantity);
-      $scope.added = true;
+      Cart.addListener(function() {
+        console.log(Cart.messageIndex);
+        $scope.message = $sce.trustAsHtml(alertMessages[Cart.messageIndex]);
+        if (Cart.messageIndex < 2) {
+          $scope.successBanner = false;
+          $scope.warningBanner = true;
+        } else if (Cart.messageIndex === 2) {
+          $scope.warningBanner = false;
+          $scope.successBanner = true;
+        }
+      });
       setTimeout(function() {
         $scope.$apply(function() {
-          $scope.added = false
+          $scope.successBanner = false;
+          $scope.warningBanner = false;
           $scope.quantity = 1;
         })
       }, 3000);

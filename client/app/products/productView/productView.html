@@ -1,8 +1,13 @@
 <div class="container">
 
-	<div ng-show="added" class="row fit-child-to-page-width">
+	<div ng-show="successBanner" class="row add-padding-l add-padding-r">
 		<div class="item-added-banner col-lg-12 bg-success">
-			<p class="text-success">You just added <strong>{{quantity}} minute(s)</strong> of <strong>{{product.name}}</strong> to your cart!</p>
+			<p class="text-success" ng-bind-html="message"></p>
+		</div>
+	</div>
+	<div ng-show="warningBanner" class="row add-padding-l add-padding-r">
+		<div class="item-added-banner col-lg-12 bg-danger">
+			<p class="text-danger" ng-bind-html="message"></p>
 		</div>
 	</div>
 	<div class="row">
@@ -22,7 +27,7 @@
 			<h2>BUY YOUR TIME NOW!</h2>
 			<form name="form">
 				<div class="form-group">
-					<input ng-model="quantity" class="" type="number" min='1' max="{{product.quantity}}"> minute(s)
+					<input ng-model="quantity" class="" type="number" min='1'> minute(s)
 				</div>
 				<button class="btn btn-success" ng-click="addToCart(product._id, quantity)">Add To Cart</button>
 			</form>

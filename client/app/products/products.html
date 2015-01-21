@@ -1,19 +1,26 @@
-<div class="col-md-12">
-	<div class="container">
-		<h1>All Products</h1>
-	<div class='row'>
-		<div ng-repeat="product in products">
+<div class="container">
+  <div class="row rm-margin-l rm-margin-r page-header">
+  	<div class="col-lg-10 col-m-8 col-sm-8 rm-padding-l">
+	    <h1>All Products</h1>
 
-			<a ng-href="/products/{{product._id}}">
-				<div class="col-lg-3">
-					<div class="products text-center">
-					<img ng-src="{{product.images[0]}}" class="product-thumb">
-						Name: {{product.name}}<br>
-						Price: {{product.price | currency}}
-						<p>{{product.description.blurb}}</p>
-					</div>
-				</div>
-			</a>
 		</div>
-	</div>
+		<div class="col-lg-2 col-md-4 col-sm-4 rm-padding-r rm-padding-l">
+	    <select class="form-control add-margin-t" ng-init="sortMethod='name'" ng-model="sortMethod">
+	    	<option value="name" selected>Sort alphabetically</option>
+	    	<option value="price">Sort by price</option>
+	    </select>
+	  </div>
+  </div>
+  <div class="row">
+    <ul class="col-lg-12 rm-padding-l rm-padding-r">
+      <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6 list-unstyled" ng-repeat="product in products | orderBy:sortMethod">
+        <a href="/products/{{product._id}}">
+        	<img src="http://www.project-octo.com/wp-content/uploads/2013/11/Out-of-Stock.jpg" ng-init="outOfStock=false" ng-hide="checkStock(product)" class="width-100" />
+          <img ng-show="checkStock(product)" src="http://placekitten.com/g/300/300" class="width-100"/>
+        </a>
+        <a href="/products/{{product._id}}"><span class="h4 rm-margins add-padding-t add-padding-b pull-left"><strong>{{product.name}}</strong></span></a>
+        <p class="add-padding-t add-padding-b pull-right">{{product.price | currency}}/min.</p>
+      </li>
+    </ul>
+  </div>
 </div>
