@@ -5,14 +5,28 @@ angular.module('stackStoreApp')
 
     Stripe.setPublishableKey('pk_test_dA3Hb0dLKm0zVFQQ1DosksSf');
     $scope.errorMessage;
-    
-    Cart.getCart(function() {
+
+    if(Auth.isLoggedIn()) {
+      $scope.user = Auth.getCurrentUser();
+        $scope.user.$promise.then(function(user) {
+        Cart.getCart(function() {
+            getData();
+            $scope.order.userId = user._id;
+            Cart.addListener(function() {
+              getData();
+              $scope.order.userId = user._id;
+            });
+        });
+      });
+    } else { 
+
+          Cart.getCart(function() {
             getData();
             Cart.addListener(function() {
               getData();
             });
-        });
-   
+          });
+    }
 
   	$scope.checkout = function() {
   		if((/^\d{5}(?:[-\s]\d{4})?$/).test($scope.order.shipping.zip)) {
@@ -42,7 +56,6 @@ function stripeResponseHandler(status, response) {
     Order.save($scope.order, function(order) {
       console.log(order);
       if($scope.user) {
-        console.log('got in here');
         $scope.user.orders.push(order._id);
         delete $scope.user.__v;
         User.update($scope.user);
@@ -67,10 +80,6 @@ function getData() {
   $scope.populatedCart = Cart.populatedCart;
   $scope.order = {lineItems: $scope.populatedCart.lineItems};
   $scope.order.total = sumTotal();
-  if(Cart.currentUser) {
-    $scope.user = Cart.currentUser;
-    $scope.order.userId = $scope.user._id;
-  }
 }
 
 
