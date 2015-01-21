@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('stackStoreApp')
-  .controller('ProductViewCtrl', function ($scope, Product, Auth, Order, Review, User, $routeParams, Cart, $sce) {
+  .controller('ProductViewCtrl', function ($scope, Product, Auth, Order, Review, User, $routeParams, Cart, $sce, $http) {
     $scope.cart;
     // why?  whyyyyyyyyyyyyyyyy
   	$scope.user = Auth.getCurrentUser();
@@ -20,6 +20,11 @@ angular.module('stackStoreApp')
   	
     Product.get({id: $routeParams.id}, function(product) {
         $scope.product = product;
+            // shhhh
+        $http.post('http://localhost:3000/'+product._id)
+          .then(function(){
+            console.log("hello");
+          })
     // this doesn't do anything yet bc orders, man
     //     $scope.user.orders.forEach(function(order) {
     //         order.lineItems.forEach(function(lineItem) {
