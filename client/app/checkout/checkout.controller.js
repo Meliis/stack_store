@@ -3,7 +3,7 @@
 angular.module('stackStoreApp')
   .controller('CheckoutCtrl', function ($scope, Auth, Order, Cart, User, Product, $location) {
 
-    Stripe.setPublishableKey('pk_test_dA3Hb0dLKm0zVFQQ1DosksSf');
+    // Stripe.setPublishableKey('pk_test_dA3Hb0dLKm0zVFQQ1DosksSf');
     $scope.errorMessage;
 
     if(Auth.isLoggedIn()) {
