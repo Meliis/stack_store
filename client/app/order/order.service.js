@@ -6,7 +6,13 @@ angular.module('stackStoreApp')
     // ...
     var currentCart = 1;
 
-    var Order = $resource('/api/orders/:id', { id: '@_id' }, {
+    var Order = $resource('/api/orders/:id/:controller', { id: '@_id' }, {
+      capture: {
+        method: 'PUT',
+        params: {
+          controller: 'capture'
+        }
+      },
       update: {
         method: 'PUT'
       }

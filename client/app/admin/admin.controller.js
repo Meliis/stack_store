@@ -55,7 +55,9 @@ angular.module('stackStoreApp')
       else{
         order.status = 'completed';
       }
-      Order.update(order);
+      Order.capture(order, function(order) {
+        console.log(order);
+      });
     }
 
   });

@@ -29,7 +29,6 @@ exports.showMultiple = function(req, res) {
   Product.find(function (err, products) {
     if(err) { return handleError(res, err); }
     var searchResults = Product.search(req.params.query, products);
-    console.log(searchResults);
     return res.json(200, searchResults);
   });
 };
