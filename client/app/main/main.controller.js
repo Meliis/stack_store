@@ -10,7 +10,6 @@ angular.module('stackStoreApp')
     	$scope.user.$promise.then(function(user) {
     		if (user.provider == 'google') {
     			if (user.__v == 0) {
-    				console.log("hello")
     				user.__v++;
     				Cart.startAuthCart(user._id);
     				User.update(user);
